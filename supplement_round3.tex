@@ -441,6 +441,8 @@ The LLM is not instructed to copy the empirical benchmark probability. The empir
 
 The main specification uses \(\lambda=0.25\). This value is not claimed to be predictive-optimal. Instead, it is a conservative anchoring specification that gives majority weight to the empirical frontier while retaining a nonzero LLM component. The motivation is to preserve some LLM-generated variation and narrative capacity while keeping the final probability surface close to the DCE-estimated behavioral benchmark.
 
+The structural interpretation of \(\lambda=0.25\) is that only one quarter of the raw LLM--frontier deviation is retained pointwise, while the empirical reference receives three quarters of the weight. Because \(\pi_{\mathrm{EFR}} - P_{\mathrm{emp}} = \lambda\,(\bar\pi_{\mathrm{LLM}} - P_{\mathrm{emp}})\), frontier-relative squared deviation is mechanically limited to \(\lambda^2 = 0.25^2 = 6.25\%\) of the unconstrained LLM value. We use this as a conservative design specification that preserves a nonzero narrative component; the held-out outcomes were not used to optimize the weight.
+
 This distinction is important because the Pure-DCE endpoint \((\lambda=0)\) mechanically achieves perfect frontier alignment when evaluated against \(P_{\mathrm{static}}\). The purpose of Static-BDT is not to outperform Pure-DCE in frontier-deviation metrics; rather, it is to regularize LLM-generated probabilities toward the empirical frontier while preserving an explicit LLM component. The sensitivity analyses below therefore report both frontier-alignment diagnostics and held-out DCE predictive metrics.
 
 \subsection{Frontier-Alignment Sensitivity}

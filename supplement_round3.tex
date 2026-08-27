@@ -1040,8 +1040,7 @@ Individual-level DCE responses are not publicly released because they involve hu
 
 
 
-\bibliographystyle{plainnat}
-\bibliography{references_round3}
+
 
 
 \section{Out-of-Design Narrative Evaluation (Supplementary Table Reference)}
@@ -1135,5 +1134,10 @@ Static-BDT ($\lambda=0.25$, 3-alt; empty under canonical match) & --- & 0 & Same
 \subsection{Implication for the 64-State Validation}
 
 The 64-state grid evaluation in the main text uses a single probability per (wait, eff, se) cell, with cash and vaccine-origin attributes held at their reference values (cash = 0, origin = 0). The held-out DCE tasks administer cash $\in \{50, 200, 800\}$ and origin $\in \{0, 1\}$, so the LLM lookup matches $78$ of the $1{,}236$ test tasks ($6.3\%$) for the 2-alternative subset under the canonical 11-of-12-cell populated intersection. For these matched tasks, the task-level multinomial validation gives a more nuanced picture than the alt-level binary pattern: Static-BDT ($\lambda = 0.25$) reduces task-level log loss by $49.5\%$ relative to the unconstrained LLM ($0.4307$ vs. $0.8521$) but remains $30.2\%$ above the empirical-anchor Pure-DCE frontier ($0.3307$). On the alt-level binary $813$-row matched subsample (a different aggregation that retains the 2-alts-per-row structure used in the main text), Static-BDT is essentially tied with Pure-DCE ($0.6985$ vs. $0.6789$); the residual $2.9\%$ gap is the same direction as in the task-level score and consistent with a small blend weight. For the unmatched test tasks, the frontier-only Pure-DCE prediction remains the only validated method, and the LLM and Static-BDT entries are not directly comparable because the LLM is not administered at the held-out (wait, eff, se) cell with non-reference cash and origin values.
+
+\clearpage
+% Ensure all pending table floats are flushed before References.
+\bibliographystyle{plainnat}
+\bibliography{references_round3}
 
 \end{document}

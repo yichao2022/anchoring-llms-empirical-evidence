@@ -858,11 +858,38 @@ This appendix reports the uncertainty intervals used to qualify the main benchma
 
 To quantify uncertainty, we compute bootstrap confidence intervals tailored to the specific unit of analysis for each evaluation metric. 
 
-For \textbf{held-out prediction metrics} (Table~\ref{tab:lambda_heldout} reports the held-out prediction metrics summarized in Figure~1 of the main manuscript), the DCE data possess a nested panel structure where multiple choice observations are clustered within individual respondents. To strictly account for within-respondent correlation and avoid underestimating standard errors, we employ a \textbf{respondent-level cluster bootstrap}. Specifically, we resample the 205 unique respondents (whose choices constitute the 813 alternative-level binary-outcome rows) with replacement, maintaining the intact within-respondent choice structure. We perform 2,000 replications to ensure stable interval estimation. Notably, the resulting respondent-level confidence intervals are narrower than their observation-level counterparts. This counterintuitive but statistically sound result occurs because, in our specific data structure (205 clusters with approximately 4 observations each), structured cluster resampling provides a more stable variance estimate. It avoids the extreme duplication noise inherent in observation-level resampling, which can artificially inflate variance by breaking the within-respondent panel structure.
+For \textbf{held-out prediction metrics} (Figure~\ref{fig:heldout_predictive} of the main manuscript reports the primary exact-task multinomial validation; respondent-level paired cluster bootstrap for the paired log loss differences is reported below), the DCE data possess a nested panel structure where multiple choice observations are clustered within individual respondents. To strictly account for within-respondent correlation and avoid underestimating standard errors, we employ a \textbf{respondent-level cluster bootstrap}. Specifically, we resample the 206 unique respondents (whose choices constitute the 1,236 task-level multinomial observations) with replacement, maintaining the intact within-respondent choice structure. We perform 2,000 replications to ensure stable interval estimation.
 
 For \textbf{frontier-deviation metrics} (Table~\ref{tab:bootstrap_alignment}), the evaluation operates on the fixed 64-state policy grid rather than respondent-level choices. Therefore, we compute frontier-deviation intervals by resampling the 64 policy-grid states with replacement using 2,000 replications. For \textbf{monotonicity violation rates} (MVR), we resample comparable attribute pairs. For \textbf{policy-ranking consistency} (Table~\ref{tab:prc} in this supplement, discussed in the main text Policy Ranking Consistency section), we report no confidence intervals and no significance test, because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials; the metric is reported as a descriptive share only.
 
 These intervals provide uncertainty summaries for the finite evaluation objects used in the paper: policy-grid states, held-out matched respondents, monotonicity-comparison pairs, and policy-pair rankings. They are not a substitute for external validation against realized uptake or for respondent-level uncertainty from re-estimating the full 6-parameter conditional-logit DCE frontier.
+
+\subsection{Held-Out Prediction Uncertainty}
+
+Table~\ref{tab:bootstrap_heldout} reports respondent-level paired cluster bootstrap confidence intervals for the primary exact-task multinomial validation. The paired differences are:
+\begin{itemize}
+\item $\Delta LL_{\text{EFR-Raw}} = 0.9233 - 1.0200 = -0.0967$ (EFR improves over Raw LLM)
+\item $\Delta LL_{\text{EFR-Pure}} = 0.9233 - 0.9112 = +0.0121$ (EFR within 1.3\% of Pure-DCE)
+\end{itemize}
+The bootstrap resamples 206 respondents with replacement (2,000 replications), maintaining the within-respondent cluster structure (6 choices per respondent). The 95\% confidence intervals quantify the uncertainty in these paired differences.
+
+\begin{table}[h]
+\centering
+\caption{Respondent-level paired cluster bootstrap for exact-task multinomial log loss ($N = 206$ respondents, 1,236 choices; 2,000 replications).}
+\label{tab:bootstrap_heldout}
+\small
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{l c c}
+\toprule
+\textbf{Comparison} & \textbf{Point Estimate} & \textbf{95\% CI} \\
+\midrule
+EFR vs. Raw LLM ($\Delta LL_{\text{EFR-Raw}}$) & $-0.0967$ & [TBD] \\
+EFR vs. Pure-DCE ($\Delta LL_{\text{EFR-Pure}}$) & $+0.0121$ & [TBD] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Note: Confidence intervals to be computed following the canonical seeded split implementation (Section~\ref{app:exact_task}). The point estimates are based on the preliminary exact-task validation.
 
 \subsection{Frontier-Alignment Uncertainty}
 

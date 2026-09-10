@@ -1,0 +1,17 @@
+{
+  "method": "individual_level",
+  "N_observations": 3690,
+  "N_respondents": 205,
+  "log_loss": {
+    "uniform_baseline": 1.0986122886681098,
+    "Pure-DCE": 1.2178078574251932,
+    "Raw-LLM": 1.194862229116705,
+    "EFR": 1.2074433965518652
+  },
+  "task_weighted_log_loss": {
+    "uniform_baseline": 1.0986122886681098,
+    "Pure-DCE": 1.2178078574252038,
+    "Raw-LLM": 1.1948622291167192,
+    "EFR": 1.2074433965518487
+  }
+}

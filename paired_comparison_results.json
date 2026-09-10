@@ -1,0 +1,33 @@
+{
+  "N_respondents": 205,
+  "log_loss": {
+    "uniform": 1.0986122886681098,
+    "training_choice_share": 2.2715364930967814,
+    "Pure-DCE": 1.2178078574252038,
+    "Raw-LLM": 1.1948622291167192,
+    "EFR": 1.2074433965518485
+  },
+  "paired_comparisons": {
+    "LLM - DCE": {
+      "mean_diff": -0.02294562830848456,
+      "sd_diff": 6.955880205710772e-18,
+      "t_stat": -4.72307444334085e+16,
+      "p_value": 0.0,
+      "significance": "***"
+    },
+    "EFR - DCE": {
+      "mean_diff": -0.010364460873355298,
+      "sd_diff": 1.738970051427693e-18,
+      "t_stat": -8.533585502533336e+16,
+      "p_value": 0.0,
+      "significance": "***"
+    },
+    "EFR - LLM": {
+      "mean_diff": 0.01258116743512927,
+      "sd_diff": 0.0,
+      "t_stat": Infinity,
+      "p_value": 0.0,
+      "significance": "***"
+    }
+  }
+}

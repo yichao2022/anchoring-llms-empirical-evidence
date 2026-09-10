@@ -268,7 +268,7 @@ The pilot used a randomly sampled 10\% subset of the DCE respondent data with a 
     \item \textbf{Rule-injection BDT}: the model was prompted with a simple monotonicity rule derived from the DCE logic: longer waiting time should reduce willingness to accept vaccination.
 \end{enumerate}
 
-Unlike the full-scale Static-BDT Anchor used in the main experiment, the pilot did not apply the post-generation convex anchoring rule in Eq.~\eqref{eq:adjustment}. Instead, it used prompt-level rule injection. The pilot rows in Table~1 of the main text should therefore be interpreted as low-resource mechanism evidence that explicit monotonicity information can reduce frontier-relative behavioral inconsistencies, not as a direct estimate of the full frontier-anchored regularization mechanism.
+Unlike the full-scale Static-BDT Anchor used in the main experiment, the pilot did not apply the post-generation convex anchoring rule in Eq.~\eqref{eq:adjustment}. Instead, it used prompt-level rule injection. The pilot results should therefore be interpreted as low-resource mechanism evidence that explicit monotonicity information can reduce frontier-relative behavioral inconsistencies, not as a direct estimate of the full frontier-anchored regularization mechanism.
 
 \subsection{Pilot Prompt Templates}
 
@@ -858,7 +858,7 @@ To quantify uncertainty, we compute bootstrap confidence intervals tailored to t
 
 For \textbf{held-out prediction metrics} (Table~\ref{tab:lambda_heldout} reports the held-out prediction metrics summarized in Figure~1 of the main manuscript), the DCE data possess a nested panel structure where multiple choice observations are clustered within individual respondents. To strictly account for within-respondent correlation and avoid underestimating standard errors, we employ a \textbf{respondent-level cluster bootstrap}. Specifically, we resample the 205 unique respondents (whose choices constitute the 813 alternative-level binary-outcome rows) with replacement, maintaining the intact within-respondent choice structure. We perform 2,000 replications to ensure stable interval estimation. Notably, the resulting respondent-level confidence intervals are narrower than their observation-level counterparts. This counterintuitive but statistically sound result occurs because, in our specific data structure (205 clusters with approximately 4 observations each), structured cluster resampling provides a more stable variance estimate. It avoids the extreme duplication noise inherent in observation-level resampling, which can artificially inflate variance by breaking the within-respondent panel structure.
 
-For \textbf{frontier-deviation metrics} (Table~\ref{tab:bootstrap_alignment}), the evaluation operates on the fixed 64-state policy grid rather than respondent-level choices. Therefore, we compute frontier-deviation intervals by resampling the 64 policy-grid states with replacement using 1,000 replications. For \textbf{monotonicity violation rates} (MVR), we resample comparable attribute pairs. For \textbf{policy-ranking consistency} (Table~\ref{tab:prc} in this supplement, discussed in the main text Policy Ranking Consistency section), we report no confidence intervals and no significance test, because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials; the metric is reported as a descriptive share only.
+For \textbf{frontier-deviation metrics} (Table~\ref{tab:bootstrap_alignment}), the evaluation operates on the fixed 64-state policy grid rather than respondent-level choices. Therefore, we compute frontier-deviation intervals by resampling the 64 policy-grid states with replacement using 2,000 replications. For \textbf{monotonicity violation rates} (MVR), we resample comparable attribute pairs. For \textbf{policy-ranking consistency} (Table~\ref{tab:prc} in this supplement, discussed in the main text Policy Ranking Consistency section), we report no confidence intervals and no significance test, because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials; the metric is reported as a descriptive share only.
 
 These intervals provide uncertainty summaries for the finite evaluation objects used in the paper: policy-grid states, held-out matched respondents, monotonicity-comparison pairs, and policy-pair rankings. They are not a substitute for external validation against realized uptake or for respondent-level uncertainty from re-estimating the full 6-parameter conditional-logit DCE frontier.
 
@@ -1091,8 +1091,8 @@ Restricting to test tasks in which the chosen alternative is A or B (excluding o
 \toprule
 \textbf{Method} & \textbf{Log Loss} & \textbf{N (tasks)} & \textbf{Note} \\
 \midrule
-Pure-DCE & 0.3307 & 78 & Refit 6-param conditional logit, $\Pr(A)+\Pr(B)=1-\Pr(C)$ restricted to $\{A,B\}$ \\
-Unconstrained LLM & 0.8521 & 78 & Direct LLM $\Pr(A)$ and $\Pr(B)=1-\Pr(A)$, restricted to $\{A,B\}$ \\
+Pure-DCE & 0.3307 & 78 & Refit 6-param conditional logit, multinomial softmax over $\{A,B,C\}$ restricted to $\{A,B\}$ chosen \\
+Unconstrained LLM & 0.8521 & 78 & Direct LLM $P(A)$, $P(B)$, $P(C)$ with respondent-facing multinomial prompt, restricted to $\{A,B\}$ chosen \\
 Static-BDT ($\lambda=0.25$) & \textbf{0.4307} & 78 & Convex blend $0.25\cdot\pi_{\text{LLM}}+0.75\cdot\pi_{\text{DCE}}$, restricted to $\{A,B\}$ \\
 \bottomrule
 \end{tabularx}

@@ -1,0 +1,181 @@
+profile_id,wait,wait_label,origin,origin_label,efficacy,efficacy_label,side_effects,side_effects_label,cash,cash_label,n_occurrences_in_design,prompt_text,expected_repeats,planned_api_calls,status
+1,3,Average Waiting Time: 3 months,Imported,Origin of Vaccine: Imported,70,Vaccine Efficacy: 70 %,0.1,Side Effects: 0.1 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 3 months
+- Origin of Vaccine: Imported
+- Vaccine Efficacy: 70 %
+- Side Effects: 0.1 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+2,3,Average Waiting Time: 3 months,Imported,Origin of Vaccine: Imported,70,Vaccine Efficacy: 70 %,10,Side Effects: 10 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 3 months
+- Origin of Vaccine: Imported
+- Vaccine Efficacy: 70 %
+- Side Effects: 10 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+3,3,Average Waiting Time: 3 months,Domestic,Origin of Vaccine: Domestic,70,Vaccine Efficacy: 70 %,1,Side Effects: 1 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 3 months
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 70 %
+- Side Effects: 1 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+4,1,Average Waiting Time: 1 months,Imported,Origin of Vaccine: Imported,70,Vaccine Efficacy: 70 %,0.1,Side Effects: 0.1 %,50,Cash Incentive: 50 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 1 months
+- Origin of Vaccine: Imported
+- Vaccine Efficacy: 70 %
+- Side Effects: 0.1 %
+- Cash Incentive: 50 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+5,3,Average Waiting Time: 3 months,Domestic,Origin of Vaccine: Domestic,50,Vaccine Efficacy: 50 %,10,Side Effects: 10 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 3 months
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 50 %
+- Side Effects: 10 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+6,1,Average Waiting Time: 1 months,Domestic,Origin of Vaccine: Domestic,50,Vaccine Efficacy: 50 %,1,Side Effects: 1 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 1 months
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 50 %
+- Side Effects: 1 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+7,1,Average Waiting Time: 1 months,Domestic,Origin of Vaccine: Domestic,50,Vaccine Efficacy: 50 %,10,Side Effects: 10 %,50,Cash Incentive: 50 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 1 months
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 50 %
+- Side Effects: 10 %
+- Cash Incentive: 50 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+8,1,Average Waiting Time: 1 months,Imported,Origin of Vaccine: Imported,95,Vaccine Efficacy: 95 %,1,Side Effects: 1 %,200,Cash Incentive: 200 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 1 months
+- Origin of Vaccine: Imported
+- Vaccine Efficacy: 95 %
+- Side Effects: 1 %
+- Cash Incentive: 200 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+9,3,Average Waiting Time: 3 months,Domestic,Origin of Vaccine: Domestic,95,Vaccine Efficacy: 95 %,1,Side Effects: 1 %,50,Cash Incentive: 50 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: 3 months
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 95 %
+- Side Effects: 1 %
+- Cash Incentive: 50 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+10,0,Average Waiting Time: Walk-in appointment,Imported,Origin of Vaccine: Imported,95,Vaccine Efficacy: 95 %,10,Side Effects: 10 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: Walk-in appointment
+- Origin of Vaccine: Imported
+- Vaccine Efficacy: 95 %
+- Side Effects: 10 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+11,0,Average Waiting Time: Walk-in appointment,Domestic,Origin of Vaccine: Domestic,95,Vaccine Efficacy: 95 %,10,Side Effects: 10 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: Walk-in appointment
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 95 %
+- Side Effects: 10 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen
+12,0,Average Waiting Time: Walk-in appointment,Domestic,Origin of Vaccine: Domestic,70,Vaccine Efficacy: 70 %,0.1,Side Effects: 0.1 %,800,Cash Incentive: 800 RMB,1,"You are evaluating vaccination choices for COVID-19 vaccines.
+
+Please consider the following vaccine profile and indicate whether you would accept it:
+
+Vaccine Profile:
+- Average Waiting Time: Walk-in appointment
+- Origin of Vaccine: Domestic
+- Vaccine Efficacy: 70 %
+- Side Effects: 0.1 %
+- Cash Incentive: 800 RMB
+
+Question: Would you choose to receive this vaccine? 
+Please respond with ONLY ""Yes"" or ""No"".
+
+Additionally, what is the probability (between 0 and 1) that you would accept this vaccine?",10,10,ready_for_qwen

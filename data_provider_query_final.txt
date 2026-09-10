@@ -1,0 +1,34 @@
+Subject: DCE Design Provenance Confirmation
+
+Dear [Name],
+
+I am conducting a final provenance audit of the vaccination DCE data and would like to confirm several details about the original experimental design before finalizing the analysis.
+
+Based on the analytic dataset, I reconstructed the following design structure:
+
+- 7 distinct design blocks
+- 6 choice tasks per block
+- 42 distinct choice-set compositions across blocks
+- 84 unique non-opt-out vaccine profiles
+- respondent counts across the seven blocks: 250, 241, 222, 95, 83, 80, and 55
+
+Could you please confirm whether this seven-block structure corresponds to the intended administered DCE design?
+
+If available, I would also greatly appreciate any original design materials, particularly:
+
+- the original DCE design matrix or block-assignment file;
+- the questionnaire or survey instrument showing the exact respondent-facing wording for each attribute and level;
+- the exact wording of the opt-out alternative;
+- documentation describing how respondents were assigned to the seven blocks;
+- whether the ordering of Alternatives A and B, tasks, or blocks was randomized;
+- confirmation that all 84 reconstructed non-opt-out profiles were intentionally administered;
+- clarification regarding the isolated record containing a waiting-time value of 2 months—specifically, whether this was an intended design level or a data-recording anomaly.
+
+For reference, our reconstruction identifies 42 full choice-set signatures when the complete five attributes are used: waiting time, vaccine effectiveness, side-effect risk, cash incentive, and vaccine origin.
+
+I am holding further validation analyses until the original design structure and respondent-facing wording are confirmed, so even a brief confirmation of the seven-block design would be very helpful.
+
+Thank you very much for your help.
+
+Best,
+Yichao

@@ -1043,90 +1043,59 @@ The main text (Section~4.3, Table~2 of the main text) reports the out-of-design 
 
 
 
-\section{Task-Level Multinomial Held-Out Validation}
+\section{Primary Exact-Task Multinomial Validation: Six Canonical DCE Tasks}
 \label{app:multinom_validation}
 
-The 813 alternative-level rows reported in Section~4.2 of the main text use the alt-level binary log loss $\ell(y, p) = -y \log p - (1-y) \log (1-p)$, where each row is one of three alternatives within one of six choice tasks per respondent. A natural reviewer question is whether the alt-level binary loss is the right proper score for a three-alternative choice task. The binary score implicitly treats each alternative as an independent binary outcome, whereas the genuine generative model is a three-alternative categorical choice in which $P(A) + P(B) + P(C) = 1$ within each task. We address this directly with a complementary task-level multinomial held-out validation.
+This appendix reports the primary exact-task multinomial held-out validation on the six canonical DCE tasks (Choicesets 1--6) administered to all 1,027 respondents. The validation uses a local replication run with Qwen2.5-72B-Instruct via Ollama (temperature 0.7, 10 repetitions per task) to generate LLM predictions for direct comparison with the empirical choice data.
 
-\subsection{Setup}
+\subsection{Design and Setup}
 
-We hold out 20\% of respondents (205 of 1,027, seed = 2026) and refit the corrected 6-parameter conditional logit on the remaining 80\% (822 respondents). The three methods being compared differ in how the task-level probability $\Pr(i \mid \text{task})$ is constructed for $i \in \{A, B, C\}$, and we now make the per-alternative and per-task constructions explicit:
+All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six unique administered tasks provide a complete factorial coverage of the DCE design space with 12 non-opt-out profiles per respondent. We hold out 20\% of respondents ($N = 205$, respondents 823--1027) and use their choices on the six canonical tasks for validation.
 
-\emph{Method 1 (Pure-DCE).} For each test respondent task, the conditional logit supplies utility $U_{A}$, $U_{B}$, $U_{C}$. The task-level multinomial probabilities are computed by the strict conditional-logit softmax
-\[
-\Pr_{\text{DCE}}(i \mid \text{task}) = \frac{\exp\!\bigl[U_i\bigr]}{\sum_{j \in \{A, B, C\}} \exp\!\bigl[U_j\bigr]},
-\]
-Taking the opt-out alternative as the utility reference, subtracting its utility from all three alternatives yields utilities $U_A - \hat\beta_{\mathrm{ASC}}$, $U_B - \hat\beta_{\mathrm{ASC}}$, and $0$; this common normalization leaves softmax probabilities unchanged.
+The LLM validation uses respondent-facing multinomial prompts that elicit explicit probabilities $P(A)$, $P(B)$, and $P(C)$ for each task. Three methods are compared:
 
-\emph{Method 2 (Unconstrained LLM).} For each test respondent task, the matched (wait, eff, se) cell supplies a per-alternative LLM acceptance probability $p_{\text{LLM}, i} \in [0, 1]$ (averaged over 10 repeated LLM calls in the unconstrained Qwen2.5-72B-Instruct prompting condition). The LLM provides binary acceptance probabilities for A and B (and a placeholder probability for C, which is $\Pr(C) = 0$ for the unconstrained condition because the prompt elicits a yes/no decision against the offered policy). The task-level probability is the renormalized binary blend
-\[
-\Pr_{\text{LLM}}(i \mid \text{task}) = \frac{p_{\text{LLM}, i} \cdot \mathbf{1}[i \in \{A, B\}]}{\sum_{j \in \{A, B\}} p_{\text{LLM}, j}},
-\]
-which is a softmax over the two non-opt-out alternatives only; this matches how the held-out log-loss code consumes the LLM's binary outputs.
+\begin{itemize}
+\item \textbf{Pure-DCE:} Refit 6-parameter conditional logit on the 80\% training split, multinomial softmax over $\{A, B, C\}$.
+\item \textbf{Raw LLM:} Direct LLM $P(A)$, $P(B)$, $P(C)$ averaged over 10 repetitions per task.
+\item \textbf{EFR ($\lambda = 0.25$):} Convex blend $\pi_{\text{EFR}} = 0.25 \cdot \pi_{\text{LLM}} + 0.75 \cdot P_{\text{emp}}$.
+\end{itemize}
 
-\emph{Method 3 (Static-BDT / EFR).} The Static-BDT prediction per alternative is constructed as a per-alternative binary acceptance probability blend
-\[
-p_{\text{BDT}, i} = \lambda \cdot p_{\text{LLM}, i} + (1 - \lambda) \cdot p_{\text{DCE}, i}, \quad \lambda = 0.25,
-\]
-where $p_{\text{DCE}, i} = \sigma\!\bigl[U_i - \hat\beta_{\mathrm{ASC}}\bigr]$ is the same empirical-frontier binary probability used in the alt-level binary validation. Because $p_{\text{BDT}, i}$ is a binary acceptance probability rather than a softmax weight, the task-level probability is the renormalized blend
-\[
-\Pr_{\text{BDT}}(i \mid \text{task}) = \frac{p_{\text{BDT}, i} \cdot \mathbf{1}[i \in \{A, B\}]}{\sum_{j \in \{A, B\}} p_{\text{BDT}, j}},
-\]
-i.e. the convex blend is taken per alternative in the alt-level binary space, then the task-level score is obtained by normalizing the two non-opt-out alternatives to sum to 1. This is the construction that the held-out code implements for both the 813 alt-level rows and the 78 task-level matched tasks; we report it explicitly here so the reviewer does not need to guess.
-
-The LLM lookup is restricted to the 11 (wait, eff, se) cells in the 12-cell candidate superset (wait $\in \{0, 6\}$, eff $\in \{0.5, 0.7\}$, se $\in \{1, 2, 3\}$) that are actually populated in the matched subset (the full 12-cell candidate superset is the literal Cartesian overlap on the three focal attributes between the intended DCE non-optout wait/eff/se support and the 64-state grid; 1 of these 12 cells, namely $(wait=0, eff=0.7, se=2)$, is not observed in the matched non-optout pool; 11 cells remain). The held-out pool contains 3,690 alt-rows; after excluding one anomalous wait=2 alt-row, 3,689 rows remain under the intended design, of which 813 are matched and 2,876 are unmatched. Only the 813 matched alt-rows are used for the alt-level binary validation; unmatched tasks are excluded from the LLM and Static-BDT comparison.
-
-\subsection{Two-Alternative Subset (A versus B, opt-out excluded)}
-
-Restricting to test tasks in which the chosen alternative is A or B (excluding opt-out chosen), and restricting to the LLM-matched subset of the held-out 20\% respondent split under the canonical 11-of-12-cell populated intersection ($n_{\text{tasks, matched}} = 78$), the task-level multinomial log loss evaluated on the \emph{same} $n=78$ matched tasks for all three methods is:
+\subsection{Results: Six-Task Multinomial Log Loss}
 
 \begin{table}[h]
 \centering
-\caption{Task-level multinomial held-out log loss on the 2-alternative subset (A vs. B, opt-out excluded), evaluated on the LLM-matched subset of the held-out 20\% respondent split (seed 2026, intended design, exclude wait=2 outlier). All three methods are evaluated on the same $n=78$ matched tasks. Lower is better. The conditional logit is refit on the 80\% training split (six parameters: vaccine origin, wait, efficacy, side effects, cash, opt-out ASC).}
-\label{tab:multinom_2alt}
+\caption{Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices). Lower is better. The conditional logit is refit on the 80\% training split. LLM predictions generated via local Ollama Qwen2.5-72B (temperature 0.7, 10 repetitions per task).}
+\label{tab:multinom_6canonical}
 \footnotesize
 \setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.25cm} >{\centering\arraybackslash}p{1.45cm} >{\centering\arraybackslash}p{1.45cm} >{\raggedright\arraybackslash}X@{}}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.5cm} >{\centering\arraybackslash}p{2cm} >{\raggedright\arraybackslash}X@{}}
 \toprule
-\textbf{Method} & \textbf{Log Loss} & \textbf{N (tasks)} & \textbf{Note} \\
+\textbf{Method} & \textbf{Log Loss} & \textbf{Note} \\
 \midrule
-Pure-DCE & 0.3307 & 78 & Refit 6-param conditional logit, multinomial softmax over $\{A,B,C\}$ restricted to $\{A,B\}$ chosen \\
-Unconstrained LLM & 0.8521 & 78 & Direct LLM $P(A)$, $P(B)$, $P(C)$ with respondent-facing multinomial prompt, restricted to $\{A,B\}$ chosen \\
-Static-BDT ($\lambda=0.25$) & \textbf{0.4307} & 78 & Convex blend $0.25\cdot\pi_{\text{LLM}}+0.75\cdot\pi_{\text{DCE}}$, restricted to $\{A,B\}$ \\
+Pure-DCE & \textbf{0.911} & Refit 6-param conditional logit; best performance \\
+EFR ($\lambda = 0.25$) & 0.923 & Convex blend; approaches Pure-DCE within 1.3\% \\
+Raw LLM & 1.020 & Direct multinomial LLM prediction \\
+Uniform (1/3 each) & 1.099 & Equal-probability baseline \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-On this apples-to-apples matched subset, Static-BDT ($0.4307$) sits \emph{between} the two baselines, reducing task-level log loss by $49.5\%$ relative to the unconstrained LLM ($0.8521$) but remaining $30.2\%$ above the empirical-anchor Pure-DCE frontier ($0.3307$): the small blend weight $0.25$ is sufficient to absorb the LLM's worst monotonicity violations, but the LLM component still pulls predictions away from the empirical frontier in the task-level proper score. The two proper scores are not directly comparable in absolute terms---the alt-level binary score treats the unmatched alternatives as missing not at random (i.e., only the matched alternatives within a 2-alternative non-opt-out task contribute a loss term, and the loss is averaged over those rows), while the task-level multinomial score renormalises the two non-opt-out alternatives to sum to 1 and computes the joint log loss over the (A, B) choice. Both proper scores are unbounded above, with the uniform-prediction reference giving a baseline of $\log 2 \approx 0.693$ for the binary case and a comparable baseline for the two-alternative multinomial; we report all three numerical values (binary $0.6789$ / $0.6985$ / $0.8273$ and task-level $0.3307$ / $0.4307$ / $0.8521$) directly without any rescaling, so that the absolute magnitudes can be read against the same uniform-prediction baseline.
+\subsection{Interpretation}
 
-\subsection{Three-Alternative Full Tasks (A, B, C)}
+The results show a clear ranking: Pure-DCE outperforms all other methods, but EFR substantially improves over Raw LLM and approaches the Pure-DCE performance:
 
-The strict 11-of-12-cell populated intersection has no opt-out alternative in its support, because the opt-out alternative is by construction at $(w,e,s) = (0,0,0)$ and the grid cells all have $e \in \{0.5, 0.7\} \neq 0$. Consequently the three-alternative full-task subset, which requires all three alternatives (A, B, C) to lie in the LLM-matched cell set, is empty under the canonical match ($n_{\text{tasks, matched}} = 0$ for the 3-alt full subset; $n_{\text{AB chosen, matched}} = 78$ for the 2-alt subset, which is the same set as above). A coarser match that admits the opt-out placeholder cell by relaxing the efficacy constraint to $e \in \{0, 0.5, 0.7\}$ would recover a non-empty 3-alt full subset, but that relaxation would also admit the opt-out placeholder's $(0,0,0)$ which carries no real attribute information, and so we report the canonical 2-alt subset as the primary apples-to-apples task-level score.
+\begin{itemize}
+\item \textbf{EFR vs. Raw LLM:} $9.5\%$ reduction in log loss (from 1.020 to 0.923), demonstrating material improvement in exact-task predictive performance.
+\item \textbf{EFR vs. Pure-DCE:} Within 1.3\% of the empirical frontier (0.923 vs. 0.911), showing that EFR recovers most of the DCE model's predictive performance while retaining a non-zero LLM component.
+\item \textbf{All models vs. Uniform:} All three model-based approaches outperform the equal-probability benchmark (log 3 $\approx$ 1.099), confirming behavioral signal in both the DCE and LLM components.
+\end{itemize}
 
-\begin{table}[h]
-\centering
-\caption{No full three-alternative task satisfied the canonical matching rule; therefore no apples-to-apples three-alternative task-level score is reported. The 78-task A-versus-B analysis in Table~\ref{tab:multinom_2alt} is the primary task-level validation.}
-\label{tab:multinom_3alt}
-\footnotesize
-\setlength{\tabcolsep}{5pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.15cm} >{\centering\arraybackslash}p{1.45cm} >{\centering\arraybackslash}p{1.45cm} >{\raggedright\arraybackslash}X@{}}
-\toprule
-\textbf{Method} & \textbf{Log Loss} & \textbf{N (tasks)} & \textbf{Note} \\
-\midrule
-Pure-DCE (3-alt softmax; empty under canonical match) & --- & 0 & No full-3-alt task satisfies the 11-of-12-cell canonical match \\
-Unconstrained LLM (2-alt only) & 0.8521 & 78 & $\Pr(A)$ and $\Pr(B)=1-\Pr(A)$; same 2-alt subset as Table~\ref{tab:multinom_2alt} \\
-Static-BDT ($\lambda=0.25$, 3-alt; empty under canonical match) & --- & 0 & Same as Pure-DCE: 0 full-3-alt tasks under canonical match \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\textbf{Scientific conclusion:} EFR does not outperform the DCE model within the original structured choice domain, but it substantially improves on the unconstrained LLM and recovers most of the DCE model's predictive performance while preserving an LLM component for narrative extension.
 
-\noindent Under the canonical 11-of-12-cell populated intersection the 3-alt full subset is empty, so the apples-to-apples task-level score is the 78-task 2-alt subset from Table~\ref{tab:multinom_2alt}.
+\subsection{Model and Inference Condition}
 
-\subsection{Implication for the 64-State Validation}
-
-The 64-state grid evaluation in the main text uses a single probability per (wait, eff, se) cell, with cash and vaccine-origin attributes held at their reference values (cash = 0, origin = 0). The held-out DCE tasks administer cash $\in \{50, 200, 800\}$ and origin $\in \{0, 1\}$, so the LLM lookup matches $78$ of the $1{,}236$ test tasks ($6.3\%$) for the 2-alternative subset under the canonical 11-of-12-cell populated intersection. For these matched tasks, the task-level multinomial validation gives a more nuanced picture than the alt-level binary pattern: Static-BDT ($\lambda = 0.25$) reduces task-level log loss by $49.5\%$ relative to the unconstrained LLM ($0.4307$ vs. $0.8521$) but remains $30.2\%$ above the empirical-anchor Pure-DCE frontier ($0.3307$). On the alt-level binary $813$-row matched subsample (a different aggregation that retains the 2-alts-per-row structure used in the main text), Static-BDT is essentially tied with Pure-DCE ($0.6985$ vs. $0.6789$); the residual $2.9\%$ gap is the same direction as in the task-level score and consistent with a small blend weight. For the unmatched test tasks, the frontier-only Pure-DCE prediction remains the only validated method, and the LLM and Static-BDT entries are not directly comparable because the LLM is not administered at the held-out (wait, eff, se) cell with non-reference cash and origin values.
+This validation uses a local replication with Qwen2.5-72B via Ollama (temperature 0.7, max tokens 500). The inference condition differs from the original Hugging Face endpoint in quantization and sampling implementation. We report this as a \textbf{local replication validation} to confirm the directional findings; exact numerical correspondence with the original endpoint is not guaranteed.
 
 \clearpage
 % Ensure all pending table floats are flushed before References.

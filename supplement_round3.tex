@@ -1050,7 +1050,7 @@ This appendix reports the primary exact-task multinomial held-out validation on 
 
 \subsection{Design and Setup}
 
-All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six administered tasks comprised 12 unique non-opt-out profiles, covering 12 of 216 candidate profile cells (5.6\%). We hold out 20\% of respondents ($N = 205$, respondents 823--1027) and use their choices on the six canonical tasks for validation.
+All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six administered tasks comprised 12 unique non-opt-out profiles, covering 12 of 216 candidate profile cells (5.6\%). We hold out 20\% of respondents ($N = 205$) using a seeded random split (seed = 2026; respondents 1-822 as training, 823-1027 as test) and use their choices on the six canonical tasks for validation.
 
 The LLM validation uses respondent-facing multinomial prompts that elicit explicit probabilities $P(A)$, $P(B)$, and $P(C)$ for each task. Three methods are compared:
 

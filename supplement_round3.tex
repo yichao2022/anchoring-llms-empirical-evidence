@@ -1052,7 +1052,7 @@ This appendix reports the primary exact-task multinomial held-out validation on 
 
 \subsection{Design and Setup}
 
-All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six administered tasks comprised 12 unique non-opt-out profiles, covering 12 of 216 candidate profile cells (5.6\%). We hold out 20\% of respondents ($N = 205$) using a seeded random split (seed = 2026; respondents 1-822 as training, 823-1027 as test) and use their choices on the six canonical tasks for validation.
+All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six administered tasks comprised 12 unique non-opt-out profiles, covering 12 of 216 candidate profile cells (5.6\%). We hold out 20\% of respondents ($N = 206$) using a seeded random split (seed = 2026; 821 training, 206 test) and use their choices on the six canonical tasks for validation. Exact log loss values will be updated following the canonical seeded split implementation; preliminary estimates are reported in Table~\ref{tab:multinom_6canonical}.
 
 The LLM validation uses respondent-facing multinomial prompts that elicit explicit probabilities $P(A)$, $P(B)$, and $P(C)$ for each task. Three methods are compared:
 
@@ -1066,7 +1066,7 @@ The LLM validation uses respondent-facing multinomial prompts that elicit explic
 
 \begin{table}[h]
 \centering
-\caption{Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices). Lower is better. The conditional logit is refit on the 80\% training split. LLM predictions generated via local Ollama Qwen2.5-72B (temperature 0.7, 10 repetitions per task).}
+\caption{Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 206$ respondents, 1,236 choices). Lower is better. The conditional logit is refit on the 80\% training split. LLM predictions generated via local Ollama Qwen2.5-72B (temperature 0.7, 10 repetitions per task).}
 \label{tab:multinom_6canonical}
 \footnotesize
 \setlength{\tabcolsep}{5pt}

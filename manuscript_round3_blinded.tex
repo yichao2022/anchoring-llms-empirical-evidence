@@ -36,7 +36,7 @@
 
 \textbf{Limitations:} Validation used a single Wuhan DCE, and the out-of-design narrative scenarios lacked human ground truth; generalizability and out-of-design behavioral validity require external replication.
 
-\textbf{Conclusion:} EFR provides a constrained mechanism for applying an existing DCE-derived frontier to narrative-policy evaluation by assigning most of the weight to the empirical reference; the fixed $\lambda\!=\!0.25$ anchor bounds, rather than eliminates, the deviation of LLM outputs from the DCE-derived frontier. EFR is best understood as a narrative-extension wrapper for an existing DCE, not as a predictive improvement method.
+\textbf{Conclusion:} EFR provides a constrained mechanism for applying an existing DCE-derived frontier to narrative-policy evaluation by assigning most of the weight to the empirical reference; the fixed $\lambda\!=\!0.25$ anchor bounds, rather than eliminates, the deviation of LLM outputs from the DCE-derived frontier. EFR is best understood as a narrative-extension wrapper for an existing DCE, not as a replacement for the underlying DCE model.
 \end{abstract}
 
 
@@ -362,8 +362,8 @@ The following supplementary materials accompany this manuscript and are availabl
 \item \textbf{Table S12.} Attribute-level mapping between the administered DCE design and the 64-state LLM evaluation grid. The matched subset is restricted to cells where the DCE design level and the grid level coincide as a \texttt{float} value (no rescaling, no interpolation).
 \item \textbf{Table S13.} Covariate balance between matched and unmatched held-out subsets.
 \item \textbf{Table S14.} Subgroup heterogeneity analysis of Static-BDT ($\lambda=0.25$) on the 813 \emph{alternative-level} rows subset (from 205 held-out respondents).
-\item \textbf{Table S15.} Task-level multinomial held-out log loss on the 2-alternative subset (A vs.\ B, opt-out excluded).
-\item \textbf{Table S16.} Task-level multinomial held-out log loss on the 3-alternative full tasks (A, B, C).
+\item \textbf{Table S15.} Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices). Pure-DCE, EFR, Raw LLM, and uniform baseline.
+\item \textbf{Table S16.} [Reserved for secondary sensitivity analyses.]
 \end{itemize}
 
 \textbf{B. Figures}

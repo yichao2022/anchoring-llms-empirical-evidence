@@ -40,7 +40,7 @@ This deterministic utility-based approximation preserves the ordinal structure a
 
 Given the empirical behavioral reference from Stage~1, the second stage adjusts LLM-generated choice probabilities after generation. Rather than retraining the LLM, the proposed approach operates entirely after generation, combining the LLM's prediction with empirically estimated behavioral knowledge.
 
-For each policy scenario $\mathbf{x}_g$, the LLM is prompted to simulate a respondent and report an acceptance probability. Let $\pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}_g)$ denote the LLM-generated probability. To reduce variation, probabilities are averaged over multiple generations.
+For each policy scenario $\mathbf{x}_g$, the LLM is prompted to evaluate the vaccination decision from the perspective of a decision-maker and report an acceptance probability. Let $\pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}_g)$ denote the LLM-generated probability. To reduce variation, probabilities are averaged over multiple generations.
 
 The adjusted probability is then defined as
 
@@ -95,7 +95,7 @@ DeepSeek V4 (Flash variant)& Provider inference API                & 2026-08-13 
 The 640 generations per model the full-scale run logs report are the product of 64 policy states $\times$ $R=10$ repeated generations per state for each of the three full-scale models; the 1{,}920 total full-scale generations are pooled across the three models. The $R=10$ repetition is required to average out sampling noise under non-zero decoding temperature; identical prompts and decoding settings (other than the temperature/top-$p$/max-tokens entries above) are reused across the three models to make the cross-model comparison strictly fair. The system prompt template is:
 
 \begin{quote}\small\ttfamily
-You are a policy adviser. The respondent is deciding whether to accept the proposed COVID-19 vaccine. Read the policy description below and decide.
+You are evaluating a vaccination decision. The respondent is deciding whether to accept the proposed COVID-19 vaccine. Read the policy description below and decide.
 
 Decision: Yes or No
 

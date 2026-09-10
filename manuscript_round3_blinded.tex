@@ -36,7 +36,7 @@
 
 \textbf{Limitations:} Validation used a single Wuhan DCE, and the out-of-design narrative scenarios lacked human ground truth; generalizability and out-of-design behavioral validity require external replication.
 
-\textbf{Conclusion:} EFR provides a constrained mechanism for applying an existing DCE-derived frontier to narrative-policy evaluation by assigning most of the weight to the empirical reference; the fixed $\lambda\!=\!0.25$ anchor bounds, rather than eliminates, the deviation of LLM outputs from the DCE-derived frontier.
+\textbf{Conclusion:} EFR provides a constrained mechanism for applying an existing DCE-derived frontier to narrative-policy evaluation by assigning most of the weight to the empirical reference; the fixed $\lambda\!=\!0.25$ anchor bounds, rather than eliminates, the deviation of LLM outputs from the DCE-derived frontier. EFR is best understood as a narrative-extension wrapper for an existing DCE, not as a predictive improvement method.
 \end{abstract}
 
 
@@ -313,7 +313,7 @@ The EFR framework has three HTA implications. \emph{First}, a recent DCE unlocks
 \subsection{Why Not Use the Discrete Choice Model Alone?}
 \label{sec:why_not_dce}
 
-EFR trades exact-task predictive performance for narrative-policy evaluation (multinomial log loss: Raw LLM $1.1949$; EFR $1.2074$; Pure-DCE $1.2178$; uniform benchmark $1.0986$). The NDS pilot ($n=2$) corroborates: isotonic NDS $\rho = -0.943$ vs. EFR $\rho = +0.894$ for DeepSeek V4. \textbf{Figure~\ref{fig:heldout_predictive}} reports the exact-task categorical held-out validation results.
+EFR trades exact-task predictive performance for narrative-policy evaluation capability (multinomial log loss: Raw LLM $1.1949$; EFR $1.2074$; Pure-DCE $1.2178$; uniform benchmark $1.0986$). \textbf{This negative result is reported transparently:} EFR did not improve exact-task predictive performance relative to Raw LLM, and all three model-based approaches exceeded the uniform-probability benchmark. The NDS pilot ($n=2$) is reported as illustrative mechanism evidence only: isotonic NDS $\rho = -0.943$ vs. EFR $\rho = +0.894$ for DeepSeek V4. \textbf{Figure~\ref{fig:heldout_predictive}} reports the exact-task categorical held-out validation results.
 
 \begin{figure}[h]
 \centering

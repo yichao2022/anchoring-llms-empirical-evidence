@@ -67,12 +67,12 @@ To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{em
 
 \paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for DeepSeek V4 and MiroThinker-1.7-mini are from the same API deployments used in Table~1, while the Qwen2.5-72B prediction is from a local Ollama replication (quantized Q4\_K\_M; differs from the Hugging Face inference endpoint used in Table~1 but reproduces the same canonical $\rho = 0.689$ under the 6-param frontier).
 
-\paragraph{Results.} Table~\ref{tab:null_comparison} compares the observed EFR $\rho$ against both nulls.
+\paragraph{Results.} Table~\ref{tab:S16} compares the observed EFR $\rho$ against both nulls.
 
 \begin{table}[h]
 \centering
 \caption{Observed EFR Spearman $\rho$ versus uniform-noise and permutation nulls on the 64-state grid ($\lambda = 0.25$; 10{,}000 null replicates).}
-\label{tab:null_comparison}
+\label{tab:S16}
 \small
 \begin{tabular}{lcccc}
 \toprule

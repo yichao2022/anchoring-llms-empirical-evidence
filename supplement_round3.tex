@@ -999,53 +999,6 @@ Choice Rate ($y=1$) & 0.528 & 0.278 & 0.53 \\
 
 The results confirm that the matched subset systematically differs from the unmatched subset on all observed dimensions (all SMDs $> 0.1$). The root cause is structural rather than sampling-based: the 64-state LLM grid evaluates only specific integer attribute levels, inherently oversampling longer waits, higher efficacy, and higher side-effect burdens. Consequently, the matched subset serves as a harder, non-representative test bed for the specific attribute profiles covered by the grid. Importantly, because all 205 respondents are present in both subsets, this covariate imbalance does not compromise the respondent-level cluster bootstrap intervals reported in the main text.
 
-\section{Subgroup Heterogeneity Analysis}
-\label{app:heterogeneity}
-
-To assess whether the hybrid framework's performance is uniform across respondent subgroups, we replicated the held-out predictive validation on the 813 \emph{alternative-level} rows subset (from 205 held-out respondents) stratified by age, gender, and education. Table~\ref{tab:heterogeneity} reports the log loss, Brier score, and Spearman rank correlation of the Static-BDT anchored predictions within each subgroup, alongside the unconstrained Qwen2.5-72B-Instruct baseline for direct comparison. Because the 813 \emph{alternative-level} rows subset is too small for stable within-subgroup bootstrap inference, the table reports point estimates only; bootstrap intervals on the full sample are reported in the main text.
-
-\begin{table}[h]
-\centering
-\caption{Subgroup heterogeneity analysis of Static-BDT ($\lambda=0.25$) performance on the 813 \emph{alternative-level} rows subset (from 205 held-out respondents), stratified by demographic characteristics.}
-\label{tab:heterogeneity}
-\small
-\begin{tabular}{l l c c c}
-\toprule
-\textbf{Subgroup} & \textbf{Method} & \textbf{Log loss $\downarrow$} & \textbf{Brier $\downarrow$} & \textbf{Spearman $\rho$ $\uparrow$} \\
-\midrule
-\multirow{2}{*}{Age $<$ 55} & Unconstrained LLM & 0.835 & 0.317 & $-0.628$ \\
-                        & Static-BDT       & 0.698 & 0.252 & 0.916 \\
-\midrule
-\multirow{2}{*}{Age $\geq$ 55} & Unconstrained LLM & 0.801 & 0.302 & $-0.617$ \\
-                         & Static-BDT       & 0.701 & 0.253 & 0.922 \\
-\midrule
-\multirow{2}{*}{Female}    & Unconstrained LLM & 0.815 & 0.308 & $-0.627$ \\
-                         & Static-BDT       & 0.690 & 0.248 & 0.897 \\
-\midrule
-\multirow{2}{*}{Male}      & Unconstrained LLM & 0.844 & 0.322 & $-0.622$ \\
-                         & Static-BDT       & 0.710 & 0.258 & 0.937 \\
-\midrule
-\multirow{2}{*}{College or University} & Unconstrained LLM & 0.810 & 0.306 & $-0.560$ \\
-                                & Static-BDT       & 0.694 & 0.250 & 0.950 \\
-\midrule
-\multirow{2}{*}{Below College} & Unconstrained LLM & 0.832 & 0.316 & $-0.642$ \\
-                                & Static-BDT       & 0.700 & 0.253 & 0.906 \\
-\midrule
-\multirow{2}{*}{All (matched subset)} & Unconstrained LLM & 0.827 & 0.314 & $-0.626$ \\
-                                & Static-BDT       & 0.699 & 0.252 & 0.917 \\
-\bottomrule
-\end{tabular}
-\\[0.3em]
-\begin{minipage}{0.95\textwidth}
-\small
-\textit{Note.} ``Below College'' includes middle school or below; ``College or University'' includes high school, college, or graduate degree. ``Age $<$ 55'' covers 18--54; ``Age $\geq$ 55'' covers 55--65 and 65+. The unconstrained LLM column reports Qwen2.5-72B-Instruct predictions before anchoring. The Spearman $\rho$ column reports rank correlation against the same-method Pure-DCE predictions on the same matched subset (which is the relevant anchor-reference for the LLM's direction within each stratum), not against the population frontier. Across all seven subgroups, the Static-BDT predictions achieve Spearman $\rho$ between 0.897 and 0.950 (range 0.053), indicating that the empirical anchoring benefit is approximately invariant to demographic subgroup within this Wuhan sample.
-\end{minipage}
-\end{table}
-
-Two patterns emerge. First, the unconstrained LLM produces near-uniform log loss and Brier score across all subgroups (range $\leq 0.05$ on both metrics), confirming that the behavioral unreliability documented in the main text is not driven by a particular demographic segment. Second, the Static-BDT Spearman correlation against the within-stratum Pure-DCE predictions falls in a band of 0.897--0.950 across all seven subgroups (range 0.053), with no subgroup falling below 0.89. This near-uniform behavior is consistent with the Static-BDT anchoring rule being a global probability-blending operation that does not condition on respondent characteristics; the empirical frontier itself is population-averaged by construction, and the resulting anchoring benefit is therefore expected to transfer across subgroups defined by age, gender, and education within this sample.
-
-These subgroup results should not be over-interpreted. The 813 \emph{alternative-level} rows subset (from 205 held-out respondents) does not provide sufficient statistical power to detect small subgroup-specific effects, and the Wuhan sample is not designed to be demographically representative of any specific target population. The subgroup analysis is presented as a robustness check on the homogeneity of the anchoring effect, not as evidence for the generalizability of the empirical frontier itself. Future work with larger and more diverse samples is required to assess whether the framework's anchoring benefit is preserved across demographic groups in other populations.
-
 \section{Replication Materials}
 \label{app:replication}
 

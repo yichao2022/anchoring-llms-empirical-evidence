@@ -11,27 +11,17 @@ from collections import defaultdict
 LAMBDA = 0.25
 N_NULL = 10000
 
-# ── P_emp from 6-param conditional logit ──
-coefs = {
-    'WaitTime': -0.059244, 'VaccineEfficacy': 0.413207,
-    'SideEffects': -0.036433, 'CashIncentives': 0.001048,
-    'VaccineOrigin': 0.244230, 'ASC_optout': -0.213815,
-}
-wait_levels = [0, 2, 4, 6]
-eff_levels = [0.3, 0.5, 0.7, 0.9]
-se_levels = [0, 1, 2, 3]
+# ── P_emp from canonical 6-param conditional logit (Appendix D) ──
+import os, pathlib
+REPO = pathlib.Path(__file__).resolve().parent
+GRID = REPO / 'results' / 'bdt_eval_grid_static_6param_clean.csv'
 
-P_emp_64 = []
-grid_key = []  # (wait, eff, se) tuples in order
-for w in wait_levels:
-    for e in eff_levels:
-        for s in se_levels:
-            U_A = coefs['WaitTime']*w + coefs['VaccineEfficacy']*e + coefs['SideEffects']*s
-            p_emp = np.exp(U_A) / (np.exp(U_A) + np.exp(coefs['ASC_optout']))
-            P_emp_64.append(p_emp)
-            grid_key.append((w, e, s))
-
-P_emp_64 = np.array(P_emp_64)
+with open(GRID) as f:
+    grid_rows = list(csv.DictReader(f))
+state_order = [r['state'] for r in grid_rows]
+P_emp_64 = np.array([float(r['P_static_6_clean']) for r in grid_rows])
+# (wait, eff, se) tuples for mapping LLM CSV rows to grid order
+grid_key = [(float(r['wait']), float(r['eff']), float(r['se'])) for r in grid_rows]
 grid_key_to_idx = {k: i for i, k in enumerate(grid_key)}
 
 # ── Load LLM probs from parsed CSV ──

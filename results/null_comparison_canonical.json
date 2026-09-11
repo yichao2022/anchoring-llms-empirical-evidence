@@ -1,0 +1,44 @@
+{
+  "Qwen2.5-72B": {
+    "observed_rho": 0.6886,
+    "uniform_p": 0.0002,
+    "permutation_p": 0.1793,
+    "uniform_ci95": [
+      0.1482,
+      0.5601
+    ],
+    "permutation_ci95": [
+      0.497,
+      0.7465
+    ],
+    "note": "Ollama (differs from Table 1 vllm-mlx)"
+  },
+  "DeepSeek V4": {
+    "observed_rho": 0.8123,
+    "uniform_p": 0.0,
+    "permutation_p": 0.0025,
+    "uniform_ci95": [
+      0.1443,
+      0.5625
+    ],
+    "permutation_ci95": [
+      0.5398,
+      0.7762
+    ],
+    "note": "API (same as Table 1)"
+  },
+  "MiroThinker": {
+    "observed_rho": 0.7564,
+    "uniform_p": 0.0,
+    "permutation_p": 0.0,
+    "uniform_ci95": [
+      0.146,
+      0.5607
+    ],
+    "permutation_ci95": [
+      0.1688,
+      0.5847
+    ],
+    "note": "API (same as Table 1)"
+  }
+}

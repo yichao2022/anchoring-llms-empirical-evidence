@@ -63,9 +63,9 @@ Because the adjustment operates after generation, it requires no modification of
 
 To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{emp}})$ reported in Table~1 of the main text and Table~\ref{tab:lambda_frontier} of this supplement, we generated two Monte Carlo null distributions on the 64-state grid (10{,}000 replicates each).
 
-\paragraph{Uniform-noise null.} The LLM component is replaced with a uniform random draw $U[0, 1]$ on each state, then $\rho(0.25 \cdot U + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``If the LLM component were pure uniform noise, how much rank correlation would the 75\% anchor alone produce?'' The resulting null has mean $\rho = 0.367$ (SD $= 0.106$; 95\% CI $[0.145,\,0.563]$).
+\paragraph{Uniform-noise null.} The LLM component is replaced with a uniform random draw $U[0, 1]$ on each state, then $\rho(0.25 \cdot U + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``If the LLM component were pure uniform noise, how much rank correlation would the 75\% anchor alone produce?'' The resulting null has mean $\rho = 0.366$ (SD $= 0.106$; 95\% CI $[0.146,\,0.561]$).
 
-\paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output.
+\paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for DeepSeek V4 and MiroThinker-1.7-mini are from the same API deployments used in Table~1, while the Qwen2.5-72B prediction is from a local Ollama replication (quantized Q4\_K\_M; differs from the Hugging Face inference endpoint used in Table~1 but reproduces the same canonical $\rho = 0.689$ under the 6-param frontier).
 
 \paragraph{Results.} Table~\ref{tab:null_comparison} compares the observed EFR $\rho$ against both nulls.
 
@@ -78,19 +78,19 @@ To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{em
 \toprule
 Model & $\rho_{\text{EFR}}$ & Uniform $p$ & Permutation $p$ & Permutation 95\% CI \\
 \midrule
-Qwen2.5-72B-Instruct & 0.691 & $<.001$ & .174 & $[0.50, 0.75]$ \\
-DeepSeek V4 & 0.811 & $<.001$ & .002 & $[0.54, 0.77]$ \\
-MiroThinker-1.7-mini & 0.758 & $<.001$ & $<.001$ & $[0.16, 0.58]$ \\
+Qwen2.5-72B-Instruct & 0.689 & $<.001$ & .179 & $[0.50, 0.75]$ \\
+DeepSeek V4 & 0.812 & $<.001$ & .003 & $[0.54, 0.78]$ \\
+MiroThinker-1.7-mini & 0.756 & $<.001$ & $<.001$ & $[0.17, 0.58]$ \\
 \bottomrule
 \end{tabular}
 \vspace{0.3em}
 \begin{minipage}{0.92\textwidth}
 \small
-\textit{Note.} Uniform $p$ = fraction of null replicates $\geq \rho_{\text{EFR}}$ under the uniform-noise null. Permutation $p$ = same under the permutation null. The permutation null is the stricter test: it preserves the marginal distribution of the actual LLM output and destroys only the state-level association. Qwen2.5-72B does not exceed the permutation null ($p = .174$), indicating that its rank information is largely a mechanical consequence of the 75\% $P_{\text{emp}}$ anchor; the LLM component provides negligible additional rank signal. DeepSeek V4 and MiroThinker exceed both nulls, indicating that their LLM components contribute genuine rank information beyond mechanical anchoring.
+\textit{Note.} Uniform $p$ = fraction of null replicates $\geq \rho_{\text{EFR}}$ under the uniform-noise null. Permutation $p$ = same under the permutation null. The permutation null is the stricter test: it preserves the marginal distribution of the actual LLM output and destroys only the state-level association. Qwen2.5-72B does not exceed the permutation null ($p = .179$), indicating that its rank information is largely a mechanical consequence of the 75\% $P_{\text{emp}}$ anchor; the LLM component provides negligible additional rank signal. DeepSeek V4 and MiroThinker exceed both nulls, indicating that their LLM components contribute genuine rank information beyond mechanical anchoring. All observed $\rho$ values match Table~1 of the main text to display precision.
 \end{minipage}
 \end{table}
 
-The reported frontier-alignment $\rho$ values in Table~1 of the main text and Table~\ref{tab:lambda_frontier} of this supplement should be read as structural diagnostics of how closely the EFR blend tracks the empirical frontier; the uniform null confirms that all three models exceed pure noise, while the permutation null distinguishes models whose LLM component contributes genuine rank information (DeepSeek V4, MiroThinker) from those where the rank signal is primarily mechanical (Qwen2.5-72B). The OOD frontier-alignment values ($\rho = 0.87$--$0.93$ for Qwen; $\rho = 0.87$--$0.88$ for DeepSeek V4) sit inside one SD of the tied Panel B null (mean $\rho = 0.89$, SD $= 0.06$) and should be read as descriptive structural robustness measures. The fairer predictive benchmark---held-out DCE log loss---is reported in Section~4.2 of the main text.
+The reported frontier-alignment $\rho$ values in Table~1 of the main text and Table~\ref{tab:lambda_frontier} of this supplement should be read as structural diagnostics of how closely the EFR blend tracks the empirical frontier; the uniform null confirms that all three models exceed pure noise, while the permutation null distinguishes models whose LLM component contributes genuine rank information (DeepSeek V4, MiroThinker; $p \leq .003$) from those where the rank signal is primarily mechanical (Qwen2.5-72B; $p = .179$). The OOD frontier-alignment values ($\rho = 0.87$--$0.93$ for Qwen; $\rho = 0.87$--$0.88$ for DeepSeek V4) sit inside one SD of the tied Panel B null (mean $\rho = 0.89$, SD $= 0.06$) and should be read as descriptive structural robustness measures. The fairer predictive benchmark---held-out DCE log loss---is reported in Section~4.2 of the main text.
 
 \section{ELEVATE-GenAI Reporting Details}
 \label{app:elevate_genai}

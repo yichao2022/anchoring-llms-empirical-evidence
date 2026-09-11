@@ -10,6 +10,7 @@
 \usepackage{multirow}
 \usepackage{array}
 \usepackage{graphicx}
+\usepackage{ragged2e}
 \usepackage{hyperref}
 \usepackage[numbers,super]{natbib} % AMA superscript
 \usepackage[margin=1in]{geometry}
@@ -28,7 +29,7 @@
 \maketitle
 
 
-\begin{abstract}
+\begin{abstract}\justifying
 \textbf{Objective:} To develop and validate empirical-frontier regularization (EFR), an inference-time procedure anchoring LLM outputs to a DCE-estimated reference surface without retraining.
 
 \textbf{Methods:} A Wuhan vaccination DCE ($N\!=\!1{,}027$) was combined with LLM simulation on a 64-state policy grid. EFR computes $\pi_{\text{EFR}} = \lambda\,\bar\pi_{\text{LLM}} + (1-\lambda)\,P_{\text{emp}}$ with $\lambda\!=\!0.25$ fixed as a conservative operating point.

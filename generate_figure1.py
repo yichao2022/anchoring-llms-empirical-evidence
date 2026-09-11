@@ -7,7 +7,7 @@ import numpy as np
 
 # Data
 methods = ['Pure-DCE', 'EFR', 'Raw LLM', 'Uniform']
-log_loss = [1.2178, 1.2074, 1.1949, 1.0986]
+log_loss = [0.911, 0.923, 1.020, 1.099]
 colors = ['#2E86AB', '#A23B72', '#F18F01', '#C73E1D']
 
 fig, ax = plt.subplots(figsize=(8, 6))

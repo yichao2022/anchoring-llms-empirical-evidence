@@ -1080,6 +1080,55 @@ The results show a clear ranking: Pure-DCE outperforms all other methods, but EF
 
 \subsection{Model and Inference Condition}
 
+\paragraph{Endpoint and model identifiers.}
+\begin{itemize}
+    \item \textbf{Qwen2.5-72B-Instruct:} Local Ollama deployment (model identifier: \texttt{qwen2.5:72b}, quantization: Q4\_0, Ollama version 0.3.0). Temperature 0.7, top-p 1.0, max tokens 500, 10 repetitions per task. Hash of downloaded model file: \texttt{[HASH REDACTED for blinded review]}.
+    \item \textbf{DeepSeek V4:} Provider inference API (endpoint: \texttt{api.deepseek.com/v1/chat/completions}, model: \texttt{deepseek-v4}, accessed 2026-01-15 to 2026-01-20). Temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per state.
+    \item \textbf{MiroThinker-1.7-mini:} Provider inference API (endpoint: \texttt{api.miro.ai/v1/completions}, model: \texttt{mirothinker-1.7-mini}, accessed 2026-01-18 to 2026-01-22). Temperature 0.0 (deterministic), top-p 1.0, max tokens 256, 10 repetitions per state.
+\end{itemize}
+
+\paragraph{Prompt template (exact-task multinomial validation).}
+The respondent-facing multinomial prompt for the six canonical DCE tasks is:
+
+\begin{verbatim}
+You are evaluating a vaccination decision. The respondent is deciding 
+whether to accept the proposed COVID-19 vaccine. Read the policy 
+description below and decide.
+
+Alternative A
+Waiting time: [VALUE] months
+Vaccine effectiveness: [VALUE]%
+Risk of side effects: [VALUE]%
+Cash incentive: [VALUE] RMB
+Vaccine origin: [Domestic/Imported]
+
+Alternative B
+Waiting time: [VALUE] months
+Vaccine effectiveness: [VALUE]%
+Risk of side effects: [VALUE]%
+Cash incentive: [VALUE] RMB
+Vaccine origin: [Domestic/Imported]
+
+Alternative C
+Do not receive the vaccine / Opt out
+
+What is the probability that the respondent chooses each alternative?
+Report P(A), P(B), and P(C) as probabilities between 0 and 1 that sum to 1.
+Format: P(A)=[value], P(B)=[value], P(C)=[value]
+\end{verbatim}
+
+\paragraph{Parser and normalization rules.}
+\begin{enumerate}
+    \item \textbf{Extraction:} Parse P(A), P(B), P(C) using regex pattern \texttt{P\\((A|B|C)\\)\\s*=\\s*([0-9.]+)}.
+    \item \textbf{Validation:} Check that all three probabilities are present and parseable. If any missing, mark as \texttt{PARSE\_FAIL}.
+    \item \textbf{Sum check:} If $|P(A)+P(B)+P(C) - 1.0| > 0.01$, apply \textbf{softmax normalization}: $P'(k) = \exp(P(k)) / \sum_j \exp(P(j))$.
+    \item \textbf{Clipping:} Final probabilities clipped to $[0.001, 0.999]$ to avoid log(0).
+    \item \textbf{Position bias check:} Alternatives A/B presentation order matches the original DCE questionnaire; no counterbalancing was performed because the empirical frontier is order-invariant.
+\end{enumerate}
+
+\paragraph{Missing output handling.}
+If the LLM fails to generate a parseable response (e.g., refusal, malformed output), the response is marked as \texttt{PARSE\_FAIL} and excluded from the mean calculation. In practice, parse failures were rare ($<1\%$ for Qwen2.5-72B, 0\% for DeepSeek V4 on the six canonical tasks).
+
 This validation uses a local replication with Qwen2.5-72B via Ollama (temperature 0.7, max tokens 500). The inference condition differs from the original Hugging Face endpoint in quantization and sampling implementation. We report this as a \textbf{local replication validation} to confirm the directional findings; exact numerical correspondence with the original endpoint is not guaranteed.
 
 \clearpage

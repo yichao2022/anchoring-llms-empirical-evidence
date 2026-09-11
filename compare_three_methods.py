@@ -133,7 +133,7 @@ def respondent_cluster_bootstrap(y_true: np.ndarray, probs: dict,
 def main():
     # File paths
     llm_path = Path("llm_parsed_outputs_multinomial_6tasks_canonical.csv")
-    heldout_path = Path("dce_encoded.csv")  # Need to filter for held-out
+    heldout_path = Path("analysis_output/dce_encoded.csv")  # Need to filter for held-out
     
     if not llm_path.exists():
         print(f"LLM results not found: {llm_path}")
@@ -149,12 +149,31 @@ def main():
     df = load_held_out_data(heldout_path)
     
     # Filter for held-out respondents (20% test set)
-    # Use same split as in heldout_dce_validation.py
+    # Use EXACT same split as heldout_dce_validation.py
     rids = sorted(df['RespondentID'].unique())
-    n_test = int(0.20 * len(rids))
-    test_ids = rids[-n_test:]  # Last 20%
+    
+    # Canonical split from heldout_dce_validation.py
+    # seed=2026, TRAIN_FRAC=0.80, n_train=822, n_test=205
+    import random
+    rng = random.Random(2026)
+    shuffled = rids[:]
+    rng.shuffle(shuffled)
+    n_train = int(round(0.80 * len(shuffled)))
+    train_ids = set(shuffled[:n_train])
+    test_ids = set(shuffled[n_train:])
+    
+    # Verify against canonical split file if exists
+    canonical_split_path = Path("canonical_split_seed2026.json")
+    if canonical_split_path.exists():
+        with open(canonical_split_path) as f:
+            canonical = json.load(f)
+        canonical_test_ids = set(canonical['test_ids'])
+        assert test_ids == canonical_test_ids, f"Split mismatch!"
+        print(f"✓ Verified against canonical split")
+    
     heldout = df[df['RespondentID'].isin(test_ids)].copy()
     
+    print(f"Train respondents: {len(train_ids)}")
     print(f"Held-out respondents: {len(test_ids)}")
     print(f"Held-out rows: {len(heldout)}")
     

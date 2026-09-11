@@ -1,0 +1,8 @@
+{
+  "seed": 2026,
+  "train_frac": 0.8,
+  "n_total": 1027,
+  "n_train": 821,
+  "n_test": 206,
+  "train_ids": [
+    

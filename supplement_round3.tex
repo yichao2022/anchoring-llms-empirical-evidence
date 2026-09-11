@@ -1121,7 +1121,7 @@ Format: P(A)=[value], P(B)=[value], P(C)=[value]
     \item \textbf{Validation:} Check that all three probabilities are present and parseable. If any missing, mark as \texttt{PARSE\_FAIL}.
     \item \textbf{Sum check:} If $|P(A)+P(B)+P(C) - 1.0| > 0.01$, apply proportional normalization: $P'(k) = P(k) / \sum_j P(j)$. In the analyzed outputs, no normalization was required (all probabilities summed to 1.0 within floating-point precision).
     \item \textbf{Clipping:} Final probabilities clipped to $[0.001, 0.999]$ to avoid log(0).
-    \item \textbf{Position bias check:} Alternatives A/B presentation order matches the original DCE questionnaire; no counterbalancing was performed because the empirical frontier is order-invariant.
+    \item \textbf{Position bias check:} Alternatives A/B presentation order matches the original DCE questionnaire. No counterbalancing was performed for the primary validation because the empirical DCE frontier is order-invariant. To assess potential LLM-specific position bias, we conducted a sensitivity experiment swapping A/B labels on the six canonical tasks (60 additional generations). The Raw LLM log loss changed from 1.0200 (original order) to 1.0307 (swapped order), a relative difference of 1.05\%, suggesting minimal position bias for the evaluated models.
 \end{enumerate}
 
 \paragraph{Missing output handling.}

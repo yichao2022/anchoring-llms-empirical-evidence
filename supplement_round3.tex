@@ -1030,8 +1030,15 @@ The LLM validation uses respondent-facing multinomial prompts that elicit explic
 \begin{itemize}
 \item \textbf{Pure-DCE:} Refit 6-parameter conditional logit on the 80\% training split, multinomial softmax over $\{A, B, C\}$.
 \item \textbf{Raw LLM:} Direct LLM $P(A)$, $P(B)$, $P(C)$ averaged over 10 repetitions per task.
-\item \textbf{EFR ($\lambda = 0.25$):} Convex blend $\pi_{\text{EFR}} = 0.25 \cdot \pi_{\text{LLM}} + 0.75 \cdot P_{\text{emp,train}}$, where $P_{\text{emp,train}}$ is the training-only empirical frontier.
+\item \textbf{EFR ($\lambda = 0.25$):} Convex blend in the three-alternative probability simplex. For each task $t$, the DCE training-split model yields $\mathbf{p}^{\mathrm{DCE}}_t = \mathrm{softmax}(V_{At}, V_{Bt}, V_{Ct})$ where $V_{Ct} = \hat\beta_{\mathrm{ASC}}$ (the opt-out alternative-specific constant), and the LLM yields $\mathbf{p}^{\mathrm{LLM}}_t = [P(A), P(B), P(C)]$. The EFR vector is:
+\[
+\boxed{\;\mathbf{p}^{\mathrm{EFR}}_t = \lambda\,\mathbf{p}^{\mathrm{LLM}}_t + (1-\lambda)\,\mathbf{p}^{\mathrm{DCE}}_t\;}
+\]
+with $\lambda = 0.25$. Because both $\mathbf{p}^{\mathrm{LLM}}_t$ and $\mathbf{p}^{\mathrm{DCE}}_t$ lie on the probability simplex ($\sum_j p_j = 1$, $p_j \geq 0$), the convex combination $\mathbf{p}^{\mathrm{EFR}}_t$ also lies on the simplex and $\sum_j p^{\mathrm{EFR}}_{t,j} = 1$ by construction.
 \end{itemize}
+
+\paragraph{Extension from binary formulation.}\label{par:binary-to-multinomial}
+The main-text EFR equation $\pi_{\mathrm{EFR}}(y=1\mid\mathbf{x}) = \lambda\,\pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}) + (1-\lambda)\,P_{\mathrm{emp}}(y=1\mid\mathbf{x})$ is a binary policy-versus-opt-out formulation where $P_{\mathrm{emp}}$ is the sigmoid of the utility gap. For the exact-task categorical validation, EFR is extended from this binary formulation to the full three-alternative probability simplex by convexly combining the LLM and training-split DCE probability vectors as defined above. The binary and vector formulations are equivalent under IIA when the choice set contains only one non-opt-out alternative and the opt-out; with two non-opt-out alternatives (A, B) plus opt-out (C), the softmax vector is the natural generalization.
 
 \paragraph{Held-out leakage prevention.} All DCE components used in the held-out comparison, including the empirical component of EFR ($P_{\text{emp,train}}$), were estimated exclusively from the 822 training respondents. The 205 held-out respondents were not used in any coefficient estimation for the validation metrics reported in Table~S15.
 

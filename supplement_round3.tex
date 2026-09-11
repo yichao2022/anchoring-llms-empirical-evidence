@@ -40,7 +40,7 @@ This deterministic utility-based approximation preserves the ordinal structure a
 
 Given the empirical behavioral reference from Stage~1, the second stage adjusts LLM-generated choice probabilities after generation. Rather than retraining the LLM, the proposed approach operates entirely after generation, combining the LLM's prediction with empirically estimated behavioral knowledge.
 
-For each policy scenario $\mathbf{x}_g$, the LLM is prompted to evaluate the vaccination decision from the perspective of a decision-maker and report an acceptance probability. Let $\pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}_g)$ denote the LLM-generated probability. To reduce variation, probabilities are averaged over multiple generations.
+For each policy scenario $\mathbf{x}_g$, the LLM is prompted to evaluate the vaccination decision from the perspective of a decision-maker and report a choice probability. Let $\pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}_g)$ denote the LLM-generated probability. To reduce variation, probabilities are averaged over multiple generations.
 
 The adjusted probability is then defined as
 
@@ -49,7 +49,7 @@ The adjusted probability is then defined as
 \label{eq:adjustment}
 \end{equation}
 
-where $\lambda \in [0,1]$ controls the relative weight given to the LLM versus the empirical reference. We set $\lambda = 0.25$ as a fixed conservative design specification preserving a non-zero LLM contribution while keeping the empirical DCE dominant. The held-out DCE log loss and Brier score are reported as sensitivity diagnostics and were not used to select $\lambda$; the value is not a test-set-optimized predictive optimum.
+where $\lambda \in [0,1]$ controls the relative weight given to the LLM versus the empirical reference, and $P_{\mathrm{emp}}(y=1\mid\mathbf{x}_g) = \sigma(U(\mathbf{x}_g) - \beta_{\mathrm{ASC}})$ is the DCE-implied binary policy-versus-opt-out probability under the conditional logit model (i.e., the probability of choosing the policy alternative over the opt-out, given the policy attributes $\mathbf{x}_g$). This quantity is a model-implied empirical reference score that depends on the IIA assumption for choice-set extrapolation from the original three-alternative DCE design; it is not a directly observed absolute acceptance probability from the original experiment. The held-out DCE log loss and Brier score are reported as sensitivity diagnostics and were not used to select $\lambda$; the value is not a test-set-optimized predictive optimum.
 
 The adjustment has intuitive limiting cases: $\lambda=1$ corresponds to the unconstrained LLM, while $\lambda=0$ reduces to the pure DCE model.
 
@@ -340,7 +340,7 @@ The pilot monotonicity violation rate (MVR) was computed on the waiting-time dim
 \text{WaitTime}^{(a)} < \text{WaitTime}^{(b)},
 \]
 
-a violation was recorded if the model assigned a lower acceptance probability to the shorter-wait alternative than to the longer-wait alternative:
+a violation was recorded if the model assigned a lower choice probability to the shorter-wait alternative than to the longer-wait alternative:
 
 \[
 \bar{\pi}(y=1 \mid x^{(a)})
@@ -386,7 +386,7 @@ This appendix documents the Static-BDT anchoring rule and reports sensitivity an
 
 \subsection{Static-BDT Anchor Implementation}
 
-For each state \(x_g\) in the 64-state policy grid, the base LLM first generates an unconstrained acceptance probability. Each state is queried repeatedly, and the mean probability across repetitions is used as the unconstrained model output:
+For each state \(x_g\) in the 64-state policy grid, the base LLM first generates an unconstrained choice probability. Each state is queried repeatedly, and the mean probability across repetitions is used as the unconstrained model output:
 
 \[
 \bar{\pi}_{\mathrm{LLM}}(y=1 \mid x_g)

@@ -104,12 +104,12 @@ Two physician interviews and two rounds of twelve cognitive interviews (ISPOR go
 
 \paragraph{Construction of the Empirical Behavioral Reference.}
 
-The empirical behavioral reference was constructed from a 6-parameter grouped/conditional logit with five attribute coefficients and an opt-out alternative-specific constant, estimated on the Wuhan DCE. The frontier maps each candidate policy to a probability of acceptance, providing a deterministic signal that anchors the LLM's narrative choices.
+The empirical behavioral reference was constructed from a 6-parameter grouped/conditional logit with five attribute coefficients and an opt-out alternative-specific constant, estimated on the Wuhan DCE. The frontier maps each candidate policy to a DCE-implied binary policy-versus-opt-out probability (i.e., the probability of choosing the policy alternative over the opt-out under the conditional logit model), providing a deterministic signal that anchors the LLM's narrative choices.
 
 \subsection{Stage 2: Inference-Time Adjustment Procedure} The adjustment algorithm aligns LLM outputs with the empirical reference by computing $\pi_{\mathrm{adj}}(y=1\mid\mathbf{x}_g) = \lambda \cdot \pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}_g) + (1-\lambda) \cdot P_{\mathrm{emp}}(y=1\mid\mathbf{x}_g)$ (the EFR equation $\pi_{\mathrm{adj}} = \lambda \pi_{\mathrm{LLM}} + (1-\lambda) P_{\mathrm{emp}}$; full derivation in Appendix~A.1 of the Supplementary Material).
 \label{sec:stage3}
 
-The final stage applies the adjusted probability to policy evaluation, comparing policy scenarios and estimating changes in expected acceptance.
+The final stage applies the adjusted probability to policy evaluation, comparing policy scenarios and estimating changes in expected choice probability.
 
 For a baseline scenario $\mathbf{x}$ and an intervention that changes attribute $x_k$ to $x_k'$, the policy response is:
 

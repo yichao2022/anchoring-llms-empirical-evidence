@@ -109,7 +109,7 @@ Reasoning: one sentence.
 Failed parses were excluded from the current state mean. Failed state--replicate combinations could be regenerated during checkpoint/resume runs; no probability-value imputation was performed. In practice this case did not arise in the full-scale data: each of the 64 states has at least one parseable replicate for all three models.
 
 \paragraph{Robustness, reproducibility, and deployment context.}
-The empirical frontier coefficients are reported in Table~S4 and are computed once on the full Wuhan DCE sample ($N = 1{,}027$; $N_{\text{choice}} = 6{,}162$); they are not re-estimated inside the LLM simulation loop. Calibration of the Static-BDT anchor at $\lambda=0.25$ is reported in Tables~S4 and S5. The validation hierarchy is: \textbf{(i) primary predictive validation:} exact-task 3-alternative multinomial log loss on six canonical DCE tasks ($N = 206$ respondents, 1,236 choices); \textbf{(ii) secondary sensitivity:} 813-row alternative-level binary log loss/Brier/AUC (Supplementary Material Table~S6); \textbf{(iii) structural diagnostics:} frontier-alignment Spearman $\rho$ and waiting-time MVR. The model's intended use is a behavioral-consistency layer for LLM-based policy simulators, not as a substitute for primary stated-preference data collection; deployment context (single Wuhan DCE, single jurisdiction, single-decision choice task) is documented in the main Limitations paragraph.
+The empirical frontier coefficients are reported in Table~S4 and are computed once on the full Wuhan DCE sample ($N = 1{,}027$; $N_{\text{choice}} = 6{,}162$); they are not re-estimated inside the LLM simulation loop. Calibration of the Static-BDT anchor at $\lambda=0.25$ is reported in Tables~S4 and S5. The validation hierarchy is: \textbf{(i) primary predictive validation:} exact-task 3-alternative multinomial log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices); \textbf{(ii) secondary sensitivity:} 813-row alternative-level binary log loss/Brier/AUC (Supplementary Material Table~S6); \textbf{(iii) structural diagnostics:} frontier-alignment Spearman $\rho$ and waiting-time MVR. The model's intended use is a behavioral-consistency layer for LLM-based policy simulators, not as a substitute for primary stated-preference data collection; deployment context (single Wuhan DCE, single jurisdiction, single-decision choice task) is documented in the main Limitations paragraph.
 
 \paragraph{Accuracy, regularization, and external validation.}
 Accuracy is reported in three complementary ways: (i)~within-design \emph{alternative-level} log loss and Brier on the LLM-matched held-out subset ($N=813$ alternative-level binary-outcome rows from $N=205$ held-out respondents; each row is one of three alternatives within one of six tasks, with $y \in \{0,1\}$ indicating whether the respondent selected that alternative). The full held-out pool contains $N=3{,}690$ alt-rows (1{,}027 respondents $\times$ 6 tasks $\times$ 3 alternatives); after excluding one anomalous wait=2 alt-row from a single respondent, 3{,}689 rows remain under the intended design; of these, 813 are matched and 2{,}876 are unmatched. The 813-row matched subset is the literal overlap between the intended DCE design and the LLM grid on the three focal attributes (waiting time, efficacy, and side-effect burden), populating 11 of 12 candidate cells; (ii)~Spearman rank correlation with the empirical frontier on the 64-state grid and on the 8-pair OOD-narrative surface; and (iii)~a structural diagnostic of the 75\% $P_{\text{emp}}$ blend: the share of 15 unordered policy pairs with matching rank order to Pure-DCE (no confidence interval, no significance test, because the 15 pairs share six underlying policy effects). Probabilistic predictive performance is reported in the convex-blend $\lambda$ sensitivity in Table~S5; the Static-BDT anchor trades a 0.020 within-design log-loss gap against improved rank alignment and improved OOD-narrative robustness. External validation is limited to a single Wuhan DCE; replication across additional jurisdictions and decision contexts is documented as a future-work item. The full code and supporting files, including prompt templates, parsed outputs, raw LLM traces, and analysis scripts, are publicly available at \url{https://github.com/REDACTED/behavioral-digital-twins}.
@@ -871,11 +871,11 @@ Table~\ref{tab:bootstrap_heldout} reports respondent-level paired cluster bootst
 \item $\Delta LL_{\text{EFR-Raw}} = 0.9233 - 1.0200 = -0.0967$ (EFR improves over Raw LLM)
 \item $\Delta LL_{\text{EFR-Pure}} = 0.9233 - 0.9112 = +0.0121$ (EFR within 1.3\% of Pure-DCE)
 \end{itemize}
-The bootstrap resamples 206 respondents with replacement (2,000 replications), maintaining the within-respondent cluster structure (6 choices per respondent). The 95\% confidence intervals quantify the uncertainty in these paired differences.
+The bootstrap resamples 205 respondents with replacement (2,000 replications), maintaining the within-respondent cluster structure (6 choices per respondent). The 95\% confidence intervals quantify the uncertainty in these paired differences.
 
 \begin{table}[h]
 \centering
-\caption{Respondent-level paired cluster bootstrap for exact-task multinomial log loss ($N = 206$ respondents, 1,236 choices; 2,000 replications).}
+\caption{Respondent-level paired cluster bootstrap for exact-task multinomial log loss ($N = 205$ respondents, 1,230 choices; 2,000 replications).}
 \label{tab:bootstrap_heldout}
 \small
 \setlength{\tabcolsep}{8pt}
@@ -883,8 +883,8 @@ The bootstrap resamples 206 respondents with replacement (2,000 replications), m
 \toprule
 \textbf{Comparison} & \textbf{Point Estimate} & \textbf{95\% CI} \\
 \midrule
-EFR vs. Raw LLM ($\Delta LL_{\text{EFR-Raw}}$) & $-0.0967$ & [TBD] \\
-EFR vs. Pure-DCE ($\Delta LL_{\text{EFR-Pure}}$) & $+0.0121$ & [TBD] \\
+EFR vs. Raw LLM ($\Delta LL_{\text{EFR-Raw}}$) & $-0.0967$ & $[-0.1468, -0.0469]$ \\
+EFR vs. Pure-DCE ($\\Delta LL_{\\text{EFR-Pure}}$) & $+0.0121$ & $[-0.0234, +0.0472]$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1094,7 +1094,7 @@ The LLM validation uses respondent-facing multinomial prompts that elicit explic
 
 \begin{table}[h]
 \centering
-\caption{Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 206$ respondents, 1,236 choices). Lower is better. The conditional logit is refit on the 80\% training split. LLM predictions generated via local Ollama Qwen2.5-72B (temperature 0.7, 10 repetitions per task).}
+\caption{Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices). Lower is better. The conditional logit is refit on the 80\% training split. LLM predictions generated via local Ollama Qwen2.5-72B (temperature 0.7, 10 repetitions per task).}
 \label{tab:multinom_6canonical}
 \footnotesize
 \setlength{\tabcolsep}{5pt}

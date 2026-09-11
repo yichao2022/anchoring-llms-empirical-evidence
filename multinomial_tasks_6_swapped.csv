@@ -1,0 +1,181 @@
+task_num,task_id,prompt,A_wait,A_eff,A_se,A_cash,A_origin,B_wait,B_eff,B_se,B_cash,B_origin
+1,1_swapped,"You are evaluating COVID-19 vaccination choices.
+
+Please consider the following three alternatives and indicate which you would choose:
+
+Alternative A:
+- Waiting time: 6 months
+- Vaccine effectiveness: 70%
+- Risk of side effects: 10%
+- Cash incentive: 50 RMB
+- Vaccine origin: Imported
+
+Alternative B:
+- Waiting time: 2 months
+- Vaccine effectiveness: 50%
+- Risk of side effects: 1%
+- Cash incentive: 800 RMB
+- Vaccine origin: Domestic
+
+Alternative C:
+- Do not receive the vaccine (opt out)
+
+Question: Which alternative would you choose? Please respond with ONLY ""A"", ""B"", or ""C"".
+
+Additionally, please provide the probability (between 0 and 1) that you would choose each alternative. The probabilities should sum to 1.
+
+Format your response as:
+Choice: [A/B/C]
+P(B): [probability]
+P(A): [probability]
+P(C): [probability]",6.0,0.7,3.0,50.0,1,2.0,0.5,2.0,800.0,0
+2,2_swapped,"You are evaluating COVID-19 vaccination choices.
+
+Please consider the following three alternatives and indicate which you would choose:
+
+Alternative A:
+- Waiting time: walk-in (no wait)
+- Vaccine effectiveness: 50%
+- Risk of side effects: 1%
+- Cash incentive: 50 RMB
+- Vaccine origin: Domestic
+
+Alternative B:
+- Waiting time: 3 months
+- Vaccine effectiveness: 70%
+- Risk of side effects: 0.1%
+- Cash incentive: 200 RMB
+- Vaccine origin: Domestic
+
+Alternative C:
+- Do not receive the vaccine (opt out)
+
+Question: Which alternative would you choose? Please respond with ONLY ""A"", ""B"", or ""C"".
+
+Additionally, please provide the probability (between 0 and 1) that you would choose each alternative. The probabilities should sum to 1.
+
+Format your response as:
+Choice: [A/B/C]
+P(B): [probability]
+P(A): [probability]
+P(C): [probability]",0.0,0.5,2.0,50.0,0,3.0,0.7,1.0,200.0,0
+3,3_swapped,"You are evaluating COVID-19 vaccination choices.
+
+Please consider the following three alternatives and indicate which you would choose:
+
+Alternative A:
+- Waiting time: 1 months
+- Vaccine effectiveness: 95%
+- Risk of side effects: 0.1%
+- Cash incentive: 800 RMB
+- Vaccine origin: Imported
+
+Alternative B:
+- Waiting time: 3 months
+- Vaccine effectiveness: 70%
+- Risk of side effects: 10%
+- Cash incentive: 200 RMB
+- Vaccine origin: Imported
+
+Alternative C:
+- Do not receive the vaccine (opt out)
+
+Question: Which alternative would you choose? Please respond with ONLY ""A"", ""B"", or ""C"".
+
+Additionally, please provide the probability (between 0 and 1) that you would choose each alternative. The probabilities should sum to 1.
+
+Format your response as:
+Choice: [A/B/C]
+P(B): [probability]
+P(A): [probability]
+P(C): [probability]",1.0,0.95,1.0,800.0,1,3.0,0.7,3.0,200.0,1
+4,4_swapped,"You are evaluating COVID-19 vaccination choices.
+
+Please consider the following three alternatives and indicate which you would choose:
+
+Alternative A:
+- Waiting time: 3 months
+- Vaccine effectiveness: 70%
+- Risk of side effects: 10%
+- Cash incentive: 200 RMB
+- Vaccine origin: Domestic
+
+Alternative B:
+- Waiting time: walk-in (no wait)
+- Vaccine effectiveness: 95%
+- Risk of side effects: 10%
+- Cash incentive: 800 RMB
+- Vaccine origin: Imported
+
+Alternative C:
+- Do not receive the vaccine (opt out)
+
+Question: Which alternative would you choose? Please respond with ONLY ""A"", ""B"", or ""C"".
+
+Additionally, please provide the probability (between 0 and 1) that you would choose each alternative. The probabilities should sum to 1.
+
+Format your response as:
+Choice: [A/B/C]
+P(B): [probability]
+P(A): [probability]
+P(C): [probability]",3.0,0.7,3.0,200.0,0,0.0,0.95,3.0,800.0,1
+5,5_swapped,"You are evaluating COVID-19 vaccination choices.
+
+Please consider the following three alternatives and indicate which you would choose:
+
+Alternative A:
+- Waiting time: 6 months
+- Vaccine effectiveness: 95%
+- Risk of side effects: 0.1%
+- Cash incentive: 200 RMB
+- Vaccine origin: Domestic
+
+Alternative B:
+- Waiting time: 1 months
+- Vaccine effectiveness: 50%
+- Risk of side effects: 0.1%
+- Cash incentive: 50 RMB
+- Vaccine origin: Domestic
+
+Alternative C:
+- Do not receive the vaccine (opt out)
+
+Question: Which alternative would you choose? Please respond with ONLY ""A"", ""B"", or ""C"".
+
+Additionally, please provide the probability (between 0 and 1) that you would choose each alternative. The probabilities should sum to 1.
+
+Format your response as:
+Choice: [A/B/C]
+P(B): [probability]
+P(A): [probability]
+P(C): [probability]",6.0,0.95,1.0,200.0,0,1.0,0.5,1.0,50.0,0
+6,6_swapped,"You are evaluating COVID-19 vaccination choices.
+
+Please consider the following three alternatives and indicate which you would choose:
+
+Alternative A:
+- Waiting time: 1 months
+- Vaccine effectiveness: 50%
+- Risk of side effects: 1%
+- Cash incentive: 50 RMB
+- Vaccine origin: Imported
+
+Alternative B:
+- Waiting time: 6 months
+- Vaccine effectiveness: 95%
+- Risk of side effects: 1%
+- Cash incentive: 800 RMB
+- Vaccine origin: Imported
+
+Alternative C:
+- Do not receive the vaccine (opt out)
+
+Question: Which alternative would you choose? Please respond with ONLY ""A"", ""B"", or ""C"".
+
+Additionally, please provide the probability (between 0 and 1) that you would choose each alternative. The probabilities should sum to 1.
+
+Format your response as:
+Choice: [A/B/C]
+P(B): [probability]
+P(A): [probability]
+P(C): [probability]",1.0,0.5,2.0,50.0,1,6.0,0.95,2.0,800.0,1

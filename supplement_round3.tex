@@ -1076,12 +1076,7 @@ The results show a clear ranking: Pure-DCE outperforms all other methods, but EF
 
 \subsection{Model and Inference Condition}
 
-\paragraph{Endpoint and model identifiers.}
-\begin{itemize}
-    \item \textbf{Qwen2.5-72B-Instruct:} Local Ollama deployment (model identifier: \texttt{qwen2.5:72b}, quantization: Q4\_0, Ollama version 0.3.0). Temperature 0.7, top-p 1.0, max tokens 500, 10 repetitions per task. Hash of downloaded model file: \texttt{[HASH REDACTED for blinded review]}.
-    \item \textbf{DeepSeek V4:} Provider inference API (endpoint: \texttt{api.deepseek.com/v1/chat/completions}, model: \texttt{deepseek-v4}, accessed 2026-01-15 to 2026-01-20). Temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per state.
-    \item \textbf{MiroThinker-1.7-mini:} Provider inference API (endpoint: \texttt{api.miro.ai/v1/completions}, model: \texttt{mirothinker-1.7-mini}, accessed 2026-01-18 to 2026-01-22). Temperature 0.0 (deterministic), top-p 1.0, max tokens 256, 10 repetitions per state.
-\end{itemize}
+\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original Hugging Face endpoint (Table S1) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 and MiroThinker-1.7-mini are reported in Table S1.
 
 \paragraph{Prompt template (exact-task multinomial validation).}
 The respondent-facing multinomial prompt for the six canonical DCE tasks is:
@@ -1123,9 +1118,7 @@ Format: P(A)=[value], P(B)=[value], P(C)=[value]
 \end{enumerate}
 
 \paragraph{Missing output handling.}
-If the LLM fails to generate a parseable response (e.g., refusal, malformed output), the response is marked as \texttt{PARSE\_FAIL} and excluded from the mean calculation. In practice, parse failures were rare ($<1\%$ for Qwen2.5-72B, 0\% for DeepSeek V4 on the six canonical tasks).
-
-This validation uses a local replication with Qwen2.5-72B via Ollama (temperature 0.7, max tokens 500). The inference condition differs from the original Hugging Face endpoint in quantization and sampling implementation. We report this as a \textbf{local replication validation} to confirm the directional findings; exact numerical correspondence with the original endpoint is not guaranteed.
+If the LLM fails to generate a parseable response (e.g., refusal, malformed output), the response is marked as \texttt{PARSE\_FAIL} and excluded from the mean calculation. In practice, parse failures were rare ($<1\%$ for Qwen2.5-72B).
 
 \clearpage
 % Ensure all pending table floats are flushed before References.

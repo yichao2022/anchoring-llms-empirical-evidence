@@ -61,18 +61,18 @@ Because the adjustment operates after generation, it requires no modification of
 \section{Pure-Noise LLM Null Distribution}
 \label{sec:null_distribution}
 
-To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{emp}})$ reported in Table~1 of the main text and Table~\ref{tab:lambda_frontier} of this supplement, we generated two Monte Carlo null distributions on the 64-state grid (10{,}000 replicates each).
+To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{emp}})$ reported in Table~1 of the main text and Table~\ref{tab:S6} of this supplement, we generated two Monte Carlo null distributions on the 64-state grid (10{,}000 replicates each).
 
 \paragraph{Uniform-noise null.} The LLM component is replaced with a uniform random draw $U[0, 1]$ on each state, then $\rho(0.25 \cdot U + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``If the LLM component were pure uniform noise, how much rank correlation would the 75\% anchor alone produce?'' The resulting null has mean $\rho = 0.366$ (SD $= 0.106$; 95\% CI $[0.146,\,0.561]$).
 
 \paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for DeepSeek V4 and MiroThinker-1.7-mini are from the same API deployments used in Table~1, while the Qwen2.5-72B prediction is from a local Ollama replication (quantized Q4\_K\_M; differs from the Hugging Face inference endpoint used in Table~1 but reproduces the same canonical $\rho = 0.689$ under the 6-param frontier).
 
-\paragraph{Results.} Table~\ref{tab:S16} compares the observed EFR $\rho$ against both nulls.
+\paragraph{Results.} Table~\ref{tab:S1} compares the observed EFR $\rho$ against both nulls.
 
 \begin{table}[h]
 \centering
 \caption{Observed EFR Spearman $\rho$ versus uniform-noise and permutation nulls on the 64-state grid ($\lambda = 0.25$; 10{,}000 null replicates).}
-\label{tab:S16}
+\label{tab:S1}
 \small
 \begin{tabular}{lcccc}
 \toprule
@@ -90,7 +90,7 @@ MiroThinker-1.7-mini & 0.756 & $<.001$ & $<.001$ & $[0.17, 0.58]$ \\
 \end{minipage}
 \end{table}
 
-The reported frontier-alignment $\rho$ values in Table~1 of the main text and Table~\ref{tab:lambda_frontier} of this supplement should be read as structural diagnostics of how closely the EFR blend tracks the empirical frontier; the uniform null confirms that all three models exceed pure noise, while the permutation null distinguishes models whose LLM component shows detectable DCE-aligned rank information beyond mechanical anchoring (DeepSeek V4, MiroThinker; $p \leq .003$) from those that do not (Qwen2.5-72B; $p = .179$). The OOD frontier-alignment values ($\rho = 0.87$--$0.93$ for Qwen; $\rho = 0.87$--$0.88$ for DeepSeek V4) sit inside one SD of the tied Panel B null (mean $\rho = 0.89$, SD $= 0.06$) and should be read as descriptive structural robustness measures. The fairer predictive benchmark---held-out DCE log loss---is reported in Section~4.2 of the main text.
+The reported frontier-alignment $\rho$ values in Table~1 of the main text and Table~\ref{tab:S6} of this supplement should be read as structural diagnostics of how closely the EFR blend tracks the empirical frontier; the uniform null confirms that all three models exceed pure noise, while the permutation null distinguishes models whose LLM component shows detectable DCE-aligned rank information beyond mechanical anchoring (DeepSeek V4, MiroThinker; $p \leq .003$) from those that do not (Qwen2.5-72B; $p = .179$). The OOD frontier-alignment values ($\rho = 0.87$--$0.93$ for Qwen; $\rho = 0.87$--$0.88$ for DeepSeek V4) sit inside one SD of the tied Panel B null (mean $\rho = 0.89$, SD $= 0.06$) and should be read as descriptive structural robustness measures. The fairer predictive benchmark---held-out DCE log loss---is reported in Section~4.2 of the main text.
 
 \section{ELEVATE-GenAI Reporting Details}
 \label{app:elevate_genai}
@@ -101,7 +101,7 @@ This appendix documents compliance with the ViH/ISPOR ELEVATE-GenAI reporting fr
 \begin{table}[h]
 \centering
 \caption{LLM decoding and endpoint parameters used in the main, supplementary, and stress-test evaluations.}
-\label{tab:llm_decoding}
+\label{tab:S2}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
@@ -110,8 +110,8 @@ This appendix documents compliance with the ViH/ISPOR ELEVATE-GenAI reporting fr
 \textbf{Model} & \textbf{Endpoint / Provider} & \textbf{Access date} & \textbf{Temp.} & \textbf{top-$p$} & \textbf{\shortstack{Max\\tokens}} & \textbf{$R$} & \textbf{Notes} \\
 \midrule
 Qwen2.5-72B-Instruct       & Hugging Face Inference API            & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale primary; Main Table 1; Tables S5--S6 \\
-DeepSeek V4                & Provider inference API                & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale robustness; Main Table 1; Table S5 \\
-MiroThinker-1.7-mini       & Provider inference API                & 2026-05-19            & 0.0    & 1.0 & 256    & 10 & Full-scale robustness (deterministic); Main Table 1; Table S5 \\
+DeepSeek V4                & Provider inference API                & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale robustness; Main Table 1; Table S6 \\
+MiroThinker-1.7-mini       & Provider inference API                & 2026-05-19            & 0.0    & 1.0 & 256    & 10 & Full-scale robustness (deterministic); Main Table 1; Table S6 \\
 \midrule
 Qwen2.5-1.5B               & Ollama (local; Mac mini, 8\,GB)       & 2026-04              & 0.7    & 1.0 & 256    & 5  & NDS pilot only (the main text); n=2 prompts \\
 \midrule
@@ -138,26 +138,26 @@ Reasoning: one sentence.
 Failed parses were excluded from the current state mean. Failed state--replicate combinations could be regenerated during checkpoint/resume runs; no probability-value imputation was performed. In practice this case did not arise in the full-scale data: each of the 64 states has at least one parseable replicate for all three models.
 
 \paragraph{Robustness, reproducibility, and deployment context.}
-The empirical frontier coefficients reported in Table~S4 are computed once on the full Wuhan DCE sample ($N = 1{,}027$; $N_{\text{choice}} = 6{,}162$) for the main 64-state grid evaluation; they are not re-estimated inside the LLM simulation loop. \textbf{For the held-out validation (Table~S15), all DCE components---including the empirical frontier used in EFR ($P_{\text{emp,train}}$)---are estimated exclusively from the 822 training respondents.} Calibration of the EFR anchor at $\lambda=0.25$ is reported in Tables~S4 and S5. The validation hierarchy is: \textbf{(i) primary predictive validation:} exact-task 3-alternative multinomial log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices); \textbf{(ii) secondary sensitivity:} 813-row alternative-level binary log loss/Brier/AUC (Supplementary Material Table~S6); \textbf{(iii) structural diagnostics:} frontier-alignment Spearman $\rho$ and waiting-time MVR. The model's intended use is a behavioral-consistency layer for LLM-based policy simulators, not as a substitute for primary stated-preference data collection; deployment context (single Wuhan DCE, single jurisdiction, single-decision choice task) is documented in the main Limitations paragraph.
+The empirical frontier coefficients reported in Table~S5 are computed once on the full Wuhan DCE sample ($N = 1{,}027$; $N_{\text{choice}} = 6{,}162$) for the main 64-state grid evaluation; they are not re-estimated inside the LLM simulation loop. \textbf{For the held-out validation (Table~S16), all DCE components---including the empirical frontier used in EFR ($P_{\text{emp,train}}$)---are estimated exclusively from the 822 training respondents.} Calibration of the EFR anchor at $\lambda=0.25$ is reported in Tables~S4 and S5. The validation hierarchy is: \textbf{(i) primary predictive validation:} exact-task 3-alternative multinomial log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices); \textbf{(ii) secondary sensitivity:} 813-row alternative-level binary log loss/Brier/AUC (Supplementary Material Table~S7); \textbf{(iii) structural diagnostics:} frontier-alignment Spearman $\rho$ and waiting-time MVR. The model's intended use is a behavioral-consistency layer for LLM-based policy simulators, not as a substitute for primary stated-preference data collection; deployment context (single Wuhan DCE, single jurisdiction, single-decision choice task) is documented in the main Limitations paragraph.
 
 \paragraph{Accuracy, regularization, and external validation.}
-Accuracy is reported in three complementary ways: (i)~within-design \emph{alternative-level} log loss and Brier on the LLM-matched held-out subset ($N=813$ alternative-level binary-outcome rows from $N=205$ held-out respondents; each row is one of three alternatives within one of six tasks, with $y \in \{0,1\}$ indicating whether the respondent selected that alternative). The full held-out pool contains $N=3{,}690$ alt-rows (1{,}027 respondents $\times$ 6 tasks $\times$ 3 alternatives); after excluding one anomalous wait=2 alt-row from a single respondent, 3{,}689 rows remain under the intended design; of these, 813 are matched and 2{,}876 are unmatched. The 813-row matched subset is the literal overlap between the intended DCE design and the LLM grid on the three focal attributes (waiting time, efficacy, and side-effect burden), populating 11 of 12 candidate cells; (ii)~Spearman rank correlation with the empirical frontier on the 64-state grid and on the 8-pair OOD-narrative surface; and (iii)~a structural diagnostic of the 75\% $P_{\text{emp}}$ blend: the share of 15 unordered policy pairs with matching rank order to Pure-DCE (no confidence interval, no significance test, because the 15 pairs share six underlying policy effects). Probabilistic predictive performance is reported in the convex-blend $\lambda$ sensitivity in Table~S5; the EFR anchor trades a 0.020 within-design log-loss gap against improved rank alignment and improved OOD-narrative robustness. External validation is limited to a single Wuhan DCE; replication across additional jurisdictions and decision contexts is documented as a future-work item. The full code and supporting files, including prompt templates, parsed outputs, raw LLM traces, and analysis scripts, are publicly available at \url{https://github.com/REDACTED/behavioral-digital-twins}.
+Accuracy is reported in three complementary ways: (i)~within-design \emph{alternative-level} log loss and Brier on the LLM-matched held-out subset ($N=813$ alternative-level binary-outcome rows from $N=205$ held-out respondents; each row is one of three alternatives within one of six tasks, with $y \in \{0,1\}$ indicating whether the respondent selected that alternative). The full held-out pool contains $N=3{,}690$ alt-rows (1{,}027 respondents $\times$ 6 tasks $\times$ 3 alternatives); after excluding one anomalous wait=2 alt-row from a single respondent, 3{,}689 rows remain under the intended design; of these, 813 are matched and 2{,}876 are unmatched. The 813-row matched subset is the literal overlap between the intended DCE design and the LLM grid on the three focal attributes (waiting time, efficacy, and side-effect burden), populating 11 of 12 candidate cells; (ii)~Spearman rank correlation with the empirical frontier on the 64-state grid and on the 8-pair OOD-narrative surface; and (iii)~a structural diagnostic of the 75\% $P_{\text{emp}}$ blend: the share of 15 unordered policy pairs with matching rank order to Pure-DCE (no confidence interval, no significance test, because the 15 pairs share six underlying policy effects). Probabilistic predictive performance is reported in the convex-blend $\lambda$ sensitivity in Table~S6; the EFR anchor trades a 0.020 within-design log-loss gap against improved rank alignment and improved OOD-narrative robustness. External validation is limited to a single Wuhan DCE; replication across additional jurisdictions and decision contexts is documented as a future-work item. The full code and supporting files, including prompt templates, parsed outputs, raw LLM traces, and analysis scripts, are publicly available at \url{https://github.com/REDACTED/behavioral-digital-twins}.
 
 \section{DCE Attribute Levels and Static Frontier Estimates}
 \label{app:dce_attributes}
 
-\paragraph{DCE design per ISPOR Good Practices checklist~\citep{Johnson2013DCE, Hauber2016DCE, Marshall2016DCE, Bridges2013DCE}.} \emph{The administered DCE attribute levels and the attribute coding dictionary are reported in Tables S2 and S3 below; the design is summarized in the Methods section of the main text and reproduced for self-containment here.} The Wuhan vaccination-timing DCE used a \textbf{non-orthogonal fractional design}. The intended non-opt-out candidate space contained 216 profiles (4 wait $\times$ 3 efficacy $\times$ 3 side-effect $\times$ 3 cash $\times$ 2 origin levels, namely waiting time $\in \{0, 1, 3, 6\}$, vaccine efficacy $\in \{0.5, 0.7, 0.95\}$, side effects (risk) $\in \{0.1, 1, 10\}\%$ coded as $\{1, 2, 3\}$, cash incentive $\in \{50, 200, 800\}$, and vaccine origin $\in \{\text{Domestic}, \text{Imported}\}$). \emph{All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives and an opt-out alternative. The design therefore contained six unique administered choice tasks and 12 non-opt-out profiles.} The 12 administered non-opt-out attribute combinations per respondent enumerate 12 of the 216 non-opt-out candidate cells (5.6\% coverage). \emph{The raw coded data ($N=18{,}486$ alt-rows) contain one additional 1-row outlier at wait $= 2$ months from a single respondent; this row is excluded from the non-opt-out candidate space because wait $= 2$ months is not an administered design level and the row is inconsistent with the design matrix.} The full per-attribute level distribution is reported in the methods narrative of the main text and in Table~\ref{tab:dce_attributes} below. Willingness-to-pay (WTP) is \emph{not} reported in this paper. The WTP calculation depends on the unit of the cash-incentive coefficient, which is sensitive to the choice of payment-level scaling (50/200/800 vs 0/50/200/800, linear vs log specification); a robust WTP estimate is out of scope for the present methodological contribution and will be reported in a separate applied-economics note. The conditional-logit coefficient ratio is, however, reported in Table~\ref{tab:static_frontier_estimates}. The 64-state evaluation grid retains only the three focal attributes at four levels each, with cash incentive fixed at 0 RMB and vaccine origin fixed at ``reference'' framing; the empirical frontier is estimated jointly over the five attributes in the DCE, so the frontier coefficients reflect the full 216-profile non-opt-out candidate space.
+\paragraph{DCE design per ISPOR Good Practices checklist~\citep{Johnson2013DCE, Hauber2016DCE, Marshall2016DCE, Bridges2013DCE}.} \emph{The administered DCE attribute levels and the attribute coding dictionary are reported in Tables S2 and S3 below; the design is summarized in the Methods section of the main text and reproduced for self-containment here.} The Wuhan vaccination-timing DCE used a \textbf{non-orthogonal fractional design}. The intended non-opt-out candidate space contained 216 profiles (4 wait $\times$ 3 efficacy $\times$ 3 side-effect $\times$ 3 cash $\times$ 2 origin levels, namely waiting time $\in \{0, 1, 3, 6\}$, vaccine efficacy $\in \{0.5, 0.7, 0.95\}$, side effects (risk) $\in \{0.1, 1, 10\}\%$ coded as $\{1, 2, 3\}$, cash incentive $\in \{50, 200, 800\}$, and vaccine origin $\in \{\text{Domestic}, \text{Imported}\}$). \emph{All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives and an opt-out alternative. The design therefore contained six unique administered choice tasks and 12 non-opt-out profiles.} The 12 administered non-opt-out attribute combinations per respondent enumerate 12 of the 216 non-opt-out candidate cells (5.6\% coverage). \emph{The raw coded data ($N=18{,}486$ alt-rows) contain one additional 1-row outlier at wait $= 2$ months from a single respondent; this row is excluded from the non-opt-out candidate space because wait $= 2$ months is not an administered design level and the row is inconsistent with the design matrix.} The full per-attribute level distribution is reported in the methods narrative of the main text and in Table~\ref{tab:S3} below. Willingness-to-pay (WTP) is \emph{not} reported in this paper. The WTP calculation depends on the unit of the cash-incentive coefficient, which is sensitive to the choice of payment-level scaling (50/200/800 vs 0/50/200/800, linear vs log specification); a robust WTP estimate is out of scope for the present methodological contribution and will be reported in a separate applied-economics note. The conditional-logit coefficient ratio is, however, reported in Table~\ref{tab:S5}. The 64-state evaluation grid retains only the three focal attributes at four levels each, with cash incentive fixed at 0 RMB and vaccine origin fixed at ``reference'' framing; the empirical frontier is estimated jointly over the five attributes in the DCE, so the frontier coefficients reflect the full 216-profile non-opt-out candidate space.
 
 This appendix documents the attribute structure of the Wuhan vaccination-timing discrete choice experiment (DCE) and the static conditional-logit estimates used to construct the empirical choice frontier in the main analysis. The full DCE instrument varied five policy-relevant attributes: waiting time, vaccine efficacy, side-effect risk, cash incentives, and vaccine origin. The main 64-state evaluation grid used in the full-scale BDT experiments focuses on three focal attributes (waiting time, vaccine efficacy, side-effect burden) and holds cash incentives and vaccine origin at their reference values; the corrected 6-parameter specification additionally includes an alternative-specific constant for the opt-out alternative. These attributes define the policy grid on which the unconstrained LLM and EFR Anchor are evaluated in Table~1 of the main text.
 
 \subsection{DCE Attribute Levels}
 
-Table~\ref{tab:dce_attributes} reports the attribute levels used in the DCE. Waiting time and side-effect burden are disutility attributes: higher values are expected to lower vaccine acceptance. Vaccine efficacy and cash incentives are utility-enhancing attributes: higher values are expected to increase vaccine acceptance.
+Table~\ref{tab:S3} reports the attribute levels used in the DCE. Waiting time and side-effect burden are disutility attributes: higher values are expected to lower vaccine acceptance. Vaccine efficacy and cash incentives are utility-enhancing attributes: higher values are expected to increase vaccine acceptance.
 
 \begin{table}[htbp]
 \centering
 \caption{DCE attribute levels.}
-\label{tab:dce_attributes}
+\label{tab:S3}
 \begin{tabular}{lll}
 \hline
 Attribute & Levels (administered / non-opt-out) & Expected direction \\
@@ -188,12 +188,12 @@ where $\bar\beta$ is the MLE coefficient vector. The 64-state grid is constructe
 \subsection{Coding Dictionary and Unit Reconciliation}
 \label{sec:coding_dict}
 
-Table~\ref{tab:coding_dict} reports the full attribute coding used in this paper. Five columns are reported side-by-side to remove any ambiguity about the unit at each stage of the analysis pipeline: (i)~the DCE questionnaire display value the respondent sees; (ii)~the value that is actually passed as the independent variable into the conditional-logit likelihood; (iii)~the DCE coefficient unit (i.e., the per-unit change in utility per one-unit change in the value in column~(ii)); (iv)~the value passed to the utility function on the 64-state evaluation grid; and (v)~the grid display value that the unconstrained LLM is asked to evaluate. \emph{Three scale decisions matter and are reported explicitly because they are easy to misread:}
+Table~\ref{tab:S4} reports the full attribute coding used in this paper. Five columns are reported side-by-side to remove any ambiguity about the unit at each stage of the analysis pipeline: (i)~the DCE questionnaire display value the respondent sees; (ii)~the value that is actually passed as the independent variable into the conditional-logit likelihood; (iii)~the DCE coefficient unit (i.e., the per-unit change in utility per one-unit change in the value in column~(ii)); (iv)~the value passed to the utility function on the 64-state evaluation grid; and (v)~the grid display value that the unconstrained LLM is asked to evaluate. \emph{Three scale decisions matter and are reported explicitly because they are easy to misread:}
 
 \begin{enumerate}
-\item \textbf{Vaccine efficacy} is reported in the DCE questionnaire as $\{0, 50, 70, 95\}\%$ and in the 64-state grid as $\{30, 50, 70, 90\}\%$; the two supports share the literal overlap $\{50\%, 70\%\}$ used for held-out matching. The estimated coefficient $\hat\beta_{\text{eff}}$ is reported in Table~\ref{tab:static_frontier_estimates}; the coefficient unit is the same coded value that enters the linear predictor (proportion, so $\hat\beta_{\text{eff}} = 0.4153$ is per 1.0 proportion, i.e., per 100 percentage points).
+\item \textbf{Vaccine efficacy} is reported in the DCE questionnaire as $\{0, 50, 70, 95\}\%$ and in the 64-state grid as $\{30, 50, 70, 90\}\%$; the two supports share the literal overlap $\{50\%, 70\%\}$ used for held-out matching. The estimated coefficient $\hat\beta_{\text{eff}}$ is reported in Table~\ref{tab:S5}; the coefficient unit is the same coded value that enters the linear predictor (proportion, so $\hat\beta_{\text{eff}} = 0.4153$ is per 1.0 proportion, i.e., per 100 percentage points).
 
-\item \textbf{Side-effect burden} is reported in the DCE questionnaire as $\{0.1, 1, 10\}\%$ risk of the listed side effect, coded as $\{1, 2, 3\}$ in the analytic data (level 0 was not administered). The estimated coefficient $\hat\beta_{\text{SE}}$ is reported in Table~\ref{tab:static_frontier_estimates}; the coefficient unit is the coded burden level that enters the linear predictor.
+\item \textbf{Side-effect burden} is reported in the DCE questionnaire as $\{0.1, 1, 10\}\%$ risk of the listed side effect, coded as $\{1, 2, 3\}$ in the analytic data (level 0 was not administered). The estimated coefficient $\hat\beta_{\text{SE}}$ is reported in Table~\ref{tab:S5}; the coefficient unit is the coded burden level that enters the linear predictor.
 \item \textbf{Waiting time} is coded in months throughout (DCE: $\{0, 1, 3, 6\}$ -- the four real design levels; grid: $\{0, 2, 4, 6\}$); $\hat\beta_{\text{wait}} = -0.0590$ is per 1 month in both. \emph{The raw coded DCE data contain a single 1-row outlier at wait $= 2$ months from one respondent which is excluded as a data anomaly.}
 \end{enumerate}
 
@@ -202,7 +202,7 @@ The cash-incentive attribute is held at $0$ RMB in the 64-state grid (the LLM an
 \begin{table}[h]
 \centering
 \caption{Attribute coding dictionary: DCE questionnaire display, value passed into the conditional-logit likelihood (column~(ii)), the 64-state grid value passed into the utility function (column~(iv)), and the DCE coefficient unit. \emph{The SE column-(iv) grid value uses the same integer-coded burden scale as the estimation variable; the LLM prompt presents the column-(iv) value to the model.}}
-\label{tab:coding_dict}
+\label{tab:S4}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.20}
@@ -227,14 +227,14 @@ Opt-out & N/A & Alternative-specific constant (1 for opt-out) & per 1 opt-out st
 
 \subsection{Conditional-Logit Estimates}
 
-\textbf{Preprocessing rule.} One anomalous alternative-level row (RespondentID~1, task~1, wait~$=2$ months, a level not administered in the DCE design matrix) is excluded from the raw coded data before \emph{all} estimation, before the 64-state frontier fit, and before the held-out respondent split; no analysis reported in this paper uses the wait$=2$ row. The single explicit exclusion is applied uniformly across the full-sample frontier coefficients (Table~\ref{tab:static_frontier_estimates}), the data-scaling ablation (Table~\ref{tab:data_scaling_benchmarks}), and the held-out DCE predictive validation (Table~\ref{tab:lambda_heldout}).
+\textbf{Preprocessing rule.} One anomalous alternative-level row (RespondentID~1, task~1, wait~$=2$ months, a level not administered in the DCE design matrix) is excluded from the raw coded data before \emph{all} estimation, before the 64-state frontier fit, and before the held-out respondent split; no analysis reported in this paper uses the wait$=2$ row. The single explicit exclusion is applied uniformly across the full-sample frontier coefficients (Table~\ref{tab:S5}), the data-scaling ablation (Table~\ref{tab:S8}), and the held-out DCE predictive validation (Table~\ref{tab:S7}).
 
-Table~\ref{tab:static_frontier_estimates} reports the static conditional-logit estimates used to construct the empirical choice frontier. The signs follow the expected behavioral directions: waiting time and side effects reduce acceptance, while vaccine efficacy and cash incentives increase acceptance.
+Table~\ref{tab:S5} reports the static conditional-logit estimates used to construct the empirical choice frontier. The signs follow the expected behavioral directions: waiting time and side effects reduce acceptance, while vaccine efficacy and cash incentives increase acceptance.
 
 \begin{table}[h]
 \centering
 \caption{Conditional-logit estimates (corrected 6-parameter specification) used to construct the empirical choice frontier. Coefficients are displayed to four decimals; the frontier probabilities and all downstream metrics are computed from the underlying six-decimal estimates, so re-computing $P_{\text{emp}}$ from the rounded values below reproduces the frontier only to display precision. \emph{Estimates are from a single fit on the full DCE sample after excluding one anomalous wait=2 alt-row before all estimation ($N = 1{,}027$ respondents, 6,162 choice tasks (1,027 respondents $\times$ 6 tasks) and 18,485 alternative-level rows (6,162 $\times$ 3 alternatives minus one wait=2 row)) using the canonical 5 attribute variables plus an opt-out alternative-specific constant (Coding A: $\mathrm{ASC} = 1$ for the opt-out alternative and $0$ otherwise).}}
-\label{tab:static_frontier_estimates}
+\label{tab:S5}
 \small
 \setlength{\tabcolsep}{8pt}
 \begin{tabular}{l c c}
@@ -471,12 +471,12 @@ This distinction is important because the Pure-DCE endpoint \((\lambda=0)\) mech
 
 \subsection{Frontier-Alignment Sensitivity}
 
-Table~\ref{tab:lambda_frontier} reports frontier-alignment sensitivity on the 64-state policy grid. Metrics are evaluated against the full-sample empirical frontier \(P_{\mathrm{static}}\). As expected, lower values of \(\lambda\) produce stronger alignment with the empirical frontier because the anchored probability places more weight on \(P_{\mathrm{static}}\). The Pure-DCE endpoint \((\lambda=0)\) has zero frontier-deviation by construction, while the unconstrained LLM endpoint \((\lambda=1)\) has the largest MSE, MAE, and monotonicity violation rates.
+Table~\ref{tab:S6} reports frontier-alignment sensitivity on the 64-state policy grid. Metrics are evaluated against the full-sample empirical frontier \(P_{\mathrm{static}}\). As expected, lower values of \(\lambda\) produce stronger alignment with the empirical frontier because the anchored probability places more weight on \(P_{\mathrm{static}}\). The Pure-DCE endpoint \((\lambda=0)\) has zero frontier-deviation by construction, while the unconstrained LLM endpoint \((\lambda=1)\) has the largest MSE, MAE, and monotonicity violation rates.
 
 \begin{table}[htbp]
 \centering
 \caption{$\lambda$-sensitivity for frontier-alignment diagnostics on the 64-state grid. Metrics are evaluated against the full-sample empirical frontier \(P_{\mathrm{static}}\). \emph{MSE and MAE decrease as $\lambda \to 0$ by algebraic construction (the convex-blend identity $\mathrm{MSE}(\pi_{\mathrm{EFR}}, P_{\mathrm{emp}}) = \lambda^2\,\mathrm{MSE}(\bar\pi_{\mathrm{LLM}}, P_{\mathrm{emp}})$), so they should be read as a structural property of the anchor rather than as an independent behavioral finding; Spearman $\rho$ and MVR are the more informative diagnostics.}}
-\label{tab:lambda_frontier}
+\label{tab:S6}
 \begin{tabular}{c r r r r r l}
 \toprule
 \(\lambda\) & MSE & MAE & MVR-Wait & MVR-SE & Spearman \(\rho\) & Note \\
@@ -504,17 +504,17 @@ Table~\ref{tab:lambda_frontier} reports frontier-alignment sensitivity on the 64
 \end{minipage}
 \end{table}
 
-The pattern in Table~\ref{tab:lambda_frontier} confirms that the alignment gains reported in the main results are driven by empirical-frontier anchoring rather than by the unconstrained LLM alone. As \(\lambda\) increases, MSE and MAE rise, MVR-Wait and MVR-SE increase, and Spearman rank alignment declines. This is the expected behavior of a regularization layer that interpolates between a structured empirical benchmark and an unconstrained generative model.
+The pattern in Table~\ref{tab:S6} confirms that the alignment gains reported in the main results are driven by empirical-frontier anchoring rather than by the unconstrained LLM alone. As \(\lambda\) increases, MSE and MAE rise, MVR-Wait and MVR-SE increase, and Spearman rank alignment declines. This is the expected behavior of a regularization layer that interpolates between a structured empirical benchmark and an unconstrained generative model.
 
 \subsection{Held-Out Predictive Sensitivity}
 \label{app:lambda_heldout_sensitivity}
 
-Table~\ref{tab:lambda_heldout} (this supplement) reports held-out DCE predictive sensitivity on the LLM-matched held-out subset. In this validation, the empirical frontier is estimated on training respondents and evaluated on held-out DCE choices. The matched subset contains \(N=813\) \emph{alternative-level} binary-outcome rows whose attribute profiles can be linked to available LLM grid probabilities (each row is one of three alternatives within one of six tasks). Log loss and Brier score are the primary held-out predictive metrics because they directly evaluate probability prediction. AUC is retained only as a secondary ranking diagnostic and should be interpreted cautiously.
+Table~\ref{tab:S7} (this supplement) reports held-out DCE predictive sensitivity on the LLM-matched held-out subset. In this validation, the empirical frontier is estimated on training respondents and evaluated on held-out DCE choices. The matched subset contains \(N=813\) \emph{alternative-level} binary-outcome rows whose attribute profiles can be linked to available LLM grid probabilities (each row is one of three alternatives within one of six tasks). Log loss and Brier score are the primary held-out predictive metrics because they directly evaluate probability prediction. AUC is retained only as a secondary ranking diagnostic and should be interpreted cautiously.
 
 \begin{table}[htbp]
 \centering
-\caption{$\lambda$-sensitivity for held-out DCE predictive validation on the LLM-matched held-out subset ($N=813$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the held-out pool contains $N=3{,}690$ alt-rows; after excluding one anomalous wait=2 alt-row, 3{,}689 rows remain under the intended design, of which 813 are matched and 2{,}876 are unmatched)). This is a \textbf{secondary sensitivity analysis}; the primary predictive validation is the exact-task multinomial log loss (Table~\ref{tab:S15}). Log loss and Brier score are reported for comparison; AUC is included only as a ranking diagnostic. AUC values are $\mathrm{AUC}(y, p_\mathrm{BDT})$ with $y=1$ = acceptance; see the orientation diagnostic below for an explanation of why $\mathrm{AUC}(y, 1-p)$ values were previously reported in this column. \emph{MSE and MAE decrease trivially with $\lambda$ because they are algebraically induced by the convex blend $\pi_{\mathrm{BDT}} = \lambda \bar{\pi}_{\mathrm{LLM}} + (1-\lambda) P_{\mathrm{emp}}$; only Spearman's $\rho$ against the frontier is a non-trivial alignment diagnostic and it is reported in the main text.}}
-\label{tab:lambda_heldout}
+\caption{$\lambda$-sensitivity for held-out DCE predictive validation on the LLM-matched held-out subset ($N=813$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the held-out pool contains $N=3{,}690$ alt-rows; after excluding one anomalous wait=2 alt-row, 3{,}689 rows remain under the intended design, of which 813 are matched and 2{,}876 are unmatched)). This is a \textbf{secondary sensitivity analysis}; the primary predictive validation is the exact-task multinomial log loss (Table~\ref{tab:S16}). Log loss and Brier score are reported for comparison; AUC is included only as a ranking diagnostic. AUC values are $\mathrm{AUC}(y, p_\mathrm{BDT})$ with $y=1$ = acceptance; see the orientation diagnostic below for an explanation of why $\mathrm{AUC}(y, 1-p)$ values were previously reported in this column. \emph{MSE and MAE decrease trivially with $\lambda$ because they are algebraically induced by the convex blend $\pi_{\mathrm{BDT}} = \lambda \bar{\pi}_{\mathrm{LLM}} + (1-\lambda) P_{\mathrm{emp}}$; only Spearman's $\rho$ against the frontier is a non-trivial alignment diagnostic and it is reported in the main text.}}
+\label{tab:S7}
 \begin{tabular}{c r r r r r r l}
 \toprule
 $\lambda$ & $N$ & Log loss & Brier & AUC$(y,p)$ & Cal. int. & Cal. slope & Note \\\\
@@ -544,7 +544,7 @@ $\lambda$ & $N$ & Log loss & Brier & AUC$(y,p)$ & Cal. int. & Cal. slope & Note 
 The held-out sensitivity results show that the Pure-DCE endpoint \((\lambda=0)\) achieves the lowest log loss and Brier score on the matched held-out subset. As \(\lambda\) increases, log loss and Brier score generally worsen, indicating that raw LLM probabilities are less well regularized as probability estimates. This pattern supports the interpretation of EFR as a probability-level regularization layer: lower \(\lambda\) values impose stronger DCE-frontier discipline, while higher \(\lambda\) values preserve more of the unconstrained LLM output.
 
 \paragraph{AUC orientation diagnostic (revised).}
-We originally reported AUC values that, on inspection, correspond to $\mathrm{AUC}(y, 1-p)$ rather than the intended $\mathrm{AUC}(y, p)$ orientation. The labels in Table~\ref{tab:lambda_heldout} have been updated accordingly: with $y=1$ denoting respondent acceptance of the non-opt-out profile, $\mathrm{AUC}(y, p) = 0.7127$ for Pure-DCE, $\mathrm{AUC}(y, p) = 0.2136$ for the unconstrained LLM, and $\mathrm{AUC}(y, p) = 0.6685$ for EFR (matched held-out subset, $N=813$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the full unmatched alternative-level pool is 2{,}876 rows under intended design, 3{,}690 rows in the full pool including the wait=2 outlier row)). The earlier reporting labelled these values as $\mathrm{AUC}(y, 1-p)$, which is mathematically equivalent to $\mathrm{AUC}(1-y, p)$ and is the wrong orientation for the $y=1$ = acceptance convention used throughout the paper. Pure-DCE and EFR follow the same orientation (high $p$ tracks high acceptance); EFR's AUC is 0.044 below Pure-DCE, consistent with the log-loss gap of 0.020. The unconstrained LLM has $\mathrm{AUC}(y, p) < 0.5$, indicating that its score is anti-aligned with the empirical acceptance probability on the matched held-out subset; this is the orientation that the convex anchor corrects. We have re-verified the original scoring code ($\texttt{heldout\_dce\_validation.py}$, lines 262--310) to confirm that all three metrics are computed with $y=1$ denoting respondent acceptance of the alternative and $p_\mathrm{model} \in [0,1]$ denoting the model's estimate of that acceptance probability. With this convention, the corrected held-out values are: EFR log loss $= 0.699$, Brier $= 0.252$, $\mathrm{AUC}(y, p_\mathrm{BDT}) = 0.6685$; Pure-DCE log loss $= 0.679$, Brier $= 0.242$, $\mathrm{AUC} = 0.7127$; unconstrained LLM log loss $= 0.827$, Brier $= 0.314$, $\mathrm{AUC} = 0.2136$. $\mathrm{AUC}(y, 1-p) = 1 - \mathrm{AUC}(y, p)$ is a tautology, so a single accidental swap of $p$ for $1-p$ in the held-out scoring step would have reversed the reported AUC; we have checked the scoring call directly and confirm $p$, not $1-p$, is passed. Note that log loss and Brier score are \emph{not} invariant to the same $p \mapsto 1-p$ swap when $y$ is held fixed: with the matched held-out subset, the same $p \mapsto 1-p$ substitution would change the Pure-DCE log loss from $0.679$ to $0.832$ and the EFR log loss from $0.699$ to $0.758$ (Brier likewise: $0.242 \to 0.313$ and $0.252 \to 0.281$); only the $\mathrm{AUC}$ direction is reversed ($0.7127 \to 0.287$, $0.6685 \to 0.331$). We therefore report log loss and Brier as the primary probability-prediction metrics; the AUC column is presented as a secondary diagnostic, with orientation explicitly labeled throughout.
+We originally reported AUC values that, on inspection, correspond to $\mathrm{AUC}(y, 1-p)$ rather than the intended $\mathrm{AUC}(y, p)$ orientation. The labels in Table~\ref{tab:S7} have been updated accordingly: with $y=1$ denoting respondent acceptance of the non-opt-out profile, $\mathrm{AUC}(y, p) = 0.7127$ for Pure-DCE, $\mathrm{AUC}(y, p) = 0.2136$ for the unconstrained LLM, and $\mathrm{AUC}(y, p) = 0.6685$ for EFR (matched held-out subset, $N=813$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the full unmatched alternative-level pool is 2{,}876 rows under intended design, 3{,}690 rows in the full pool including the wait=2 outlier row)). The earlier reporting labelled these values as $\mathrm{AUC}(y, 1-p)$, which is mathematically equivalent to $\mathrm{AUC}(1-y, p)$ and is the wrong orientation for the $y=1$ = acceptance convention used throughout the paper. Pure-DCE and EFR follow the same orientation (high $p$ tracks high acceptance); EFR's AUC is 0.044 below Pure-DCE, consistent with the log-loss gap of 0.020. The unconstrained LLM has $\mathrm{AUC}(y, p) < 0.5$, indicating that its score is anti-aligned with the empirical acceptance probability on the matched held-out subset; this is the orientation that the convex anchor corrects. We have re-verified the original scoring code ($\texttt{heldout\_dce\_validation.py}$, lines 262--310) to confirm that all three metrics are computed with $y=1$ denoting respondent acceptance of the alternative and $p_\mathrm{model} \in [0,1]$ denoting the model's estimate of that acceptance probability. With this convention, the corrected held-out values are: EFR log loss $= 0.699$, Brier $= 0.252$, $\mathrm{AUC}(y, p_\mathrm{BDT}) = 0.6685$; Pure-DCE log loss $= 0.679$, Brier $= 0.242$, $\mathrm{AUC} = 0.7127$; unconstrained LLM log loss $= 0.827$, Brier $= 0.314$, $\mathrm{AUC} = 0.2136$. $\mathrm{AUC}(y, 1-p) = 1 - \mathrm{AUC}(y, p)$ is a tautology, so a single accidental swap of $p$ for $1-p$ in the held-out scoring step would have reversed the reported AUC; we have checked the scoring call directly and confirm $p$, not $1-p$, is passed. Note that log loss and Brier score are \emph{not} invariant to the same $p \mapsto 1-p$ swap when $y$ is held fixed: with the matched held-out subset, the same $p \mapsto 1-p$ substitution would change the Pure-DCE log loss from $0.679$ to $0.832$ and the EFR log loss from $0.699$ to $0.758$ (Brier likewise: $0.242 \to 0.313$ and $0.252 \to 0.281$); only the $\mathrm{AUC}$ direction is reversed ($0.7127 \to 0.287$, $0.6685 \to 0.331$). We therefore report log loss and Brier as the primary probability-prediction metrics; the AUC column is presented as a secondary diagnostic, with orientation explicitly labeled throughout.
 
 \subsection{Sensitivity to DCE Training Sample Size}
 \label{app:dce_sample_sensitivity}
@@ -605,12 +605,12 @@ All metrics -- MSE, MVR-Wait, and Spearman \(\rho\) -- are computed on the same 
 \subsection{Results: Benchmark-Specific Evaluation}
 \label{app:results_vs_full}
 
-Table~\ref{tab:data_scaling_benchmarks} reports the EFR Anchor under the two evaluation benchmarks described above. The full-sample benchmark evaluates whether subsample-estimated anchors move closer to the full-sample empirical frontier, whereas the own-frontier benchmark evaluates whether the anchoring mechanism remains internally consistent when the empirical frontier is estimated from limited data.
+Table~\ref{tab:S8} reports the EFR Anchor under the two evaluation benchmarks described above. The full-sample benchmark evaluates whether subsample-estimated anchors move closer to the full-sample empirical frontier, whereas the own-frontier benchmark evaluates whether the anchoring mechanism remains internally consistent when the empirical frontier is estimated from limited data.
 
 \begin{table}[htbp]
 \centering
 \caption{Data-scaling ablation: EFR Anchor ($\lambda = 0.25$) evaluated against two benchmarks. The \emph{full-sample benchmark} uses the full-sample canonical empirical frontier (the corrected 6-parameter conditional-logit specification fit on the full Wuhan DCE sample); the \emph{own-frontier benchmark} uses a subsample-reestimated frontier fit separately on each training subsample. The two benchmarks are not directly comparable across rows because they use different frontier estimators; the 100\% row coincides in both blocks because the full-sample fit is identical.}
-\label{tab:data_scaling_benchmarks}
+\label{tab:S8}
 \begin{tabular}{llccc}
 \toprule
 DCE share & Benchmark & MSE & MVR-Wait & Spearman $\rho$ \\
@@ -633,7 +633,7 @@ Two patterns emerge. Against the full-sample canonical empirical frontier, all t
 \subsection{Interpretation}
 \label{app:interpretation}
 
-Taken together, the two benchmark blocks in Table~\ref{tab:data_scaling_benchmarks} separate two sources of improvement in the BDT framework.
+Taken together, the two benchmark blocks in Table~\ref{tab:S8} separate two sources of improvement in the BDT framework.
 
 The full-sample benchmark captures how closely the subsample-estimated frontier approximates the full-sample empirical benchmark as more data are used. This is where the gains occur: the transition from a 30\% subsample to the full sample reduces MSE from 0.0020 to 0.0016 (a $1.2\times$ reduction) and raises frontier alignment from $\rho = 0.646$ to $\rho = 0.689$ (metrics computed with $\lambda = 0.25$ fixed across all shares). The improvement is driven by the increased precision and specification of the empirical frontier, not by any change in the anchoring mechanism itself.
 
@@ -662,12 +662,12 @@ The parser extracts the numeric probability value from the line containing \text
 \subsection{Parse Success Rates and Failure Handling}
 \label{app:parse_handling}
 
-Table~\ref{tab:parse_rates} reports the parse success rates for each model and experiment scale. A response is considered successfully parsed if it contains a valid integer probability in the range 0--100 on the \texttt{Probability:} line. Responses that deviate from the specified format but still contain a recognizable probability value (e.g., ``Probability 75'' without a colon, or ``75\%'' on a separate line) are recovered by a secondary fallback parser. Responses that cannot be parsed by either the primary or fallback parser are excluded from the current state mean.
+Table~\ref{tab:S9} reports the parse success rates for each model and experiment scale. A response is considered successfully parsed if it contains a valid integer probability in the range 0--100 on the \texttt{Probability:} line. Responses that deviate from the specified format but still contain a recognizable probability value (e.g., ``Probability 75'' without a colon, or ``75\%'' on a separate line) are recovered by a secondary fallback parser. Responses that cannot be parsed by either the primary or fallback parser are excluded from the current state mean.
 
 \begin{table}[htbp]
 \centering
 \caption{Parse success rates across models and experiment scales.}
-\label{tab:parse_rates}
+\label{tab:S9}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{Experiment} & \textbf{Primary Parse Rate} & \textbf{After Fallback} \\
@@ -706,12 +706,12 @@ This protocol was used successfully during the full-scale experiment, which requ
 \subsection{Runtime and Computational Cost}
 \label{app:runtime}
 
-Runtime was extracted from timestamped checkpoint CSV files and available local run logs. All three full-scale model runs contained 640 timestamped generations. Table~\ref{tab:runtime_summary} reports the resulting runtime summary. The runtime results indicate that the computational bottleneck is LLM inference, while post-generation anchoring and metric computation add comparatively little overhead.
+Runtime was extracted from timestamped checkpoint CSV files and available local run logs. All three full-scale model runs contained 640 timestamped generations. Table~\ref{tab:S10} reports the resulting runtime summary. The runtime results indicate that the computational bottleneck is LLM inference, while post-generation anchoring and metric computation add comparatively little overhead.
 
 \begin{table}[htbp]
 \centering
 \caption{Runtime summary for full-scale unconstrained LLM generation.}
-\label{tab:runtime_summary}
+\label{tab:S10}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{l r l l r r r}
 \toprule
@@ -736,14 +736,14 @@ The results show that local deployment is feasible but that large local models i
 \section{Pure-DCE Reference and Policy-Ranking Validation}\label{sec:heldout_validation}
 \label{app:pure_dce_prc}
 
-This appendix documents the Pure-DCE reference and the descriptive Policy Ranking Consistency (PRC) calculation reported in Table~\ref{tab:prc}. The purpose is to make the policy-ranking exercise reproducible by specifying the policy set, eligible grid states, policy-effect calculation, and pairwise ranking rule. \emph{PRC is reported as a structural diagnostic of the 75\% $P_{\text{emp}}$ blend, not as an independent behavioral validation; no significance test is performed because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials.}
+This appendix documents the Pure-DCE reference and the descriptive Policy Ranking Consistency (PRC) calculation reported in Table~\ref{tab:S11}. The purpose is to make the policy-ranking exercise reproducible by specifying the policy set, eligible grid states, policy-effect calculation, and pairwise ranking rule. \emph{PRC is reported as a structural diagnostic of the 75\% $P_{\text{emp}}$ blend, not as an independent behavioral validation; no significance test is performed because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials.}
 
 \subsection{Pure-DCE Reference}
 
 \begin{table}[t]
 \centering
 \caption{Policy Ranking Consistency (PRC) relative to the Pure-DCE reference.}
-\label{tab:prc}
+\label{tab:S11}
 \small
 \setlength{\tabcolsep}{5pt}
 \begin{tabular}{l l c c c}
@@ -774,7 +774,7 @@ The Pure-DCE simulator uses the estimated empirical choice frontier directly:
 =
 P_{\mathrm{static}}(y=1\mid \mathbf{x}).
 \]
-It contains no LLM-generated component. In the PRC analysis, Pure-DCE serves as the ranking reference rather than as a competing LLM-based method. Its own PRC relative to itself is therefore mechanically equal to one and is not reported as a separate row in Table~\ref{tab:prc}.
+It contains no LLM-generated component. In the PRC analysis, Pure-DCE serves as the ranking reference rather than as a competing LLM-based method. Its own PRC relative to itself is therefore mechanically equal to one and is not reported as a separate row in Table~\ref{tab:S11}.
 
 \subsection{Candidate Policy Set}
 
@@ -875,7 +875,7 @@ The PRC computation is conducted on the same fixed 64-state grid used in the mai
 +
 0.75\,P_{\mathrm{static}}
 \]
-up to numerical tolerance. The resulting PRC values are reported in Table~\ref{tab:prc}. The metric should be interpreted as a structural diagnostic of the 75\% $P_{\text{emp}}$ blend, not as external validation against realized vaccine uptake and not as a hypothesis test.
+up to numerical tolerance. The resulting PRC values are reported in Table~\ref{tab:S11}. The metric should be interpreted as a structural diagnostic of the 75\% $P_{\text{emp}}$ blend, not as external validation against realized vaccine uptake and not as a hypothesis test.
 
 \section{Bootstrap Uncertainty Intervals}
 \label{app:bootstrap}
@@ -889,13 +889,13 @@ To quantify uncertainty, we compute bootstrap confidence intervals tailored to t
 
 For \textbf{held-out prediction metrics} (Figure~1 of the main manuscript reports the primary exact-task multinomial validation; respondent-level paired cluster bootstrap for the paired log loss differences is reported below), the DCE data possess a nested panel structure where multiple choice observations are clustered within individual respondents. To strictly account for within-respondent correlation and avoid underestimating standard errors, we employ a \textbf{respondent-level cluster bootstrap}. Specifically, we resample the 205 unique respondents (whose choices constitute the 1,230 task-level multinomial observations) with replacement, maintaining the intact within-respondent choice structure. We perform 2,000 replications to ensure stable interval estimation.
 
-For \textbf{frontier-deviation metrics} (Table~\ref{tab:bootstrap_alignment}), the evaluation operates on the fixed 64-state policy grid rather than respondent-level choices. Therefore, we compute frontier-deviation intervals by resampling the 64 policy-grid states with replacement using 2,000 replications. For \textbf{monotonicity violation rates} (MVR), we resample comparable attribute pairs. For \textbf{policy-ranking consistency} (Table~\ref{tab:prc} in this supplement, discussed in the main text Policy Ranking Consistency section), we report no confidence intervals and no significance test, because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials; the metric is reported as a descriptive share only.
+For \textbf{frontier-deviation metrics} (Table~\ref{tab:S13}), the evaluation operates on the fixed 64-state policy grid rather than respondent-level choices. Therefore, we compute frontier-deviation intervals by resampling the 64 policy-grid states with replacement using 2,000 replications. For \textbf{monotonicity violation rates} (MVR), we resample comparable attribute pairs. For \textbf{policy-ranking consistency} (Table~\ref{tab:S11} in this supplement, discussed in the main text Policy Ranking Consistency section), we report no confidence intervals and no significance test, because the 15 unordered policy pairs share six underlying policy effects and are not 15 independent Bernoulli trials; the metric is reported as a descriptive share only.
 
 These intervals provide uncertainty summaries for the finite evaluation objects used in the paper: policy-grid states, held-out matched respondents, monotonicity-comparison pairs, and policy-pair rankings. They are not a substitute for external validation against realized uptake or for respondent-level uncertainty from re-estimating the full 6-parameter conditional-logit DCE frontier. The paired bootstrap intervals condition on the fitted training-split DCE model and the realized averaged LLM task probabilities; they quantify held-out respondent sampling uncertainty and do not incorporate DCE-estimation or LLM-generation uncertainty.
 
 \subsection{Held-Out Prediction Uncertainty}
 
-Table~\ref{tab:bootstrap_heldout} reports respondent-level paired cluster bootstrap confidence intervals for the primary exact-task multinomial validation. The paired differences are:
+Table~\ref{tab:S12} reports respondent-level paired cluster bootstrap confidence intervals for the primary exact-task multinomial validation. The paired differences are:
 \begin{itemize}
 \item $\Delta LL_{\text{EFR-Raw}} = 0.9233 - 1.0200 = -0.0967$ (EFR improves over Raw LLM)
 \item $\Delta LL_{\text{EFR-Pure}} = 0.9233 - 0.9112 = +0.0121$ (EFR within 1.3\% of Pure-DCE)
@@ -905,7 +905,7 @@ The bootstrap resamples 205 respondents with replacement (2,000 replications), m
 \begin{table}[h]
 \centering
 \caption{Respondent-level paired cluster bootstrap for exact-task multinomial log loss ($N = 205$ respondents, 1,230 choices; 2,000 replications).}
-\label{tab:bootstrap_heldout}
+\label{tab:S12}
 \small
 \setlength{\tabcolsep}{8pt}
 \begin{tabular}{l c c}
@@ -920,12 +920,12 @@ EFR vs. Pure-DCE ($\Delta LL_{\text{EFR-Pure}}$) & $+0.0121$ & $[-0.0234, +0.047
 
 \subsection{Frontier-Alignment Uncertainty}
 
-Table~\ref{tab:bootstrap_alignment} reports bootstrap intervals for the primary frontier-alignment diagnostics discussed in the main text. The intervals support the main Qwen2.5-72B-Instruct alignment result: the MSE and Spearman $\rho$ intervals do not overlap between EFR and the unconstrained LLM. The MVR-Wait point estimates for Qwen2.5-72B-Instruct also do not overlap (raw $0.6250$, EFR $0.3021$); the bootstrap intervals, however, are wide and overlap on the 64-state grid (state-level resampling leaves the 16 (eff, se) cell pattern close to identical across replicates), so the MVR-Wait improvement is best read from the point estimates and the cross-model ranking rather than from a within-Qwen significance test. The side-effect monotonicity diagnostic is weaker: for MiroThinker-1.7-mini, EFR and the unconstrained LLM produce identical MVR-SE point estimates ($0.3333$) and identical bootstrap CIs $[0.240, 0.427]$, indicating that the EFR anchor at $\lambda=0.25$ does not transmit a sufficient side-effect signal on this frontier.
+Table~\ref{tab:S13} reports bootstrap intervals for the primary frontier-alignment diagnostics discussed in the main text. The intervals support the main Qwen2.5-72B-Instruct alignment result: the MSE and Spearman $\rho$ intervals do not overlap between EFR and the unconstrained LLM. The MVR-Wait point estimates for Qwen2.5-72B-Instruct also do not overlap (raw $0.6250$, EFR $0.3021$); the bootstrap intervals, however, are wide and overlap on the 64-state grid (state-level resampling leaves the 16 (eff, se) cell pattern close to identical across replicates), so the MVR-Wait improvement is best read from the point estimates and the cross-model ranking rather than from a within-Qwen significance test. The side-effect monotonicity diagnostic is weaker: for MiroThinker-1.7-mini, EFR and the unconstrained LLM produce identical MVR-SE point estimates ($0.3333$) and identical bootstrap CIs $[0.240, 0.427]$, indicating that the EFR anchor at $\lambda=0.25$ does not transmit a sufficient side-effect signal on this frontier.
 
 \begin{table}[t]
 \centering
 \caption{Bootstrap intervals for selected frontier-alignment diagnostics (2000 state-level bootstrap replicates with replacement; MVR-Wait reported as point estimate because the 16 (eff,se) cell-level structure makes the MVR a step function on the grid).}
-\label{tab:bootstrap_alignment}
+\label{tab:S13}
 \small
 \setlength{\tabcolsep}{6pt}
 \begin{tabular}{l l l c c}
@@ -964,20 +964,20 @@ MiroThinker-1.7-mini & EFR Anchor & Spearman \(\rho\) & $0.7564$ & [$0.5849$, $0
 \vspace{0.4em}
 \begin{minipage}{0.95\textwidth}
 \small
-\textit{Note.} Unlike the held-out prediction metrics in Table~\ref{tab:lambda_heldout} (held-out prediction metrics), which employ respondent-level cluster bootstrapping to account for the nested panel structure of DCE choices, the frontier-alignment metrics here are evaluated on the fixed 64-state policy grid. Therefore, frontier-deviation intervals are computed by resampling the 64 policy-grid states with replacement (2{,}000 replications). MVR-Wait is reported as a point estimate: the 16 (eff,se) cell-level structure makes the MVR a step function on the grid, so a state-level bootstrap yields degenerate intervals; a comparable-attribute-pair bootstrap (resampling (eff,se) cells) gives the same point estimate by construction because the frontier-deviation ranking is invariant under cell-level resampling. The MiroThinker-1.7-mini side-effect diagnostic (MVR-SE $= 0.3333$ for both unconstrained and EFR) is omitted from this table: the corrected 6-parameter specification (Section~3 of the main text) makes the side-effect coefficient the smallest empirical signal among the five attributes, and the EFR anchor at $\lambda = 0.25$ does not transmit a sufficient side-effect correction to move MiroThinker's MVR-SE off the unconstrained value; the failure mode is documented in Section~4.3 of the main text (OOD panel-level diagnostics note).
+\textit{Note.} Unlike the held-out prediction metrics in Table~\ref{tab:S7} (held-out prediction metrics), which employ respondent-level cluster bootstrapping to account for the nested panel structure of DCE choices, the frontier-alignment metrics here are evaluated on the fixed 64-state policy grid. Therefore, frontier-deviation intervals are computed by resampling the 64 policy-grid states with replacement (2{,}000 replications). MVR-Wait is reported as a point estimate: the 16 (eff,se) cell-level structure makes the MVR a step function on the grid, so a state-level bootstrap yields degenerate intervals; a comparable-attribute-pair bootstrap (resampling (eff,se) cells) gives the same point estimate by construction because the frontier-deviation ranking is invariant under cell-level resampling. The MiroThinker-1.7-mini side-effect diagnostic (MVR-SE $= 0.3333$ for both unconstrained and EFR) is omitted from this table: the corrected 6-parameter specification (Section~3 of the main text) makes the side-effect coefficient the smallest empirical signal among the five attributes, and the EFR anchor at $\lambda = 0.25$ does not transmit a sufficient side-effect correction to move MiroThinker's MVR-SE off the unconstrained value; the failure mode is documented in Section~4.3 of the main text (OOD panel-level diagnostics note).
 \end{minipage}
 \end{table}
 
 \section{Covariate Balance Check: Matched vs. Unmatched Subset}
 \label{app:balance_check}
 
-To assess the representativeness of the 22.1\% matched held-out subset ($N=813$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the held-out pool contains $N=3{,}690$ alt-rows; after excluding one anomalous wait=2 alt-row, 3{,}689 rows remain under the intended design, of which 813 are matched and 2{,}876 are unmatched)) used in Table~1 of the main text and in Table~\ref{tab:lambda_heldout} of this supplement, we compare its covariate distribution against the unmatched held-out alt-row subset ($N=2,876$). Table~\ref{tab:balance_check} reports the means and Standardized Mean Differences (SMD) for key DCE attributes and the choice rate.
+To assess the representativeness of the 22.1\% matched held-out subset ($N=813$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the held-out pool contains $N=3{,}690$ alt-rows; after excluding one anomalous wait=2 alt-row, 3{,}689 rows remain under the intended design, of which 813 are matched and 2{,}876 are unmatched)) used in Table~1 of the main text and in Table~\ref{tab:S7} of this supplement, we compare its covariate distribution against the unmatched held-out alt-row subset ($N=2,876$). Table~\ref{tab:S16} reports the means and Standardized Mean Differences (SMD) for key DCE attributes and the choice rate.
 
 
 \begin{table}[h]
 \centering
 \caption{Attribute-level mapping between the administered DCE design and the 64-state LLM evaluation grid. The matched subset is restricted to cells where the DCE design level and the grid level coincide as a \texttt{float} value (no rescaling, no interpolation).}
-\label{tab:attr_mapping}
+\label{tab:S14}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
@@ -997,7 +997,7 @@ Vaccine Origin & $\{0, 1\}$ & $0$ (held) & --- (not matched) \\
 \begin{table}[h]
 \centering
 \caption{Covariate balance between matched and unmatched held-out subsets.}
-\label{tab:balance_check}
+\label{tab:S15}
 \small
 \begin{tabular}{l c c c}
 \toprule
@@ -1052,7 +1052,7 @@ This appendix reports the primary exact-task multinomial held-out validation on 
 
 \subsection{Design and Setup}
 
-All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six administered tasks comprised 12 unique non-opt-out profiles, covering 12 of 216 candidate profile cells (5.6\%). A post-hoc dominance audit of the six A-versus-B profile pairs confirmed no strict dominance across the five monotonic attributes; two tasks (Tasks 1 and 3) exhibited near-dominance with one alternative winning on four of five attributes, but each retained at least one attribute favoring the other alternative. We hold out 20\% of respondents ($N = 205$) using a seeded random split (seed = 2026; 822 training, 205 test) and use their choices on the six canonical tasks for validation. Exact log loss values are reported in Table~\ref{tab:S15}.
+All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives (A, B) and an opt-out alternative (C). The six administered tasks comprised 12 unique non-opt-out profiles, covering 12 of 216 candidate profile cells (5.6\%). A post-hoc dominance audit of the six A-versus-B profile pairs confirmed no strict dominance across the five monotonic attributes; two tasks (Tasks 1 and 3) exhibited near-dominance with one alternative winning on four of five attributes, but each retained at least one attribute favoring the other alternative. We hold out 20\% of respondents ($N = 205$) using a seeded random split (seed = 2026; 822 training, 205 test) and use their choices on the six canonical tasks for validation. Exact log loss values are reported in Table~\ref{tab:S16}.
 
 The LLM validation uses respondent-facing multinomial prompts that elicit explicit probabilities $P(A)$, $P(B)$, and $P(C)$ for each task. Three methods are compared:
 
@@ -1069,14 +1069,14 @@ with $\lambda = 0.25$. Because both $\mathbf{p}^{\mathrm{LLM}}_t$ and $\mathbf{p
 \paragraph{Extension from binary formulation.}\label{par:binary-to-multinomial}
 The main-text EFR equation $\pi_{\mathrm{EFR}}(y=1\mid\mathbf{x}) = \lambda\,\pi_{\mathrm{LLM}}(y=1\mid\mathbf{x}) + (1-\lambda)\,P_{\mathrm{emp}}(y=1\mid\mathbf{x})$ is a binary policy-versus-opt-out formulation where $P_{\mathrm{emp}}$ is the sigmoid of the utility gap. For the exact-task categorical validation, EFR is extended from this binary formulation to the full three-alternative probability simplex by convexly combining the LLM and training-split DCE probability vectors as defined above. The binary and vector formulations are equivalent under IIA when the choice set contains only one non-opt-out alternative and the opt-out; with two non-opt-out alternatives (A, B) plus opt-out (C), the softmax vector is the natural generalization.
 
-\paragraph{Held-out leakage prevention.} All DCE components used in the held-out comparison, including the empirical component of EFR ($P_{\text{emp,train}}$), were estimated exclusively from the 822 training respondents. The 205 held-out respondents were not used in any coefficient estimation for the validation metrics reported in Table~S15.
+\paragraph{Held-out leakage prevention.} All DCE components used in the held-out comparison, including the empirical component of EFR ($P_{\text{emp,train}}$), were estimated exclusively from the 822 training respondents. The 205 held-out respondents were not used in any coefficient estimation for the validation metrics reported in Table~S16.
 
 \subsection{Results: Six-Task Multinomial Log Loss}
 
 \begin{table}[h]
 \centering
 \caption{Primary exact-task multinomial held-out log loss on six canonical DCE tasks ($N = 205$ respondents, 1,230 choices). Lower is better. The conditional logit is refit on the 80\% training split. LLM predictions generated via local Ollama Qwen2.5-72B (temperature 0.7, 10 repetitions per task).}
-\label{tab:S15}
+\label{tab:S16}
 \footnotesize
 \setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.15}
@@ -1106,7 +1106,7 @@ The results show a clear ranking: Pure-DCE outperforms all other methods, but EF
 
 \subsection{Model and Inference Condition}
 
-\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original Hugging Face endpoint (Table S1) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 and MiroThinker-1.7-mini are reported in Table S1.
+\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original Hugging Face endpoint (Table S2) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 and MiroThinker-1.7-mini are reported in Table S2.
 
 \paragraph{Prompt template (exact-task multinomial validation).}
 The respondent-facing multinomial prompt for the six canonical DCE tasks is:

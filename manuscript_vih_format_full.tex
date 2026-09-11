@@ -33,7 +33,7 @@
 
 \textbf{Methods:} A Wuhan vaccination DCE ($N\!=\!1{,}027$) was combined with LLM simulation on a 64-state policy grid. EFR computes $\pi_{\text{EFR}} = \lambda\,\bar\pi_{\text{LLM}} + (1-\lambda)\,P_{\text{emp}}$ with $\lambda\!=\!0.25$ fixed as a conservative operating point.
 
-\textbf{Results:} Held-out validation on six DCE choice tasks ($N=205$ respondents) shows multinomial log loss: Pure-DCE $0.911$, EFR $0.923$, Raw LLM $1.020$. EFR reduced log loss by $9.5\%$ versus Raw LLM and approached Pure-DCE performance (within $1.3\%$). The unconstrained LLM violated waiting-time monotonicity on $62.5\%$ (Qwen2.5-72B), $34.4\%$ (DeepSeek V4), and $10.4\%$ (MiroThinker) of scenarios; after EFR, MVR-Wait dropped to $30.2\%$, $7.3\%$, and $8.3\%$ respectively. Rank correlation $\rho$ rose from $0.061$/$0.302$/$0.531$ (Raw) to $0.689$/$0.812$/$0.756$ (EFR), all exceeding the uniform-noise null ($\rho\!=\!0.367$, $95\%$ CI $[0.145, 0.563]$); two of three models also exceeded the stricter permutation null that preserves the LLM's marginal distribution (Supplement B).
+\textbf{Results:} Held-out validation on six DCE choice tasks ($N=205$ respondents) shows multinomial log loss: Pure-DCE $0.911$, EFR $0.923$, Raw LLM $1.020$. EFR reduced log loss by $9.5\%$ versus Raw LLM and approached Pure-DCE performance (within $1.3\%$). The unconstrained LLM violated waiting-time monotonicity on $62.5\%$ (Qwen2.5-72B), $34.4\%$ (DeepSeek V4 Pro), and $10.4\%$ (MiroThinker) of scenarios; after EFR, MVR-Wait dropped to $30.2\%$, $7.3\%$, and $8.3\%$ respectively. Rank correlation $\rho$ rose from $0.061$/$0.302$/$0.531$ (Raw) to $0.689$/$0.812$/$0.756$ (EFR), all exceeding the uniform-noise null ($\rho\!=\!0.367$, $95\%$ CI $[0.145, 0.563]$); two of three models also exceeded the stricter permutation null that preserves the LLM's marginal distribution (Supplement B).
 
 \textbf{Limitations:} Single-site DCE; respondent-level holdout evaluates generalization to unseen respondents, not unseen tasks. Out-of-design scenarios lacked human ground truth.
 
@@ -152,7 +152,7 @@ Because evaluation operates only on the adjusted probability surface, the approa
 \subsection{Experimental Setup}
 \label{sec:setup}
 
-We evaluated EFR using three open-source LLMs (Qwen2.5-72B-Instruct, DeepSeek V4, MiroThinker-1.7-mini; endpoint and access details in Table~S2). Decoding parameters were matched across models where the API permitted, with Qwen2.5-72B-Instruct and DeepSeek V4 sampled at $\mathrm{temperature}=0.7$, $\mathrm{top\_p}=1.0$, $\mathrm{max\_new\_tokens}=512$, and $R=10$ repeated generations per state to average out sampling noise; MiroThinker-1.7-mini was sampled at $\mathrm{temperature}=0.0$ (deterministic), $\mathrm{top\_p}=1.0$, $\mathrm{max\_new\_tokens}=256$, and $R=10$ repetitions. The empirical choice frontier was estimated from a corrected 6-parameter grouped/conditional logit with five attribute coefficients and an opt-out alternative-specific constant on the full Wuhan DCE sample ($N=1{,}027$ respondents) on vaccination timing (ISPOR good-research-practices~\citep{Johnson2013DCE,Hauber2016DCE}). All LLM evaluations comply with the ViH/ISPOR ELEVATE-GenAI reporting framework (Appendix~C).
+We evaluated EFR using three open-source LLMs (Qwen2.5-72B-Instruct, DeepSeek V4 Pro, MiroThinker-1.7-mini; endpoint and access details in Table~S2). Decoding parameters were matched across models where the API permitted, with Qwen2.5-72B-Instruct and DeepSeek V4 Pro sampled at $\mathrm{temperature}=0.7$, $\mathrm{top\_p}=1.0$, $\mathrm{max\_new\_tokens}=512$, and $R=10$ repeated generations per state to average out sampling noise; MiroThinker-1.7-mini was sampled at $\mathrm{temperature}=0.0$ (deterministic), $\mathrm{top\_p}=1.0$, $\mathrm{max\_new\_tokens}=256$, and $R=10$ repetitions. The empirical choice frontier was estimated from a corrected 6-parameter grouped/conditional logit with five attribute coefficients and an opt-out alternative-specific constant on the full Wuhan DCE sample ($N=1{,}027$ respondents) on vaccination timing (ISPOR good-research-practices~\citep{Johnson2013DCE,Hauber2016DCE}). All LLM evaluations comply with the ViH/ISPOR ELEVATE-GenAI reporting framework (Appendix~C).
 
 \subsection{Behavioral Consistency with the Empirical Frontier}
 \label{sec:behavioral_consistency}
@@ -182,7 +182,7 @@ Qwen2.5-72B-Instruct
 
 \addlinespace
 
-DeepSeek V4
+DeepSeek V4 Pro
 & Raw LLM
 & 0.0379
 & 0.1570
@@ -214,7 +214,7 @@ MiroThinker-1.7-mini
 \end{tabular}
 \end{table*}
 
-Table~\ref{tab:behavioral_alignment} summarizes behavioral consistency on the 64-state evaluation grid. The grid attributes extend beyond the directly administered DCE profiles; the reference surface is a DCE-estimated conditional-logit projection. MVR is the wait-axis monotonicity violation rate; $\rho$ is Spearman's rank correlation between $\pi$ and $P_{\text{emp}}$. The exact-task categorical validation (Figure~\ref{fig:heldout_predictive}) is the primary held-out benchmark. EFR ($\lambda = 0.25$) reduced MSE by 94\%, MAE by 75\%, and MVR-Wait substantially; all EFR predictions achieve $\rho \geq 0.69$, exceeding the uniform-noise null. The permutation null (Supplement B) distinguishes models whose LLM component shows detectable DCE-aligned rank information beyond mechanical anchoring (DeepSeek V4, MiroThinker; $p \leq .003$) from those that do not (Qwen2.5-72B; $p = .179$; evaluated on the local replication that reproduced the canonical $\rho = 0.689$). Alternative-level analysis: Table~S7.
+Table~\ref{tab:behavioral_alignment} summarizes behavioral consistency on the 64-state evaluation grid. The grid attributes extend beyond the directly administered DCE profiles; the reference surface is a DCE-estimated conditional-logit projection. MVR is the wait-axis monotonicity violation rate; $\rho$ is Spearman's rank correlation between $\pi$ and $P_{\text{emp}}$. The exact-task categorical validation (Figure~\ref{fig:heldout_predictive}) is the primary held-out benchmark. EFR ($\lambda = 0.25$) reduced MSE by 94\%, MAE by 75\%, and MVR-Wait substantially; all EFR predictions achieve $\rho \geq 0.69$, exceeding the uniform-noise null. The permutation null (Supplement B) distinguishes models whose LLM component shows detectable DCE-aligned rank information beyond mechanical anchoring (DeepSeek V4 Pro, MiroThinker; $p \leq .003$) from those that do not (Qwen2.5-72B; $p = .179$; evaluated on the local replication that reproduced the canonical $\rho = 0.689$). Alternative-level analysis: Table~S7.
 
 \clearpage
 \subsection{Out-of-Design Policy Scenario Evaluation}
@@ -247,13 +247,13 @@ Qwen2.5-72B-Instruct
 & 0.072
 & 0.87 \\
 
-DeepSeek V4
+DeepSeek V4 Pro
 & Unconstrained LLM
 & 0.667 (4/6)
 & 0.257
 & $-0.07$ \\
 
-DeepSeek V4
+DeepSeek V4 Pro
 & EFR
 & 0.000
 & 0.064
@@ -275,13 +275,13 @@ Qwen2.5-72B-Instruct
 & 0.031
 & 0.93 \\
 
-DeepSeek V4
+DeepSeek V4 Pro
 & Unconstrained LLM
 & 0.000 (0/2)
 & 0.209
 & $-0.06$ \\
 
-DeepSeek V4
+DeepSeek V4 Pro
 & EFR
 & 0.000
 & 0.052
@@ -299,9 +299,9 @@ Twenty paired scenarios (40 narrative descriptions total); eight vary waiting ti
 \end{minipage}
 \end{table}
 
-Table~\ref{tab:out_of_design} summarizes the out-of-design evaluation. In the core scenarios (Panel A), the unconstrained LLMs violated the expected waiting-time ordering in 2 of 6 paired scenarios for Qwen2.5-72B-Instruct and 4 of 6 paired scenarios for DeepSeek V4. After empirical-frontier regularization, no monotonicity violations were observed for either model, and rank agreement with the empirical behavioral reference increased substantially.
+Table~\ref{tab:out_of_design} summarizes the out-of-design evaluation. In the core scenarios (Panel A), the unconstrained LLMs violated the expected waiting-time ordering in 2 of 6 paired scenarios for Qwen2.5-72B-Instruct and 4 of 6 paired scenarios for DeepSeek V4 Pro. After empirical-frontier regularization, no monotonicity violations were observed for either model, and rank agreement with the empirical behavioral reference increased substantially.
 
-The differences became more pronounced in the extended scenarios (Panel B). Rich textual narratives containing fictional incentives and complex policy descriptions reduced the rank agreement of the unconstrained LLMs to approximately zero for both models. Among the two wait-varying pairs in Panel B, EFR maintained zero monotonicity violations (0/2); the twelve narrative-only pairs are reported as MAD and $\rho$ only (all 20 paired scenarios = 40 narrative descriptions; only Qwen2.5-72B-Instruct and DeepSeek V4 were evaluated on the OOD panel, MiroThinker-1.7-mini was not). Rank agreement with the empirical reference was $\rho = 0.93$ for Qwen2.5-72B-Instruct and $\rho = 0.88$ for DeepSeek V4. These out-of-design results characterize structural consistency of the anchored outputs with the model-implied DCE reference surface; they do not establish predictive validity for human behavior outside the observed DCE design.
+The differences became more pronounced in the extended scenarios (Panel B). Rich textual narratives containing fictional incentives and complex policy descriptions reduced the rank agreement of the unconstrained LLMs to approximately zero for both models. Among the two wait-varying pairs in Panel B, EFR maintained zero monotonicity violations (0/2); the twelve narrative-only pairs are reported as MAD and $\rho$ only (all 20 paired scenarios = 40 narrative descriptions; only Qwen2.5-72B-Instruct and DeepSeek V4 Pro were evaluated on the OOD panel, MiroThinker-1.7-mini was not). Rank agreement with the empirical reference was $\rho = 0.93$ for Qwen2.5-72B-Instruct and $\rho = 0.88$ for DeepSeek V4 Pro. These out-of-design results characterize structural consistency of the anchored outputs with the model-implied DCE reference surface; they do not establish predictive validity for human behavior outside the observed DCE design.
 
 This experiment evaluates final anchored predictions; the separate contributions of language understanding and empirical regularization are not isolated here.
 
@@ -309,12 +309,12 @@ This experiment evaluates final anchored predictions; the separate contributions
 \subsection{Policy Ranking Consistency}
 \label{sec:policy_ranking}
 
-EFR increased agreement with the Pure-DCE policy ranking (a structural diagnostic, not an independent validation): Qwen2.5-72B-Instruct Spearman PRC $0.333 \to 0.867$; DeepSeek V4 $0.133 \to 0.600$; MiroThinker-1.7-mini $0.533 \to 0.800$. Because the EFR blend contains 75\% $P_{\text{emp}}$ by construction, increased agreement with the Pure-DCE ranking is a mechanical consequence of the convex anchor, not an independent behavioral validation. PRC is therefore reported in the supplement as a structural diagnostic only; no significance test is performed on the 15 pairwise comparisons because they share six underlying policy effects and are not 15 independent Bernoulli trials.
+EFR increased agreement with the Pure-DCE policy ranking (a structural diagnostic, not an independent validation): Qwen2.5-72B-Instruct Spearman PRC $0.333 \to 0.867$; DeepSeek V4 Pro $0.133 \to 0.600$; MiroThinker-1.7-mini $0.533 \to 0.800$. Because the EFR blend contains 75\% $P_{\text{emp}}$ by construction, increased agreement with the Pure-DCE ranking is a mechanical consequence of the convex anchor, not an independent behavioral validation. PRC is therefore reported in the supplement as a structural diagnostic only; no significance test is performed on the 15 pairwise comparisons because they share six underlying policy effects and are not 15 independent Bernoulli trials.
 
 \section{Discussion}
 \subsection{Principal Findings}
 
-EFR improves behavioral consistency without retraining. Three findings emerge. \emph{First}, unconstrained LLMs produce choice probabilities poorly aligned with the DCE-estimated reference: waiting-time monotonicity violations ranged 10.4--62.5\% (Qwen2.5-72B: 62.5\%; DeepSeek V4: 34.4\%; MiroThinker: 10.4\%); rank correlation was weak ($\rho$: 0.061/0.302/0.531). \emph{Second}, EFR reduced violations to 7.3--30.2\% and raised $\rho$ to $\geq 0.69$ (0.689/0.812/0.756). Primary exact-task validation ($N=205$, 1,230 choices) shows multinomial log loss: Pure-DCE 0.911, EFR 0.923, Raw LLM 1.020. EFR improved log loss versus Raw LLM ($-0.0967$; 95\% CI $-0.1468$ to $-0.0469$); the EFR--Pure-DCE difference was small and imprecise ($+0.0121$; 95\% CI $-0.0234$ to $+0.0472$). Alternative-level analysis ($N=813$): Table~S7. \emph{Third}, policy-ranking agreement increased (PRC: 0.333$\to$0.867, 0.133$\to$0.600, 0.533$\to$0.800); this is a structural diagnostic of the 75\% $P_{\text{emp}}$ blend, not independent validation (reported in supplement without significance testing).
+EFR improves behavioral consistency without retraining. Three findings emerge. \emph{First}, unconstrained LLMs produce choice probabilities poorly aligned with the DCE-estimated reference: waiting-time monotonicity violations ranged 10.4--62.5\% (Qwen2.5-72B: 62.5\%; DeepSeek V4 Pro: 34.4\%; MiroThinker: 10.4\%); rank correlation was weak ($\rho$: 0.061/0.302/0.531). \emph{Second}, EFR reduced violations to 7.3--30.2\% and raised $\rho$ to $\geq 0.69$ (0.689/0.812/0.756). Primary exact-task validation ($N=205$, 1,230 choices) shows multinomial log loss: Pure-DCE 0.911, EFR 0.923, Raw LLM 1.020. EFR improved log loss versus Raw LLM ($-0.0967$; 95\% CI $-0.1468$ to $-0.0469$); the EFR--Pure-DCE difference was small and imprecise ($+0.0121$; 95\% CI $-0.0234$ to $+0.0472$). Alternative-level analysis ($N=813$): Table~S7. \emph{Third}, policy-ranking agreement increased (PRC: 0.333$\to$0.867, 0.133$\to$0.600, 0.533$\to$0.800); this is a structural diagnostic of the 75\% $P_{\text{emp}}$ blend, not independent validation (reported in supplement without significance testing).
 
 \subsection{Methodological Contributions}
 
@@ -332,7 +332,7 @@ The EFR framework has three HTA implications. \emph{First}, a recent DCE unlocks
 \subsection{Why Not Use the Discrete Choice Model Alone?}
 \label{sec:why_not_dce}
 
-EFR trades exact-task predictive performance for narrative-policy evaluation capability (multinomial log loss: Pure-DCE $0.911$; EFR $0.923$; Raw LLM $1.020$; uniform benchmark $1.099$). \textbf{EFR materially improved exact-task predictive performance relative to the unconstrained LLM} ($9.5\%$ reduction in log loss) and approached the predictive performance of the Pure-DCE model (within $1.3\%$), while retaining a non-zero LLM component for narrative extension. EFR does not outperform the DCE model within the original structured choice domain, but it substantially improves on the unconstrained LLM and recovers most of the DCE model's predictive performance while preserving an LLM component for narrative extension. The NDS pilot ($n=2$) is reported as illustrative mechanism evidence only: isotonic NDS $\rho = -0.943$ vs. EFR $\rho = +0.894$ for DeepSeek V4. \textbf{Figure~\ref{fig:heldout_predictive}} reports the exact-task categorical held-out validation results.
+EFR trades exact-task predictive performance for narrative-policy evaluation capability (multinomial log loss: Pure-DCE $0.911$; EFR $0.923$; Raw LLM $1.020$; uniform benchmark $1.099$). \textbf{EFR materially improved exact-task predictive performance relative to the unconstrained LLM} ($9.5\%$ reduction in log loss) and approached the predictive performance of the Pure-DCE model (within $1.3\%$), while retaining a non-zero LLM component for narrative extension. EFR does not outperform the DCE model within the original structured choice domain, but it substantially improves on the unconstrained LLM and recovers most of the DCE model's predictive performance while preserving an LLM component for narrative extension. The NDS pilot ($n=2$) is reported as illustrative mechanism evidence only: isotonic NDS $\rho = -0.943$ vs. EFR $\rho = +0.894$ for DeepSeek V4 Pro. \textbf{Figure~\ref{fig:heldout_predictive}} reports the exact-task categorical held-out validation results.
 
 \begin{figure}[h]
 \centering
@@ -347,7 +347,7 @@ EFR trades exact-task predictive performance for narrative-policy evaluation cap
 
 \subsection{Conclusion}\nopagebreak\label{sec:conclusion}
 
-EFR anchors LLM outputs to DCE estimates without retraining. Independent local replication validation on the six administered DCE choice tasks ($N=205$ respondents, 1,230 choices; local Ollama Qwen2.5-72B) shows multinomial log loss: Pure-DCE ($0.911$), EFR ($0.923$), Raw LLM ($1.020$), Uniform ($1.099$). EFR materially improved exact-task predictive performance relative to the unconstrained LLM ($9.5\%$ reduction in log loss) and approached the predictive performance of the Pure-DCE model (within $1.3\%$), while retaining a non-zero LLM component for narrative extension. EFR does not outperform the DCE model within the original structured choice domain, but it substantially improves on the unconstrained LLM and recovers most of the DCE model's predictive performance while preserving an LLM component for narrative extension. On the structured 64-state grid, MVR-Wait fell from 10.4--62.5\% to 7.3--30.2\% across three LLMs (Qwen2.5-72B-Instruct: 62.5\% $\to$ 30.2\%; DeepSeek V4: 34.4\% $\to$ 7.3\%; MiroThinker-1.7-mini: 10.4\% $\to$ 8.3\%) under EFR anchoring at $\lambda = 0.25$ (Table 1). \emph{In the eight wait-varying OOD narrative pairs (40 narrative descriptions total, evaluated with Qwen2.5-72B-Instruct and DeepSeek V4 only), EFR eliminated the observed waiting-time reversals on Panel A (Qwen: 2/6 to 0/6; DeepSeek: 4/6 to 0/6) and held the Panel B wait-varying pairs at 0/2 for both models; the twelve narrative-only pairs (varying side-effect, efficacy, or fictional narrative content while holding wait constant) are reported as MAD and Spearman $\rho$ only.} EFR is best understood as a constrained narrative-extension mechanism for an existing DCE, with the LLM component permitted only inside the convex blend with $P_{\text{emp}}$. The empirical reference, not the LLM, supplies the behavioral signal; whether the narrative extension is behaviorally more accurate on out-of-design scenarios remains to be established by future work with human ground truth. Three directions are planned future work: (i) replication across additional diseases, jurisdictions, and policy domains; (ii) exploration of non-convex anchoring mechanisms (e.g., mixture-of-experts gating); (iii) quasi-experimental validation with human ground truth on out-of-design narrative scenarios.
+EFR anchors LLM outputs to DCE estimates without retraining. Independent local replication validation on the six administered DCE choice tasks ($N=205$ respondents, 1,230 choices; local Ollama Qwen2.5-72B) shows multinomial log loss: Pure-DCE ($0.911$), EFR ($0.923$), Raw LLM ($1.020$), Uniform ($1.099$). EFR materially improved exact-task predictive performance relative to the unconstrained LLM ($9.5\%$ reduction in log loss) and approached the predictive performance of the Pure-DCE model (within $1.3\%$), while retaining a non-zero LLM component for narrative extension. EFR does not outperform the DCE model within the original structured choice domain, but it substantially improves on the unconstrained LLM and recovers most of the DCE model's predictive performance while preserving an LLM component for narrative extension. On the structured 64-state grid, MVR-Wait fell from 10.4--62.5\% to 7.3--30.2\% across three LLMs (Qwen2.5-72B-Instruct: 62.5\% $\to$ 30.2\%; DeepSeek V4 Pro: 34.4\% $\to$ 7.3\%; MiroThinker-1.7-mini: 10.4\% $\to$ 8.3\%) under EFR anchoring at $\lambda = 0.25$ (Table 1). \emph{In the eight wait-varying OOD narrative pairs (40 narrative descriptions total, evaluated with Qwen2.5-72B-Instruct and DeepSeek V4 Pro only), EFR eliminated the observed waiting-time reversals on Panel A (Qwen: 2/6 to 0/6; DeepSeek: 4/6 to 0/6) and held the Panel B wait-varying pairs at 0/2 for both models; the twelve narrative-only pairs (varying side-effect, efficacy, or fictional narrative content while holding wait constant) are reported as MAD and Spearman $\rho$ only.} EFR is best understood as a constrained narrative-extension mechanism for an existing DCE, with the LLM component permitted only inside the convex blend with $P_{\text{emp}}$. The empirical reference, not the LLM, supplies the behavioral signal; whether the narrative extension is behaviorally more accurate on out-of-design scenarios remains to be established by future work with human ground truth. Three directions are planned future work: (i) replication across additional diseases, jurisdictions, and policy domains; (ii) exploration of non-convex anchoring mechanisms (e.g., mixture-of-experts gating); (iii) quasi-experimental validation with human ground truth on out-of-design narrative scenarios.
 
 \clearpage
 \section*{References}

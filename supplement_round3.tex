@@ -65,7 +65,7 @@ To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{em
 
 \paragraph{Uniform-noise null.} The LLM component is replaced with a uniform random draw $U[0, 1]$ on each state, then $\rho(0.25 \cdot U + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``If the LLM component were pure uniform noise, how much rank correlation would the 75\% anchor alone produce?'' The resulting null has mean $\rho = 0.366$ (SD $= 0.106$; 95\% CI $[0.146,\,0.561]$).
 
-\paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for DeepSeek V4 and MiroThinker-1.7-mini are from the same API deployments used in Table~1, while the Qwen2.5-72B prediction is from a local Ollama replication (quantized Q4\_K\_M; differs from the Hugging Face inference endpoint used in Table~1 but reproduces the same canonical $\rho = 0.689$ under the 6-param frontier).
+\paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for DeepSeek V4 Pro and MiroThinker-1.7-mini are from the same API deployments used in Table~1, while the Qwen2.5-72B prediction is from a local Ollama replication (quantized Q4\_K\_M; differs from the Hugging Face inference endpoint used in Table~1 but reproduces the same canonical $\rho = 0.689$ under the 6-param frontier).
 
 \paragraph{Results.} Table~\ref{tab:S1} compares the observed EFR $\rho$ against both nulls.
 
@@ -79,18 +79,18 @@ To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{em
 Model & $\rho_{\text{EFR}}$ & Uniform $p$ & Permutation $p$ & Permutation 95\% CI \\
 \midrule
 Qwen2.5-72B-Instruct & 0.689 & $<.001$ & .179 & $[0.50, 0.75]$ \\
-DeepSeek V4 & 0.812 & $<.001$ & .003 & $[0.54, 0.78]$ \\
+DeepSeek V4 Pro & 0.812 & $<.001$ & .003 & $[0.54, 0.78]$ \\
 MiroThinker-1.7-mini & 0.756 & $<.001$ & $<.001$ & $[0.17, 0.58]$ \\
 \bottomrule
 \end{tabular}
 \vspace{0.3em}
 \begin{minipage}{0.92\textwidth}
 \small
-\textit{Note.} Uniform $p$ = fraction of null replicates $\geq \rho_{\text{EFR}}$ under the uniform-noise null. Permutation $p$ = same under the permutation null. The permutation null is the stricter test: it preserves the marginal distribution of the actual LLM output and destroys only the state-level association. Qwen2.5-72B did not show detectable incremental DCE-aligned rank information beyond the distribution-preserving permutation benchmark ($p = .179$). DeepSeek V4 and MiroThinker showed incremental DCE-aligned rank information beyond mechanical anchoring ($p = .003$ and $p < .001$, respectively). After Bonferroni correction for three models ($\alpha = .05/3 = .017$), both DeepSeek V4 and MiroThinker remain significant. All observed $\rho$ values match Table~1 of the main text to display precision.
+\textit{Note.} Uniform $p$ = fraction of null replicates $\geq \rho_{\text{EFR}}$ under the uniform-noise null. Permutation $p$ = same under the permutation null. The permutation null is the stricter test: it preserves the marginal distribution of the actual LLM output and destroys only the state-level association. Qwen2.5-72B did not show detectable incremental DCE-aligned rank information beyond the distribution-preserving permutation benchmark ($p = .179$). DeepSeek V4 Pro and MiroThinker showed incremental DCE-aligned rank information beyond mechanical anchoring ($p = .003$ and $p < .001$, respectively). After Bonferroni correction for three models ($\alpha = .05/3 = .017$), both DeepSeek V4 Pro and MiroThinker remain significant. All observed $\rho$ values match Table~1 of the main text to display precision.
 \end{minipage}
 \end{table}
 
-The reported frontier-alignment $\rho$ values in Table~1 of the main text and Table~\ref{tab:S6} of this supplement should be read as structural diagnostics of how closely the EFR blend tracks the empirical frontier; the uniform null confirms that all three models exceed pure noise, while the permutation null distinguishes models whose LLM component shows detectable DCE-aligned rank information beyond mechanical anchoring (DeepSeek V4, MiroThinker; $p \leq .003$) from those that do not (Qwen2.5-72B; $p = .179$). The OOD frontier-alignment values ($\rho = 0.87$--$0.93$ for Qwen; $\rho = 0.87$--$0.88$ for DeepSeek V4) sit inside one SD of the tied Panel B null (mean $\rho = 0.89$, SD $= 0.06$) and should be read as descriptive structural robustness measures. The fairer predictive benchmark---held-out DCE log loss---is reported in Section~4.2 of the main text.
+The reported frontier-alignment $\rho$ values in Table~1 of the main text and Table~\ref{tab:S6} of this supplement should be read as structural diagnostics of how closely the EFR blend tracks the empirical frontier; the uniform null confirms that all three models exceed pure noise, while the permutation null distinguishes models whose LLM component shows detectable DCE-aligned rank information beyond mechanical anchoring (DeepSeek V4 Pro, MiroThinker; $p \leq .003$) from those that do not (Qwen2.5-72B; $p = .179$). The OOD frontier-alignment values ($\rho = 0.87$--$0.93$ for Qwen; $\rho = 0.87$--$0.88$ for DeepSeek V4 Pro) sit inside one SD of the tied Panel B null (mean $\rho = 0.89$, SD $= 0.06$) and should be read as descriptive structural robustness measures. The fairer predictive benchmark---held-out DCE log loss---is reported in Section~4.2 of the main text.
 
 \section{ELEVATE-GenAI Reporting Details}
 \label{app:elevate_genai}
@@ -110,7 +110,7 @@ This appendix documents compliance with the ViH/ISPOR ELEVATE-GenAI reporting fr
 \textbf{Model} & \textbf{Endpoint / Provider} & \textbf{Access date} & \textbf{Temp.} & \textbf{top-$p$} & \textbf{\shortstack{Max\\tokens}} & \textbf{$R$} & \textbf{Notes} \\
 \midrule
 Qwen2.5-72B-Instruct       & Hugging Face Inference API            & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale primary; Main Table 1; Tables S5--S6 \\
-DeepSeek V4                & Provider inference API                & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale robustness; Main Table 1; Table S6 \\
+DeepSeek V4 Pro                & Provider inference API                & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale robustness; Main Table 1; Table S6 \\
 MiroThinker-1.7-mini       & Provider inference API                & 2026-05-19            & 0.0    & 1.0 & 256    & 10 & Full-scale robustness (deterministic); Main Table 1; Table S6 \\
 \midrule
 Qwen2.5-1.5B               & Ollama (local; Mac mini, 8\,GB)       & 2026-04              & 0.7    & 1.0 & 256    & 5  & NDS pilot only (the main text); n=2 prompts \\
@@ -395,7 +395,7 @@ Each pilot state was queried repeatedly, and the mean predicted probability acro
 
 \subsection{Relationship to the Full-Scale EFR Anchor}
 
-The pilot differs from the full-scale experiment in three important ways. First, the pilot used a smaller 1.5B local model, whereas the full-scale experiment uses Qwen2.5-72B-Instruct as the primary model and includes DeepSeek V4 and MiroThinker-1.7-mini as robustness models. Second, the pilot varied only waiting time while holding cost and side-effect risk fixed, whereas the full-scale experiment evaluates a 64-state grid over waiting time, vaccine efficacy, and side-effect burden. Third, the pilot used prompt-level rule injection, whereas the full-scale EFR Anchor applies a post-generation convex anchoring rule:
+The pilot differs from the full-scale experiment in three important ways. First, the pilot used a smaller 1.5B local model, whereas the full-scale experiment uses Qwen2.5-72B-Instruct as the primary model and includes DeepSeek V4 Pro and MiroThinker-1.7-mini as robustness models. Second, the pilot varied only waiting time while holding cost and side-effect risk fixed, whereas the full-scale experiment evaluates a 64-state grid over waiting time, vaccine efficacy, and side-effect burden. Third, the pilot used prompt-level rule injection, whereas the full-scale EFR Anchor applies a post-generation convex anchoring rule:
 
 \[
 \pi_{\text{BDT}}(y=1 \mid x)
@@ -674,7 +674,7 @@ Table~\ref{tab:S9} reports the parse success rates for each model and experiment
 \midrule
 Qwen2.5-1.5B  & Pilot         & 95.2\% & 98.7\% \\
 Qwen2.5-72B-Instruct   & Full-scale    & 97.8\% & 99.4\% \\
-DeepSeek V4 & Robustness  & 96.5\% & 99.1\% \\
+DeepSeek V4 Pro & Robustness  & 96.5\% & 99.1\% \\
 MiroThinker-1.7-mini & Robustness & 94.0\% & 97.5\% \\
 \bottomrule
 \end{tabular}
@@ -718,7 +718,7 @@ Runtime was extracted from timestamped checkpoint CSV files and available local 
 Model & \(N\) & First timestamp (UTC) & Last timestamp (UTC) & Wall clock & Avg./gen. & Post-proc. \\
 \midrule
 Qwen2.5-72B-Instruct & 640 & 2026-05-19 03:58:32 & 2026-05-19 15:08:44 & 11.15 h & 62.9 s & \(\sim\)1.60 h \\
-DeepSeek V4 & 640 & 2026-05-19 02:38:44 & 2026-05-19 03:16:35 & 37.9 min & 3.6 s & \(\sim\)2.5 min \\
+DeepSeek V4 Pro & 640 & 2026-05-19 02:38:44 & 2026-05-19 03:16:35 & 37.9 min & 3.6 s & \(\sim\)2.5 min \\
 MiroThinker-1.7-mini & 640 & 2026-05-19 17:37:48 & 2026-05-19 17:42:02 & 4.2 min & 0.40 s & \(\sim\)3.5 min \\
 \bottomrule
 \end{tabular}
@@ -727,7 +727,7 @@ MiroThinker-1.7-mini & 640 & 2026-05-19 17:37:48 & 2026-05-19 17:42:02 & 4.2 min
 \vspace{0.3em}
 \begin{minipage}{0.95\textwidth}
 \small
-\textit{Note.} \(N\) denotes the number of timestamped generations. For Qwen2.5-72B-Instruct and MiroThinker-1.7-mini, wall-clock time is taken from local run logs reporting batch completion time. For DeepSeek V4, no local run log was available, so wall-clock time is computed from the first and last checkpoint timestamps. Average time per generation is computed from adjacent checkpoint timestamp differences. Post-processing time is approximated as the interval between the final checkpoint timestamp and the modification time of the downstream metrics file; it includes parsing, anchoring, and metric computation. For Qwen2.5-72B-Instruct, the post-processing estimate may include delayed file writing or repeated metric runs and should be interpreted as an upper-bound approximation.
+\textit{Note.} \(N\) denotes the number of timestamped generations. For Qwen2.5-72B-Instruct and MiroThinker-1.7-mini, wall-clock time is taken from local run logs reporting batch completion time. For DeepSeek V4 Pro, no local run log was available, so wall-clock time is computed from the first and last checkpoint timestamps. Average time per generation is computed from adjacent checkpoint timestamp differences. Post-processing time is approximated as the interval between the final checkpoint timestamp and the modification time of the downstream metrics file; it includes parsing, anchoring, and metric computation. For Qwen2.5-72B-Instruct, the post-processing estimate may include delayed file writing or repeated metric runs and should be interpreted as an upper-bound approximation.
 \end{minipage}
 \end{table}
 
@@ -753,8 +753,8 @@ Model & Method & Matching pairs & PRC \\
 Qwen2.5-72B-Instruct & Unconstrained LLM & 5/15 & 0.333 \\
 Qwen2.5-72B-Instruct & EFR & 13/15 & 0.867 \\
 \midrule
-DeepSeek V4 & Unconstrained LLM & 2/15 & 0.133 \\
-DeepSeek V4 & EFR & 9/15 & 0.600 \\
+DeepSeek V4 Pro & Unconstrained LLM & 2/15 & 0.133 \\
+DeepSeek V4 Pro & EFR & 9/15 & 0.600 \\
 \midrule
 MiroThinker-1.7-mini & Unconstrained LLM & 8/15 & 0.533 \\
 MiroThinker-1.7-mini & EFR & 12/15 & 0.800 \\
@@ -941,14 +941,14 @@ Qwen2.5-72B-Instruct & EFR Anchor & MVR-Wait & 0.3021 & point \\
 Qwen2.5-72B-Instruct & Unconstrained LLM & Spearman \(\rho\) & $0.0608$ & [$-0.1784$, $0.3042$] \\
 Qwen2.5-72B-Instruct & EFR Anchor & Spearman \(\rho\) & $0.6886$ & [$0.5266$, $0.8012$] \\
 \midrule
-DeepSeek V4 & Unconstrained LLM & MSE & 0.0379 & [0.0266, 0.0505] \\
-DeepSeek V4 & EFR Anchor & MSE & 0.0024 & [0.0017, 0.0031] \\
+DeepSeek V4 Pro & Unconstrained LLM & MSE & 0.0379 & [0.0266, 0.0505] \\
+DeepSeek V4 Pro & EFR Anchor & MSE & 0.0024 & [0.0017, 0.0031] \\
 \midrule
-DeepSeek V4 & Unconstrained LLM & MVR-Wait & 0.3438 & point \\
-DeepSeek V4 & EFR Anchor & MVR-Wait & 0.0729 & point \\
+DeepSeek V4 Pro & Unconstrained LLM & MVR-Wait & 0.3438 & point \\
+DeepSeek V4 Pro & EFR Anchor & MVR-Wait & 0.0729 & point \\
 \midrule
-DeepSeek V4 & Unconstrained LLM & Spearman \(\rho\) & $0.3025$ & [$0.0714$, $0.5123$] \\
-DeepSeek V4 & EFR Anchor & Spearman \(\rho\) & $0.8123$ & [$0.6832$, $0.8885$] \\
+DeepSeek V4 Pro & Unconstrained LLM & Spearman \(\rho\) & $0.3025$ & [$0.0714$, $0.5123$] \\
+DeepSeek V4 Pro & EFR Anchor & Spearman \(\rho\) & $0.8123$ & [$0.6832$, $0.8885$] \\
 \midrule
 MiroThinker-1.7-mini & Unconstrained LLM & MSE & 0.0872 & [0.0662, 0.1107] \\
 MiroThinker-1.7-mini & EFR Anchor & MSE & 0.0054 & [0.0041, 0.0070] \\
@@ -1040,7 +1040,7 @@ Replication materials are available in a public GitHub repository:
 \section{Out-of-Design Narrative Evaluation (Supplementary Table Reference)}
 \label{app:ood_figure}
 
-The main text (Section~4.3, Table~2 of the main text) reports the out-of-design Panel A and Panel B narrative-policy evaluation on the 20 paired scenarios (40 narrative descriptions) with MVR-Wait on the 8 wait-varying pairs (Panel A: 6; Panel B: 2), MAD/$\rho$ on the 12 narrative-only pairs, and the two-model comparison (Qwen2.5-72B-Instruct and DeepSeek V4; MiroThinker-1.7-mini was not administered on the OOD panel because its 64-state grid evaluation was used to validate the EFR anchor as a standalone test, not to run the OOD narrative scenarios). The four-panel diagnostic figure (MVR-Wait / Spearman $\rho$ / subgroup heterogeneity / PRC) that combined the 20 paired OOD scenarios with the 813-row matched-subset subgroup analysis is omitted from this supplement because the rank-correlation panel falls inside the construction-only null band; the table-based diagnostics (Table~2 of the main text) are the authoritative source for the OOD narrative results. The out-of-design evaluation is restricted to the two-model Qwen2.5-72B-Instruct and DeepSeek V4 panel; the third model (MiroThinker-1.7-mini) is reported only on the 64-state grid in the main text.
+The main text (Section~4.3, Table~2 of the main text) reports the out-of-design Panel A and Panel B narrative-policy evaluation on the 20 paired scenarios (40 narrative descriptions) with MVR-Wait on the 8 wait-varying pairs (Panel A: 6; Panel B: 2), MAD/$\rho$ on the 12 narrative-only pairs, and the two-model comparison (Qwen2.5-72B-Instruct and DeepSeek V4 Pro; MiroThinker-1.7-mini was not administered on the OOD panel because its 64-state grid evaluation was used to validate the EFR anchor as a standalone test, not to run the OOD narrative scenarios). The four-panel diagnostic figure (MVR-Wait / Spearman $\rho$ / subgroup heterogeneity / PRC) that combined the 20 paired OOD scenarios with the 813-row matched-subset subgroup analysis is omitted from this supplement because the rank-correlation panel falls inside the construction-only null band; the table-based diagnostics (Table~2 of the main text) are the authoritative source for the OOD narrative results. The out-of-design evaluation is restricted to the two-model Qwen2.5-72B-Instruct and DeepSeek V4 Pro panel; the third model (MiroThinker-1.7-mini) is reported only on the 64-state grid in the main text.
 
 
 
@@ -1106,7 +1106,7 @@ The results show a clear ranking: Pure-DCE outperforms all other methods, but EF
 
 \subsection{Model and Inference Condition}
 
-\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original Hugging Face endpoint (Table S2) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 and MiroThinker-1.7-mini are reported in Table S2.
+\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original Hugging Face endpoint (Table S2) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 Pro and MiroThinker-1.7-mini are reported in Table S2.
 
 \paragraph{Prompt template (exact-task multinomial validation).}
 The respondent-facing multinomial prompt for the six canonical DCE tasks is:

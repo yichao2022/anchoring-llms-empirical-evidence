@@ -31,7 +31,14 @@ def load_llm_parsed(filepath):
         for row in csv.DictReader(f):
             w, e, s = float(row['wait']), float(row['eff']), float(row['se'])
             key = (w, e, s)
-            p = float(row['probability_0_1'])
+            # Skip empty probability values
+            prob_str = row.get('probability_0_1', '').strip()
+            if not prob_str:
+                continue
+            try:
+                p = float(prob_str)
+            except ValueError:
+                continue
             state_probs[key].append(p)
     # Average per state, map to 64-state order
     llm = np.zeros(64)
@@ -50,18 +57,20 @@ models = {
 np.random.seed(2026)
 all_results = {}
 
+# Generate uniform null ONCE (shared across all models)
+print("Generating uniform null distribution (shared)...")
+uni_rho = []
+for _ in range(N_NULL):
+    U = np.random.uniform(0, 1, 64)
+    rho_n = spearmanr(LAMBDA*U + (1-LAMBDA)*P_emp_64, P_emp_64).statistic
+    uni_rho.append(rho_n)
+uni_rho = np.array(uni_rho)
+print(f"  Uniform null: mean={uni_rho.mean():.4f}, 95%CI=[{np.percentile(uni_rho,2.5):.4f}, {np.percentile(uni_rho,97.5):.4f}]")
+
 for name, fpath in models.items():
     llm = load_llm_parsed(fpath)
     p_efr = LAMBDA * llm + (1 - LAMBDA) * P_emp_64
     rho_obs = spearmanr(p_efr, P_emp_64).statistic
-
-    # Uniform null
-    uni_rho = []
-    for _ in range(N_NULL):
-        U = np.random.uniform(0, 1, 64)
-        rho_n = spearmanr(LAMBDA*U + (1-LAMBDA)*P_emp_64, P_emp_64).statistic
-        uni_rho.append(rho_n)
-    uni_rho = np.array(uni_rho)
 
     # Permutation null
     perm_rho = []

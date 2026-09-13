@@ -148,7 +148,7 @@ Accuracy is reported in three complementary ways: (i)~within-design \emph{altern
 
 \paragraph{DCE design per ISPOR Good Practices checklist~\citep{Johnson2013DCE, Hauber2016DCE, Marshall2016DCE, Bridges2013DCE}.} \emph{The administered DCE attribute levels and the attribute coding dictionary are reported in Tables S3 and S4 below; the design is summarized in the Methods section of the main text and reproduced for self-containment here.} The Wuhan vaccination-timing DCE used a \textbf{non-orthogonal fractional design}. The intended non-opt-out candidate space contained 216 profiles (4 wait $\times$ 3 efficacy $\times$ 3 side-effect $\times$ 3 cash $\times$ 2 origin levels, namely waiting time $\in \{0, 1, 3, 6\}$, vaccine efficacy $\in \{0.5, 0.7, 0.95\}$, side effects (risk) $\in \{0.1, 1, 10\}\%$ coded as $\{1, 2, 3\}$, cash incentive $\in \{50, 200, 800\}$, and vaccine origin $\in \{\text{Domestic}, \text{Imported}\}$). \emph{All 1,027 respondents completed the same six choice tasks, each presenting two non-opt-out alternatives and an opt-out alternative. The design therefore contained six unique administered choice tasks and 12 non-opt-out profiles.} The 12 administered non-opt-out attribute combinations per respondent enumerate 12 of the 216 non-opt-out candidate cells (5.6\% coverage). \emph{The raw coded data ($N=18{,}486$ alt-rows) contain one additional 1-row outlier at wait $= 2$ months from a single respondent; this row is excluded from the non-opt-out candidate space because wait $= 2$ months is not an administered design level and the row is inconsistent with the design matrix.} The full per-attribute level distribution is reported in the methods narrative of the main text and in Table~\ref{tab:S3} below. Willingness-to-pay (WTP) is \emph{not} reported in this paper. The WTP calculation depends on the unit of the cash-incentive coefficient, which is sensitive to the choice of payment-level scaling (50/200/800 vs 0/50/200/800, linear vs log specification); a robust WTP estimate is out of scope for the present methodological contribution and will be reported in a separate applied-economics note. The conditional-logit coefficient ratio is, however, reported in Table~\ref{tab:S5}. The 64-state evaluation grid retains only the three focal attributes at four levels each, with cash incentive fixed at 0 RMB and vaccine origin fixed at ``reference'' framing; the empirical frontier is estimated from the 12 administered non-opt-out profiles in the DCE and can be evaluated over the full 216-profile candidate space for policy projection.
 
-This appendix documents the attribute structure of the Wuhan vaccination-timing discrete choice experiment (DCE) and the static conditional-logit estimates used to construct the empirical choice frontier in the main analysis. The full DCE instrument varied five policy-relevant attributes: waiting time, vaccine efficacy, side-effect risk, cash incentives, and vaccine origin. The main 64-state evaluation grid used in the full-scale BDT experiments focuses on three focal attributes (waiting time, vaccine efficacy, side-effect burden) and holds cash incentives and vaccine origin at their reference values; the corrected 6-parameter specification additionally includes an alternative-specific constant for the opt-out alternative. These attributes define the policy grid on which the unconstrained LLM and EFR Anchor are evaluated in Table~1 of the main text.
+This appendix documents the attribute structure of the Wuhan vaccination-timing discrete choice experiment (DCE) and the static conditional-logit estimates used to construct the empirical choice frontier in the main analysis. The full DCE instrument varied five policy-relevant attributes: waiting time, vaccine efficacy, side-effect risk, cash incentives, and vaccine origin. The main 64-state evaluation grid used in the full-scale EFR experiments focuses on three focal attributes (waiting time, vaccine efficacy, side-effect burden) and holds cash incentives and vaccine origin at their reference values; the corrected 6-parameter specification additionally includes an alternative-specific constant for the opt-out alternative. These attributes define the policy grid on which the unconstrained LLM and EFR are evaluated in Table~1 of the main text.
 
 \subsection{DCE Attribute Levels}
 
@@ -261,7 +261,7 @@ All coefficients display the expected sign. The negative coefficient on Wait Tim
 
 \subsection{Connection to the 64-State Evaluation Grid}
 
-The 64-state grid used in the full-scale BDT experiments is not a respondent-level train--test split. Instead, it is a fixed full-factorial policy grid over the three focal attributes:
+The 64-state grid used in the full-scale EFR experiments is not a respondent-level train--test split. Instead, it is a fixed full-factorial policy grid over the three focal attributes:
 
 \[
 G
@@ -288,7 +288,7 @@ The full-scale LLM and EFR results in Table~1 of the main text are evaluated by 
 \section{Pilot Experiment Details}
 \label{app:pilot}
 
-This appendix documents the pilot experiment, which served as a low-resource mechanism check rather than a directly comparable full-scale evaluation. It tested whether explicit monotonicity information could reduce frontier-relative behavioral inconsistencies in a minimal setting before scaling to the full EFR Anchor implementation.
+This appendix documents the pilot experiment, which served as a low-resource mechanism check rather than a directly comparable full-scale evaluation. It tested whether explicit monotonicity information could reduce frontier-relative behavioral inconsistencies in a minimal setting before scaling to the full EFR implementation.
 
 \subsection{Pilot Design}
 
@@ -299,7 +299,7 @@ The pilot used a randomly sampled 10\% subset of the DCE respondent data with a 
     \item \textbf{Rule-injection BDT}: the model was prompted with a simple monotonicity rule derived from the DCE logic: longer waiting time should reduce willingness to accept vaccination.
 \end{enumerate}
 
-Unlike the full-scale EFR Anchor used in the main experiment, the pilot did not apply the post-generation convex anchoring rule in Eq.~\eqref{eq:adjustment}. Instead, it used prompt-level rule injection. The pilot results should therefore be interpreted as low-resource mechanism evidence that explicit monotonicity information can reduce frontier-relative behavioral inconsistencies, not as a direct estimate of the full frontier-anchored regularization mechanism.
+Unlike the full-scale EFR used in the main experiment, the pilot did not apply the post-generation convex anchoring rule in Eq.~\eqref{eq:adjustment}. Instead, it used prompt-level rule injection. The pilot results should therefore be interpreted as low-resource mechanism evidence that explicit monotonicity information can reduce frontier-relative behavioral inconsistencies, not as a direct estimate of the full frontier-anchored regularization mechanism.
 
 \subsection{Pilot Prompt Templates}
 
@@ -330,9 +330,9 @@ Probability: a number between 0 and 100
 Reasoning: one short sentence
 \end{quote}
 
-\subsubsection{Rule-Injection BDT Prompt}
+\subsubsection{Rule-Injection EFR Prompt}
 
-The rule-injection BDT prompt added an explicit monotonicity rule before the same decision scenario:
+The rule-injection EFR prompt added an explicit monotonicity rule before the same decision scenario:
 
 \begin{quote}
 \small
@@ -393,27 +393,27 @@ The pilot MVR is therefore
 
 Each pilot state was queried repeatedly, and the mean predicted probability across repetitions was used when evaluating monotonicity violations. The unconstrained pilot condition produced an MVR of 50.0\%, while the rule-prompted condition reduced MVR to 22.2\%. Because the pilot constrained only waiting time and held other displayed attributes fixed, MVR-SE, MAE, and Spearman \(\rho\) were not computed for the pilot condition.
 
-\subsection{Relationship to the Full-Scale EFR Anchor}
+\subsection{Relationship to the Full-Scale EFR}
 
-The pilot differs from the full-scale experiment in three important ways. First, the pilot used a smaller 1.5B local model, whereas the full-scale experiment uses Qwen2.5-72B-Instruct as the primary model and includes DeepSeek V4 Pro and MiroThinker-1.7-mini as robustness models. Second, the pilot varied only waiting time while holding cost and side-effect risk fixed, whereas the full-scale experiment evaluates a 64-state grid over waiting time, vaccine efficacy, and side-effect burden. Third, the pilot used prompt-level rule injection, whereas the full-scale EFR Anchor applies a post-generation convex anchoring rule:
+The pilot differs from the full-scale experiment in three important ways. First, the pilot used a smaller 1.5B local model, whereas the full-scale experiment uses Qwen2.5-72B-Instruct as the primary model and includes DeepSeek V4 Pro and MiroThinker-1.7-mini as robustness models. Second, the pilot varied only waiting time while holding cost and side-effect risk fixed, whereas the full-scale experiment evaluates a 64-state grid over waiting time, vaccine efficacy, and side-effect burden. Third, the pilot used prompt-level rule injection, whereas the full-scale EFR applies a post-generation convex anchoring rule:
 
 \[
-\pi_{\text{BDT}}(y=1 \mid x)
+\pi_{\text{EFR}}(y=1 \mid x)
 =
 \lambda \bar{\pi}_{\text{LLM}}(y=1 \mid x)
 +
 (1-\lambda)P_{\text{static}}(y=1 \mid x).
 \]
 
-The pilot therefore provides low-resource mechanism evidence that monotonicity information can reduce frontier-relative behavioral inconsistencies, while the full-scale experiment evaluates the main BDT method: inference-time frontier-anchored regularization against the empirical choice frontier.
+The pilot therefore provides low-resource mechanism evidence that monotonicity information can reduce frontier-relative behavioral inconsistencies, while the full-scale experiment evaluates the main EFR method: inference-time frontier-anchored regularization against the empirical choice frontier.
 
 
-\section{EFR Anchor and \texorpdfstring{\(\lambda\)}{lambda} Sensitivity}
+\section{EFR and \texorpdfstring{\(\lambda\)}{lambda} Sensitivity}
 \label{app:lambda}
 
 This appendix documents the EFR anchoring rule and reports sensitivity analyses for the anchoring weight \(\lambda\). The main specification uses \(\lambda=0.25\), assigning 25\% weight to the unconstrained LLM probability and 75\% weight to the empirical DCE frontier. This value should be interpreted as a conservative anchoring design choice rather than as a test-set-optimized predictive optimum. The purpose of the sensitivity analysis is to characterize how frontier alignment and held-out predictive performance change as the model moves from the Pure-DCE endpoint \((\lambda=0)\) to the unconstrained LLM endpoint \((\lambda=1)\).
 
-\subsection{EFR Anchor Implementation}
+\subsection{EFR Implementation}
 
 For each state \(x_g\) in the 64-state policy grid, the base LLM first generates an unconstrained choice probability. Each state is queried repeatedly, and the mean probability across repetitions is used as the unconstrained model output:
 
@@ -433,10 +433,10 @@ P_{\mathrm{static}}(y=1 \mid x_g)
 \sigma\!\bigl[U(x_g, \bar\beta) - \hat\beta_{\mathrm{ASC}}\bigr].
 \]
 
-The EFR Anchor is computed as a post-generation convex combination:
+The EFR is computed as a post-generation convex combination:
 
 \[
-\pi_{\mathrm{BDT}}(y=1 \mid x_g)
+\pi_{\mathrm{EFR}}(y=1 \mid x_g)
 =
 \lambda \bar{\pi}_{\mathrm{LLM}}(y=1 \mid x_g)
 +
@@ -454,7 +454,7 @@ P_{\mathrm{static}}(y=1 \mid x_g).
 When \(\lambda=1\), the model becomes the unconstrained LLM endpoint:
 
 \[
-\pi_{\mathrm{BDT}}(y=1 \mid x_g)
+\pi_{\mathrm{EFR}}(y=1 \mid x_g)
 =
 \bar{\pi}_{\mathrm{LLM}}(y=1 \mid x_g).
 \]
@@ -513,7 +513,7 @@ Table~\ref{tab:S7} (this supplement) reports held-out DCE predictive sensitivity
 
 \begin{table}[htbp]
 \centering
-\caption{$\lambda$-sensitivity for held-out DCE predictive validation on the LLM-matched held-out subset ($N=808$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the held-out pool contains $N=3{,}690$ alt-rows; after excluding one anomalous wait=2 alt-row, 3{,}689 rows remain under the intended design, of which 808 are matched and 2{,}876 are unmatched)). This is a \textbf{secondary sensitivity analysis}; the primary predictive validation is the exact-task multinomial log loss (Table~\ref{tab:S16}). Log loss and Brier score are reported for comparison; AUC is included only as a ranking diagnostic. AUC values are $\mathrm{AUC}(y, p_\mathrm{BDT})$ with $y=1$ = acceptance; see the orientation diagnostic below for an explanation of why $\mathrm{AUC}(y, 1-p)$ values were previously reported in this column. \emph{MSE and MAE decrease trivially with $\lambda$ because they are algebraically induced by the convex blend $\pi_{\mathrm{BDT}} = \lambda \bar{\pi}_{\mathrm{LLM}} + (1-\lambda) P_{\mathrm{emp}}$; only Spearman's $\rho$ against the frontier is a non-trivial alignment diagnostic and it is reported in the main text.}}
+\caption{$\lambda$-sensitivity for held-out DCE predictive validation on the LLM-matched held-out subset ($N=808$ \emph{alternative-level binary-outcome rows} from $N=205$ held-out respondents (each row is one of three alternatives within one of six tasks; the held-out pool contains $N=3{,}690$ alt-rows; after excluding one anomalous wait=2 alt-row, 3{,}689 rows remain under the intended design, of which 808 are matched and 2{,}876 are unmatched)). This is a \textbf{secondary sensitivity analysis}; the primary predictive validation is the exact-task multinomial log loss (Table~\ref{tab:S16}). Log loss and Brier score are reported for comparison; AUC is included only as a ranking diagnostic. AUC values are $\mathrm{AUC}(y, p_\mathrm{BDT})$ with $y=1$ = acceptance; see the orientation diagnostic below for an explanation of why $\mathrm{AUC}(y, 1-p)$ values were previously reported in this column. \emph{MSE and MAE decrease trivially with $\lambda$ because they are algebraically induced by the convex blend $\pi_{\mathrm{EFR}} = \lambda \bar{\pi}_{\mathrm{LLM}} + (1-\lambda) P_{\mathrm{emp}}$; only Spearman's $\rho$ against the frontier is a non-trivial alignment diagnostic and it is reported in the main text.}}
 \label{tab:S7}
 \begin{tabular}{c r r r r r r l}
 \toprule
@@ -575,7 +575,7 @@ The main specification \(\lambda=0.25\) is therefore not claimed to be predictiv
 \section{Data-Scaling Ablation Details}\label{sec:data_scaling}
 \label{app:data_scaling}
 
-This appendix documents the data-scaling ablation experiment summarized in Figure~S1. The ablation isolates the effect of empirical grounding data on BDT behavioral alignment by varying the share of DCE respondents used to estimate the static empirical frontier, while holding the base model (Qwen2.5-72B-Instruct), the anchoring strength ($\lambda = 0.25$), and the evaluation grid (64 states) constant.
+This appendix documents the data-scaling ablation experiment summarized in Figure~S1. The ablation isolates the effect of empirical grounding data on EFR behavioral alignment by varying the share of DCE respondents used to estimate the static empirical frontier, while holding the base model (Qwen2.5-72B-Instruct), the anchoring strength ($\lambda = 0.25$), and the evaluation grid (64 states) constant.
 
 \subsection{Respondent-Level Subsampling}
 \label{app:subsampling}
@@ -585,9 +585,9 @@ For each training share $s \in \{30\%, 50\%, 70\%, 100\%\}$, we randomly sample 
 \subsection{Evaluation Design}
 \label{app:evaluation_design}
 
-For each training share \(s\), the EFR Anchor is computed using the same unconstrained Qwen2.5-72B-Instruct probabilities \(\bar{\pi}_{\mathrm{LLM}}\) reused from the full-scale experiment. The anchored probability for state \(x_g\) is:
+For each training share \(s\), the EFR is computed using the same unconstrained Qwen2.5-72B-Instruct probabilities \(\bar{\pi}_{\mathrm{LLM}}\) reused from the full-scale experiment. The anchored probability for state \(x_g\) is:
 \[
-\pi_{\mathrm{BDT},s}(y=1 \mid x_g)
+\pi_{\mathrm{EFR},s}(y=1 \mid x_g)
 =
 \lambda \cdot \bar{\pi}_{\mathrm{LLM}}(y=1 \mid x_g)
 +
@@ -605,11 +605,11 @@ All metrics -- MSE, MVR-Wait, and Spearman \(\rho\) -- are computed on the same 
 \subsection{Results: Benchmark-Specific Evaluation}
 \label{app:results_vs_full}
 
-Table~\ref{tab:S8} reports the EFR Anchor under the two evaluation benchmarks described above. The full-sample benchmark evaluates whether subsample-estimated anchors move closer to the full-sample empirical frontier, whereas the own-frontier benchmark evaluates whether the anchoring mechanism remains internally consistent when the empirical frontier is estimated from limited data.
+Table~\ref{tab:S8} reports the EFR under the two evaluation benchmarks described above. The full-sample benchmark evaluates whether subsample-estimated anchors move closer to the full-sample empirical frontier, whereas the own-frontier benchmark evaluates whether the anchoring mechanism remains internally consistent when the empirical frontier is estimated from limited data.
 
 \begin{table}[htbp]
 \centering
-\caption{Data-scaling ablation: EFR Anchor ($\lambda = 0.25$) evaluated against two benchmarks. The \emph{full-sample benchmark} uses the full-sample canonical empirical frontier (the corrected 6-parameter conditional-logit specification fit on the full Wuhan DCE sample); the \emph{own-frontier benchmark} uses a subsample-reestimated frontier fit separately on each training subsample. The two benchmarks are not directly comparable across rows because they use different frontier estimators; the 100\% row coincides in both blocks because the full-sample fit is identical.}
+\caption{Data-scaling ablation: EFR ($\lambda = 0.25$) evaluated against two benchmarks. The \emph{full-sample benchmark} uses the full-sample canonical empirical frontier (the corrected 6-parameter conditional-logit specification fit on the full Wuhan DCE sample); the \emph{own-frontier benchmark} uses a subsample-reestimated frontier fit separately on each training subsample. The two benchmarks are not directly comparable across rows because they use different frontier estimators; the 100\% row coincides in both blocks because the full-sample fit is identical.}
 \label{tab:S8}
 \begin{tabular}{llccc}
 \toprule
@@ -628,18 +628,18 @@ DCE share & Benchmark & MSE & MVR-Wait & Spearman $\rho$ \\
 \end{tabular}
 \end{table}
 
-Two patterns emerge. Against the full-sample canonical empirical frontier, all three metrics improve as more DCE respondents are used to estimate the empirical frontier. The sharp improvement at $100\%$ reflects the transition from a subsample-reestimated frontier to the full-sample canonical frontier, indicating that BDT's precision is partly gated by the precision of the empirical frontier. Against each subsample's own reestimated frontier, performance is stable across the $30\%$--$70\%$ subsamples, indicating that the anchoring mechanism stays close to whichever frontier it is given, even when that frontier is estimated from limited data; the 100\% row coincides in both blocks because the full-sample fit is the same.
+Two patterns emerge. Against the full-sample canonical empirical frontier, all three metrics improve as more DCE respondents are used to estimate the empirical frontier. The sharp improvement at $100\%$ reflects the transition from a subsample-reestimated frontier to the full-sample canonical frontier, indicating that EFR's precision is partly gated by the precision of the empirical frontier. Against each subsample's own reestimated frontier, performance is stable across the $30\%$--$70\%$ subsamples, indicating that the anchoring mechanism stays close to whichever frontier it is given, even when that frontier is estimated from limited data; the 100\% row coincides in both blocks because the full-sample fit is the same.
 
 \subsection{Interpretation}
 \label{app:interpretation}
 
-Taken together, the two benchmark blocks in Table~\ref{tab:S8} separate two sources of improvement in the BDT framework.
+Taken together, the two benchmark blocks in Table~\ref{tab:S8} separate two sources of improvement in the EFR framework.
 
 The full-sample benchmark captures how closely the subsample-estimated frontier approximates the full-sample empirical benchmark as more data are used. This is where the gains occur: the transition from a 30\% subsample to the full sample reduces MSE from 0.0020 to 0.0016 (a $1.2\times$ reduction) and raises frontier alignment from $\rho = 0.646$ to $\rho = 0.689$ (metrics computed with $\lambda = 0.25$ fixed across all shares). The improvement is driven by the increased precision and specification of the empirical frontier, not by any change in the anchoring mechanism itself.
 
 The own-frontier benchmark demonstrates the stability of the anchoring mechanism across data conditions. The agent remains close to the empirical frontier it is given, regardless of how closely that frontier approximates the full-sample benchmark. MVR-Wait and Spearman \(\rho\) improve substantially relative to the unconstrained baseline even at the smallest training share, suggesting that useful monotonicity correction and rank-order discipline can be achieved without the full respondent sample.
 
-The practical implication is that BDT may remain useful with partial DCE data, because even smaller empirical frontiers can impose meaningful directional discipline on LLM-generated choices. The main benefit of larger samples is improved frontier precision, which translates into lower MSE relative to the best available empirical benchmark. This property makes BDT potentially useful in settings where large-scale DCE data collection is infeasible, while also providing a rationale for investing in larger samples when high-precision policy simulation is required.
+The practical implication is that EFR may remain useful with partial DCE data, because even smaller empirical frontiers can impose meaningful directional discipline on LLM-generated choices. The main benefit of larger samples is improved frontier precision, which translates into lower MSE relative to the best available empirical benchmark. This property makes EFR potentially useful in settings where large-scale DCE data collection is infeasible, while also providing a rationale for investing in larger samples when high-precision policy simulation is required.
 \section{Implementation and Parsing Checks}
 \label{app:implementation}
 
@@ -817,13 +817,13 @@ where \(\mathbf{x}'_{g,p}\) is the counterfactual state obtained by applying pol
 \in
 \{
 \pi_{\mathrm{LLM}},
-\pi_{\mathrm{BDT}},
+\pi_{\mathrm{EFR}},
 \pi_{\mathrm{DCE}}
 \}.
 \]
 EFR probabilities are computed using the main anchoring specification:
 \[
-\pi_{\mathrm{BDT}}
+\pi_{\mathrm{EFR}}
 =
 0.25\,\bar{\pi}_{\mathrm{LLM}}
 +
@@ -869,7 +869,7 @@ No confidence intervals are reported for PRC. The 15 unordered policy-pair compa
 
 The PRC computation is conducted on the same fixed 64-state grid used in the main frontier-alignment analysis. For each model, the analysis verifies that all 64 states are present, that the Pure-DCE probability equals \(P_{\mathrm{static}}\), and that the EFR probability satisfies
 \[
-\pi_{\mathrm{BDT}}
+\pi_{\mathrm{EFR}}
 =
 0.25\,\bar{\pi}_{\mathrm{LLM}}
 +
@@ -933,31 +933,31 @@ Table~\ref{tab:S13} reports bootstrap intervals for the primary frontier-alignme
 Model & Method & Metric & Estimate \\
 \midrule
 Qwen2.5-72B-Instruct & Unconstrained LLM & MSE & 0.0258 & [0.0174, 0.0350] \\
-Qwen2.5-72B-Instruct & EFR Anchor & MSE & 0.0016 & [0.0011, 0.0022] \\
+Qwen2.5-72B-Instruct & EFR & MSE & 0.0016 & [0.0011, 0.0022] \\
 \midrule
 Qwen2.5-72B-Instruct & Unconstrained LLM & MVR-Wait & 0.6250 & point \\
-Qwen2.5-72B-Instruct & EFR Anchor & MVR-Wait & 0.3021 & point \\
+Qwen2.5-72B-Instruct & EFR & MVR-Wait & 0.3021 & point \\
 \midrule
 Qwen2.5-72B-Instruct & Unconstrained LLM & Spearman \(\rho\) & $0.0608$ & [$-0.1784$, $0.3042$] \\
-Qwen2.5-72B-Instruct & EFR Anchor & Spearman \(\rho\) & $0.6886$ & [$0.5266$, $0.8012$] \\
+Qwen2.5-72B-Instruct & EFR & Spearman \(\rho\) & $0.6886$ & [$0.5266$, $0.8012$] \\
 \midrule
 DeepSeek V4 Pro & Unconstrained LLM & MSE & 0.0379 & [0.0266, 0.0505] \\
-DeepSeek V4 Pro & EFR Anchor & MSE & 0.0024 & [0.0017, 0.0031] \\
+DeepSeek V4 Pro & EFR & MSE & 0.0024 & [0.0017, 0.0031] \\
 \midrule
 DeepSeek V4 Pro & Unconstrained LLM & MVR-Wait & 0.3438 & point \\
-DeepSeek V4 Pro & EFR Anchor & MVR-Wait & 0.0729 & point \\
+DeepSeek V4 Pro & EFR & MVR-Wait & 0.0729 & point \\
 \midrule
 DeepSeek V4 Pro & Unconstrained LLM & Spearman \(\rho\) & $0.3025$ & [$0.0714$, $0.5123$] \\
-DeepSeek V4 Pro & EFR Anchor & Spearman \(\rho\) & $0.8123$ & [$0.6832$, $0.8885$] \\
+DeepSeek V4 Pro & EFR & Spearman \(\rho\) & $0.8123$ & [$0.6832$, $0.8885$] \\
 \midrule
 MiroThinker-1.7-mini & Unconstrained LLM & MSE & 0.0872 & [0.0662, 0.1107] \\
-MiroThinker-1.7-mini & EFR Anchor & MSE & 0.0054 & [0.0041, 0.0070] \\
+MiroThinker-1.7-mini & EFR & MSE & 0.0054 & [0.0041, 0.0070] \\
 \midrule
 MiroThinker-1.7-mini & Unconstrained LLM & MVR-Wait & 0.1042 & point \\
-MiroThinker-1.7-mini & EFR Anchor & MVR-Wait & 0.0833 & point \\
+MiroThinker-1.7-mini & EFR & MVR-Wait & 0.0833 & point \\
 \midrule
 MiroThinker-1.7-mini & Unconstrained LLM & Spearman \(\rho\) & $0.5306$ & [$0.3070$, $0.6966$] \\
-MiroThinker-1.7-mini & EFR Anchor & Spearman \(\rho\) & $0.7564$ & [$0.5849$, $0.8860$] \\
+MiroThinker-1.7-mini & EFR & Spearman \(\rho\) & $0.7564$ & [$0.5849$, $0.8860$] \\
 \bottomrule
 \end{tabular}
 

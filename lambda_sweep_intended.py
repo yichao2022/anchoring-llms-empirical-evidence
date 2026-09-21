@@ -18,17 +18,17 @@ from pathlib import Path
 
 SEED = 2026
 TRAIN_FRAC = 0.80
-REPO = Path('/Users/cary/bdt_repo')
+REPO = Path(__file__).resolve().parent
 EPS = 1e-12
 LAMBDAS = [0.00, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 1.00]
 
 df = pd.read_csv(REPO / 'analysis_output/dce_encoded.csv')
 # 0) INTENDED DESIGN FILTER BEFORE SPLIT
 intended = df[df['WaitTime'] != 2].copy()
-rids = sorted(intended['RespondentID'].unique())
-rng = random.Random(SEED); shuffled = rids[:]; rng.shuffle(shuffled)
-n_train = int(round(TRAIN_FRAC * len(shuffled)))
-train_ids = set(shuffled[:n_train]); test_ids = set(shuffled[n_train:])
+# Use canonical split (canonical_split_seed2026.json) instead of re-shuffling
+import json as _json
+_split = _json.load(open(REPO / 'canonical_split_seed2026.json'))
+train_ids = set(_split['train_ids']); test_ids = set(_split['test_ids'])
 heldout = intended[intended['RespondentID'].isin(test_ids)].copy()
 
 # 1) matched subset
@@ -64,7 +64,7 @@ p_dce = expit(Xm @ beta_train)
 # 4) LLM p per grid state
 pllm = pd.read_csv(REPO / 'llm_parsed_outputs_qwen72b_unconstrained.csv')
 pllm_by_state = pllm.groupby('state')['probability_0_1'].mean().to_dict()
-grid = pd.read_csv(REPO / 'bdt_eval_grid_static.csv')
+grid = pd.read_csv(REPO / 'bdt_eval_grid_static_6param.csv')
 def state_of(row):
     m = grid[(grid['wait']==row['WaitTime']) & (grid['eff']==row['VaccineEfficacy']) & (grid['se']==row['SideEffects'])]
     return None if len(m)==0 else m.iloc[0]['state']

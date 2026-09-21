@@ -159,7 +159,7 @@ We evaluated EFR using three open-source LLMs (Qwen2.5-72B-Instruct, DeepSeek V4
 \subsection{Behavioral Consistency with the Empirical Frontier}
 \label{sec:behavioral_consistency}
 
-\begin{table*}[t]
+\begin{table*}[!htbp]
 \centering
 \caption{Behavioral consistency with the DCE-estimated reference before and after EFR on the 64-state grid. The reference surface is the DCE-estimated conditional-logit model evaluated on the grid attributes (wait $\in \{0,2,4,6\}$, efficacy $\in \{0.3,0.5,0.7,0.9\}$, side-effect level $\in \{0,1,2,3\}$; cash and origin held at reference values). This is a \textbf{structural diagnostic} on a model-implied projection surface; the grid extends beyond the directly administered DCE profiles. Spearman's $\rho$ measures alignment with the DCE-estimated reference; the exact-task categorical validation (Figure~\ref{fig:heldout_predictive}) is the primary held-out benchmark.}
 \label{tab:behavioral_alignment}

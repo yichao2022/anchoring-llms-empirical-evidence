@@ -1,0 +1,86 @@
+% Table Sx: Out-of-Design Narrative Scenario Definitions (20 pairs / 40 scenarios)
+% Generated from out_of_design_scenarios.csv
+\begin{table}[htbp]
+\centering
+\caption{Out-of-design narrative scenario definitions (20 paired comparisons, 40 narrative descriptions). Panel A: 6 wait-varying pairs with neutral narratives; Panel B: 2 wait-varying pairs with gain-framed narratives; Panels C--F: 12 narrative-only pairs varying efficacy, side-effects, or combined attributes. Each pair maps to empirical frontier $P_{\text{emp}}$ via wait/efficacy/side-effect levels per Table~S4.}
+\label{tab:Sx_ood_scenarios}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{0.6cm}>{\raggedright\arraybackslash}p{1.3cm}>{\centering\arraybackslash}p{0.8cm}>{\centering\arraybackslash}p{0.8cm}>{\centering\arraybackslash}p{0.9cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Pair} & \textbf{Panel} & \textbf{Wait} & \textbf{Efficacy} & \textbf{SE Level} & \textbf{Narrative Description (Chinese)} \\
+\midrule
+\multicolumn{6}{l}{\textit{Panel A: Wait-varying pairs with neutral burden narratives (6 pairs; wait attribute varies 2→6 months)}} \\
+\midrule
+A1 & A & 2 & 0.7 & low & \texttt{标准接种流程无需特殊安排} \\
+A2 & A & 6 & 0.7 & low & \texttt{标准接种流程无需特殊安排} \\
+\midrule
+B1 & A & 2 & 0.7 & low & \texttt{需在线提前预约并填写电子表格} \\\nB2 & A & 6 & 0.7 & low & \texttt{需在线提前预约并填写电子表格} \\\
+\midrule
+C1 & A & 2 & 0.7 & low & \texttt{可直接 walk-in 无需预约} \\
+C2 & A & 6 & 0.7 & low & \texttt{可直接 walk-in 无需预约} \\
+\midrule
+D1 & A & 2 & 0.7 & low & \texttt{接种点距离住处较远需跨区前往} \\
+D2 & A & 6 & 0.7 & low & \texttt{接种点距离住处较远需跨区前往} \\
+\midrule
+E1 & A & 2 & 0.7 & low & \texttt{提供短信提醒且可灵活改约 \}\
+E2 & A & 6 & 0.7 & low & \texttt{提供短信提醒且可灵活改约 \}\
+\midrule
+F1 & A & 2 & 0.7 & low & \texttt{现场排队长度不确定需多次往返 \}\
+F2 & A & 6 & 0.7 & low & \texttt{现场排队长度不确定需多次往返 \}\
+\midrule
+\multicolumn{6}{l}{\textit{Panel B: Wait-varying pairs with gain-framed narratives (2 pairs; wait varies 2→6, narrative provides offsetting benefits)}} \\
+\midrule
+G1 & B & 2 & 0.7 & severe & \texttt{虽然副作用较严重但接种点免费提供全面高端体检和高级营养品且医护人员态度极其温柔 \}\
+G2 & B & 6 & 0.7 & low & \texttt{标准接种流程无需特殊安排} \\
+\midrule
+H1 & B & 6 & 0.7 & severe & \texttt{虽然副作用较严重但接种点免费提供全面高端体检和高级营养品且医护人员态度极其温柔 \}\
+H2 & B & 6 & 0.7 & low & \texttt{标准接种流程无需特殊安排} \\
+\midrule
+\multicolumn{6}{l}{\textit{Panels C--F: Narrative-only pairs (12 pairs; wait fixed, varying efficacy, side-effects, or both via narrative description)}} \\
+\midrule
+I1 & C & 2 & 0.7 & low & \texttt{标准接种流程无需特殊安排} \\
+I2 & C & 6 & 0.7 & low & \texttt{虽然等待时间较长但该批次疫苗是最新研发的特效升级版且走VIP通道免除排队 \}\
+\midrule
+J1 & C & 2 & 0.7 & low & \texttt{标准接种流程无需特殊安排} \\
+J2 & C & 6 & 0.7 & low & \texttt{虽然等待时间较长但该批次疫苗是最新研发的特效升级版且走VIP通道免除排队 \}\
+\midrule
+K1 & D & 2 & 0.7 & mild & \texttt{副作用仅为轻微头晕或乏力1到2天内自行消退 \}\
+K2 & D & 2 & 0.7 & severe & \texttt{可能导致严重过敏反应需要住院治疗 \}\
+\midrule
+L1 & D & 2 & 0.7 & mild & \texttt{无已知副作用安全性经过充分验证 \}\
+L2 & D & 2 & 0.7 & severe & \texttt{可能导致长期神经系统影响包括记忆力减退 \}\
+\midrule
+M1 & D & 2 & 0.7 & severe & \texttt{虽然副作用严重可能需住院但接种点提供高级营养品和一整年免费健康随访 \}\
+M2 & D & 2 & 0.7 & mild & \texttt{标准接种流程无需额外安排 \}\
+\midrule
+N1 & D & 2 & 0.7 & mild & \texttt{副作用轻微但接种前需要签署复杂的免责协议并提供详细既往病史 \}\
+N2 & D & 2 & 0.7 & severe & \texttt{标准接种流程无需额外手续 \}\
+\midrule
+O1 & E & 2 & 0.7 & none & \texttt{完全无副作用安全性经过多轮临床试验验证 \}\
+O2 & E & 2 & 0.7 & severe & \texttt{大约百分之十的接种者可能出现严重残疾如瘫痪或失明 \}\
+\midrule
+P1 & F & 2 & 0.5 & low & \texttt{该疫苗对当前流行毒株的有效率约为百分之五十 \}\
+P2 & F & 2 & 0.9 & low & \texttt{该疫苗对当前流行毒株的有效率约为百分之九十 \}\
+\midrule
+Q1 & F & 2 & -- & low & \texttt{该疫苗仅提供基础免疫保护对变异株效果有限 \}\
+Q2 & F & 2 & -- & low & \texttt{该疫苗提供针对多种变异株的广谱保护 \}\
+\midrule
+R1 & F & 2 & -- & low & \texttt{虽然有效率只有百分之五十但接种过程极其快速且无需排队 \}\
+R2 & F & 2 & -- & low & \texttt{标准接种流程 \}\
+\midrule
+S1 & F & 2 & -- & low & \texttt{标准接种流程 \}\
+S2 & F & 2 & -- & low & \texttt{虽然有效率高达百分之九十但需要跨城接种交通不便 \}\
+\midrule
+T1 & F & 2 & -- & none & \texttt{该疫苗完全无效相当于安慰剂 \}\
+T2 & F & 2 & -- & none & \texttt{该疫苗可实现百分之九十五终身免疫保护 \}\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.5em}
+\begin{minipage}{0.95\textwidth}
+\small
+\textit{Note.} Panel A--B scenarios map directly to $P_{\text{emp}}$ via wait/efficacy/side-effect levels (wait $\in \{2,6\}$, efficacy = 0.7, side-effect = low/severe per Table~S4). Panels C--F are narrative-only: wait fixed at 2 months, efficacy and side-effect levels implied by narrative text rather than explicit numeric attributes. Efficacy entries marked ``--'' indicate levels inferred from narrative context rather than explicit numeric values.
+\end{minipage}
+\end{table}

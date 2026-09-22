@@ -109,9 +109,9 @@ This appendix documents compliance with the ViH/ISPOR ELEVATE-GenAI reporting fr
 \toprule
 \textbf{Model} & \textbf{Endpoint / Provider} & \textbf{Access date} & \textbf{Temp.} & \textbf{top-$p$} & \textbf{\shortstack{Max\\tokens}} & \textbf{$R$} & \textbf{Notes} \\
 \midrule
-Qwen2.5-72B-Instruct       & Hugging Face Inference API            & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale primary; Main Table 1; Tables S5--S6 \\
-DeepSeek V4 Pro                & Provider inference API                & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale robustness; Main Table 1; Table S6 \\
-MiroThinker-1.7-mini       & Provider inference API                & 2026-05-19            & 0.0    & 1.0 & 256    & 10 & Full-scale robustness (deterministic); Main Table 1; Table S6 \\
+Qwen2.5-72B-Instruct       & Local vLLM-MLX (Apple M4 Max)         & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale primary; Main Table 1; Tables S5--S6; same run as Table S10 \\
+DeepSeek V4 Pro                & DeepSeek API                          & 2026-05-19            & 0.7    & 1.0 & 512    & 10 & Full-scale robustness; Main Table 1; Table S6 \\
+MiroThinker-1.7-mini       & Local vLLM-MLX (Apple M4 Max)         & 2026-05-19            & 0.0    & 1.0 & 256    & 10 & Full-scale robustness (deterministic); Main Table 1; Table S6; same run as Table S10 \\
 \midrule
 Qwen2.5-1.5B               & Ollama (local; Mac mini, 8\,GB)       & 2026-04              & 0.7    & 1.0 & 256    & 5  & NDS pilot only (the main text); n=2 prompts \\
 \midrule

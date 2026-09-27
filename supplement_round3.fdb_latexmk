@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex supplement_round3"] 1790480427.10805 "supplement_round3.aux" "supplement_round3.bbl" "supplement_round3" 1790480427.61021 0
-  "./references_round3.bib" 1790045383.06919 20827 3a4a5d168d9e947fbc86c7ff210f45ca ""
+["bibtex supplement_round3"] 1790484955.58533 "supplement_round3.aux" "supplement_round3.bbl" "supplement_round3" 1790484956.05157 0
+  "./references_round3.bib" 1790484666.85573 21513 07499e0541a17d297544c94bdf98fd2b ""
   "/Users/cary/Library/TinyTeX/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "supplement_round3.aux" 1790480427.54065 28220 73bac572862555b88a33a5037d79e2b8 "pdflatex"
+  "supplement_round3.aux" 1790484955.98397 28396 f8cb01a67ef4c7ed74b9889e75e5a72e "pdflatex"
   (generated)
   "supplement_round3.bbl"
   "supplement_round3.blg"
   (rewritten before read)
-["pdflatex"] 1790480427.12467 "supplement_round3.tex" "supplement_round3.pdf" "supplement_round3" 1790480427.61033 0
+["pdflatex"] 1790484955.60044 "supplement_round3.tex" "supplement_round3.pdf" "supplement_round3" 1790484956.05168 0
   "/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd" 1782424583 607 06eee81c7b03b7b3b2af97278f259b7d ""
   "/Users/cary/Library/TinyTeX/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/Users/cary/Library/TinyTeX/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -143,11 +143,11 @@
   "/Users/cary/Library/TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1777154004 2286161 b226d7012aaf6b187347a18d5ad478c1 ""
   "/Users/cary/Library/TinyTeX/texmf.cnf" 1757659926.26956 708 85fd07691b6294ba94c59dbc62380410 ""
   "figures/fig3_data_scaling_learning_curve.png" 1790045383.05888 112297 a316840b8f3200ea73be4a0b8a319e4a ""
-  "supplement_round3.aux" 1790480427.54065 28220 73bac572862555b88a33a5037d79e2b8 "pdflatex"
-  "supplement_round3.bbl" 1790480427.12287 2614 9014925d5bc408794389d8cfef468048 "bibtex supplement_round3"
-  "supplement_round3.out" 1790480427.54195 11398 1328da3d72c16cd9d3a54485c61a741a "pdflatex"
-  "supplement_round3.tex" 1790480357.88132 102934 9011d5a8bedc4d801cc4cc7ffb80a543 ""
-  "table_s13_ood_scenarios.tex" 1790051083.57919 4582 725439f832faa31fb726977d52489573 ""
+  "supplement_round3.aux" 1790484955.98397 28396 f8cb01a67ef4c7ed74b9889e75e5a72e "pdflatex"
+  "supplement_round3.bbl" 1790484955.59899 2614 9014925d5bc408794389d8cfef468048 "bibtex supplement_round3"
+  "supplement_round3.out" 1790484955.98524 11398 1328da3d72c16cd9d3a54485c61a741a "pdflatex"
+  "supplement_round3.tex" 1790484763.1961 102827 9a97e5eadc84860874eab809c8c6d66a ""
+  "table_s13_ood_scenarios.tex" 1790481714.8285 5087 28f89e34dd7210bde1e74c957b3bc780 ""
   (generated)
   "supplement_round3.aux"
   "supplement_round3.log"

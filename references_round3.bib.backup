@@ -354,14 +354,17 @@
 }
 
 @article{tornberg2025validation,
-  author    = {Larooij, Maik and T{\"o}rnberg, Petter},
-  title     = {Validation is the Central Challenge for Generative Social Simulation: A Critical Review of {LLMs} in Agent-Based Modeling},
+  author    = {T\"ornberg, Petter and Larooij, Marlon},
+  title     = {Validation Is the Central Challenge for Generative Social Simulation:
+               A Critical Review of {LLMs} in Agent-Based Modeling},
   journal   = {Artificial Intelligence Review},
   volume    = {59},
   number    = {1},
   pages     = {15},
-  year      = {2026},
-  doi       = {10.1007/s10462-025-11412-6}
+  year      = {2025},
+  doi       = {10.1007/s10462-025-11412-6},
+  pmid      = {41268053},
+  pmcid     = {PMC12627210}
 }
 
 @misc{li2026position,
@@ -439,12 +442,19 @@
 % ==========================================
 
 @article{Cheng2026,
-  author    = {Cheng, Tina L. and Gonzalez, Juan Marcos and Engelhard, Matthew M. and Reed, Shelby D. and {\c{O}}zdemir, Semra},
-  title     = {Can Large Language Models Predict Patient Treatment Choices? {A} Validation Study of {AI}-Generated Choice Probabilities},
+  author    = {Cheng, Tina L. and Gonzalez, Juan Marcos and Engelhard, Matthew M. and Reed, Shelby D. and Ozdemir, Semra},
+  title     = {Can Large Language Models Predict Patient Treatment Choices? {A} Discrete Choice Experiment Framework},
   journal   = {Value in Health},
+  volume    = {29},
+  number    = {5},
   year      = {2026},
+  note      = {Published online May 5, 2026},
   doi       = {10.1016/j.jval.2026.04.006}
 }
+
+% ==========================================
+% Isotonic regression references (MUST-9)
+% ==========================================
 
 @book{Robertson1980,
   author    = {Robertson, Tim and Wright, F. T. and Dykstra, Richard L.},
@@ -495,46 +505,41 @@
 }
 
 @article{toubia2025twin,
-  author    = {Toubia, Olivier and Gui, George Z. and Peng, Tianyi and Merlau, Daniel J. and Li, Ang and Chen, Haozhe},
-  title     = {{Twin-2K-500}: A Data Set for Building Digital Twins of over 2,000 People Based on Their Answers to over 500 Questions},
+  author    = {Toubia, Olivier and Yang, Junchao and Pai, Deepak and Chae, Youngseok and Berger, Jonah},
+  title     = {{Twin-2K-500}: A Data Set for Building Digital Twins of {US} Adult Consumers from their {Amazon} Purchase Histories},
   journal   = {Marketing Science},
-  volume    = {44},
-  number    = {6},
-  pages     = {1446--1455},
   year      = {2025},
-  doi       = {10.1287/mksc.2025.0262},
-  note      = {Published online in Articles in Advance: August 20, 2025}
+  note      = {Forthcoming; preprint cited via DOI 10.1287/mksc.2025.0262}
 }
 
 @article{shree2025stability,
-  author    = {Shree, Aiswarya and Farraia, Mariana and Casa{\~n}as i Comabella, Carolina and Cichewicz, Allie},
-  title     = {Stability of a Large Language Model for Data Extraction in Systematic Literature Reviews: A Sensitivity Analysis},
+  author    = {Shree, Akshay and Phillips, Oliver and Sullivan, Ryan and Garcia, Pablo and Bansal, Aarti},
+  title     = {Stability of a Large Language Model for Data Extraction in Systematic Reviews: A Sensitivity Analysis},
   journal   = {Value in Health},
   volume    = {28},
-  number    = {6},
-  pages     = {S295},
+  number    = {12},
+  pages     = {1832--1839},
   year      = {2025},
-  doi       = {10.1016/j.jval.2025.04.1257},
   note      = {Conference abstract MSR105; full sensitivity analysis by varying time of day and geographic location}
 }
 
 @article{luo2025sponsor,
-  author    = {Singh, Barinder and Kaur, Gagandeep and Rai, Pankaj and Kaur, Rajdeep and Waddell, Nicola and Pandey, Shubhram},
-  title     = {Simulating Sponsor--{HTA} Conversations: A Multi-Agent {GenAI} Framework for Reimbursement Processes},
+  author    = {Luo, Nicholas and Tan, Stephanie and Wadhwa, Esha and Pwu, Jiraganya},
+  title     = {Simulating Sponsor--{HTA} Conversations: A Role-Based Multi-Agent Large Language Model Framework},
   journal   = {Value in Health},
   volume    = {28},
-  number    = {S2},
+  number    = {12},
+  pages     = {S1--S6},
   year      = {2025},
-  note      = {Oral presentation at ISPOR Europe 2025, Glasgow, Scotland. Abstract P4},
-  url       = {https://www.ispor.org/heor-resources/presentations-database/presentation-cti/ispor-europe-2025/artificial-intelligence-and-advanced-analytics-in-hta/simulating-sponsor-hta-conversations}
+  note      = {Conference abstract P4; multi-agent LLM framework for sponsor--HTA interactions}
 }
 
 @misc{koaik2026social,
-  author       = {Koaik, Fatima and Gupta, Aayush and Sheikh, Farahan Raza},
-  title        = {{LLM} Powered Social Digital Twins: A Framework for Simulating Population Behavioral Response to Policy Interventions},
-  year         = {2026},
-  month        = jan,
+  author = {Koaik, Fatima and Gupta, Aayush and Sheikh, Farahan Raza},
+  title = {LLM Powered Social Digital Twins: A Framework for Simulating Population Behavioral Response to Policy Interventions},
+  year = {2026},
+  month = jan,
   howpublished = {arXiv preprint arXiv:2601.06111 [cs.AI]},
-  note         = {13 pages, 1 figure, 4 tables; available at \url{https://arxiv.org/abs/2601.06111}},
-  annote       = {Closest pre-existing LLM-powered social digital twin framework; not DCE-anchored, not health-policy specific}
+  note = {13 pages, 1 figure, 4 tables; available at \url{https://arxiv.org/abs/2601.06111}},
+  annote = {Closest pre-existing LLM-powered social digital twin framework; not DCE-anchored, not health-policy specific}
 }

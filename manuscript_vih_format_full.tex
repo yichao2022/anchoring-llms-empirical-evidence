@@ -228,34 +228,34 @@ We evaluated EFR on 20 narrative policy scenarios extending beyond the DCE desig
 \centering
 \caption{Behavioral consistency under out-of-design policy scenarios.}
 \label{tab:out_of_design}
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}llccc@{}}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{2.8cm}lccc@{}}
 \toprule
-Model & Method & MVR ($\downarrow$) & MAD ($\downarrow$) & Spearman $\rho$ ($\uparrow$)\\
+Model & Method & MVR ($\downarrow$) & MAD ($\downarrow$) & $\rho$ ($\uparrow$)\\
 \midrule
 
-\multicolumn{5}{l}{\textit{Panel A: Core scenarios (6 paired policy descriptions)}}\\
+\multicolumn{5}{l}{\textit{Panel A: Core scenarios (6 paired descriptions)}}\\
 
-Qwen2.5-72B-Instruct
-& Unconstrained LLM
+Qwen2.5-72B
+& Unconstrained
 & 0.333 (2/6)
 & 0.290
 & 0.12 \\
 
-Qwen2.5-72B-Instruct
+Qwen2.5-72B
 & EFR
 & 0.000
 & 0.072
 & 0.87 \\
 
-DeepSeek V4 Pro
-& Unconstrained LLM
+DeepSeek V4
+& Unconstrained
 & 0.667 (4/6)
 & 0.257
 & $-0.07$ \\
 
-DeepSeek V4 Pro
+DeepSeek V4
 & EFR
 & 0.000
 & 0.064
@@ -263,27 +263,27 @@ DeepSeek V4 Pro
 
 \midrule
 
-\multicolumn{5}{l}{\textit{Panel B: Extended scenarios (14 paired; MVR-Wait defined for 8 wait-varying pairs: G and H are side-effect--varying at fixed wait $=6$, I and J are wait-varying)}}\\
+\multicolumn{5}{l}{\textit{Panel B: Extended scenarios (14 paired; MVR-Wait on 8 wait-varying pairs)}}\\
 
-Qwen2.5-72B-Instruct
-& Unconstrained LLM
+Qwen2.5-72B
+& Unconstrained
 & 0.000 (0/2)
 & 0.125
 & $-0.01$ \\
 
-Qwen2.5-72B-Instruct
+Qwen2.5-72B
 & EFR
 & 0.000
 & 0.031
 & 0.93 \\
 
-DeepSeek V4 Pro
-& Unconstrained LLM
+DeepSeek V4
+& Unconstrained
 & 0.000 (0/2)
 & 0.209
 & $-0.06$ \\
 
-DeepSeek V4 Pro
+DeepSeek V4
 & EFR
 & 0.000
 & 0.052
@@ -294,10 +294,10 @@ DeepSeek V4 Pro
 
 \vspace{0.4em}
 
-\begin{minipage}{0.95\textwidth}
-\small
+\begin{minipage}{\textwidth}
+\footnotesize
 \textit{Note.}
-MVR-Wait on wait-varying pairs; MAD/$\rho$ on narrative-only pairs. Panel B $\rho$ reported descriptively (ties affect correlation).
+MVR-Wait on wait-varying pairs; MAD/$\rho$ on narrative-only pairs. Panel B $\rho$ descriptive (ties affect correlation).
 \end{minipage}
 \end{table}
 

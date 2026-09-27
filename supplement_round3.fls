@@ -68,12 +68,6 @@ INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
-INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK.sty
-INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK.sty
-INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
@@ -123,6 +117,8 @@ INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilec
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /Users/cary/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT ./supplement_round3.aux
 INPUT ./supplement_round3.aux
 INPUT supplement_round3.aux

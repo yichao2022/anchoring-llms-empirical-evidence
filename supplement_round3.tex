@@ -1107,6 +1107,15 @@ The results show a clear ranking: Pure-DCE outperforms all other methods, but EF
 
 \textbf{Scientific conclusion:} EFR does not outperform the DCE model within the original structured choice domain, but it substantially improves on the unconstrained LLM and recovers most of the DCE model's predictive performance while preserving an LLM component for narrative extension.
 
+\subsection{Lambda Sensitivity on Exact-Task Multinomial Log Loss}
+\label{app:lambda_sensitivity_exact_task}
+
+Table~\ref{tab:lambda_sensitivity_exact_task} reports the complete $\lambda$-sensitivity curve for the primary exact-task multinomial validation. This analysis uses the same 822/205 held-out split as Table~S17 and varies $\lambda \in \{0.00, 0.10, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00\}$.
+
+\input{table_lambda_sensitivity_exact_task}
+
+The exact-task multinomial validation confirms the pattern observed in secondary diagnostics (Table~S7): Pure-DCE ($\lambda = 0.00$) achieves the best held-out predictive performance, and predictive accuracy monotonically degrades as $\lambda$ increases. EFR at $\lambda = 0.25$ represents a conservative operating point that retains 25\% LLM weight for narrative extension capability while recovering most (within 1.3\%) of the DCE model's predictive accuracy. This validates the operating point selection independently of the 64-state structural diagnostics and the 809-row partial-support binary sensitivity analysis.
+
 \subsection{Model and Inference Condition}
 
 \paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original vLLM-MLX deployment (Table S2, line 1) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 Pro and MiroThinker-1.7-mini are reported in Table S2.

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex manuscript_vih_format_full"] 1790484441.1763 "manuscript_vih_format_full.aux" "manuscript_vih_format_full.bbl" "manuscript_vih_format_full" 1790484441.71656 0
-  "./references_round3.bib" 1790483349.54503 21001 dc29221015a81205d1b9dc9625c8ab20 ""
+["bibtex manuscript_vih_format_full"] 1790485659.49541 "manuscript_vih_format_full.aux" "manuscript_vih_format_full.bbl" "manuscript_vih_format_full" 1790485659.51188 0
+  "./references_round3.bib" 1790484666.85573 21513 07499e0541a17d297544c94bdf98fd2b ""
   "/Users/cary/Library/TinyTeX/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1233624470 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "manuscript_vih_format_full.aux" 1790484441.66437 11184 24f67aca0cedc9ff20134abe47fe1a66 "pdflatex"
+  "manuscript_vih_format_full.aux" 1790485601.94969 11331 3c42154de52b66eaf5314612aaa71634 "pdflatex"
   (generated)
   "manuscript_vih_format_full.bbl"
   "manuscript_vih_format_full.blg"
   (rewritten before read)
-["pdflatex"] 1790484441.19099 "manuscript_vih_format_full.tex" "manuscript_vih_format_full.pdf" "manuscript_vih_format_full" 1790484441.71665 0
+["pdflatex"] 1790485601.47609 "manuscript_vih_format_full.tex" "manuscript_vih_format_full.pdf" "manuscript_vih_format_full" 1790485659.51191 0
   "/Users/cary/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/Users/cary/Library/TinyTeX/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/Users/cary/Library/TinyTeX/texmf-dist/fonts/tfm/adobe/times/psyro.tfm" 1136768653 1544 23a042a74981a3e4b6ce2e350e390409 ""
@@ -178,12 +178,12 @@
   "/Users/cary/Library/TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1777154004 2286161 b226d7012aaf6b187347a18d5ad478c1 ""
   "/Users/cary/Library/TinyTeX/texmf.cnf" 1757659926.26956 708 85fd07691b6294ba94c59dbc62380410 ""
   "figures/figure_1_heldout_predictive.png" 1790045383.05928 98478 f3b8ec7062435e67cbceb37a2fb191aa ""
-  "manuscript_vih_format_full.aux" 1790484441.66437 11184 24f67aca0cedc9ff20134abe47fe1a66 "pdflatex"
-  "manuscript_vih_format_full.bbl" 1790484441.18933 10881 e56ec088905a7684d44bfeb41c48bf91 "bibtex manuscript_vih_format_full"
-  "manuscript_vih_format_full.out" 1790484441.66521 4669 c42833ba6ad735d8caa2cd20a18fbf34 "pdflatex"
-  "manuscript_vih_format_full.tex" 1790484422.45859 36396 3b691fe49cb8028f0a8def4bd02828ae ""
+  "manuscript_vih_format_full.aux" 1790485601.94969 11331 3c42154de52b66eaf5314612aaa71634 "pdflatex"
+  "manuscript_vih_format_full.bbl" 1790485659.50949 11403 5c6c40d78479d8597e86406ea1fc416d "bibtex manuscript_vih_format_full"
+  "manuscript_vih_format_full.out" 1790485601.95049 4669 c42833ba6ad735d8caa2cd20a18fbf34 "pdflatex"
+  "manuscript_vih_format_full.tex" 1790484609.00344 36452 b0c981880b187d1c0e81ee82460b51b1 ""
   "supplement_round3.aux" 0 -1 0 ""
-  "supplement_round3.tex" 1790480357.88132 102934 9011d5a8bedc4d801cc4cc7ffb80a543 ""
+  "supplement_round3.tex" 1790484763.1961 102827 9a97e5eadc84860874eab809c8c6d66a ""
   (generated)
   "manuscript_vih_format_full.aux"
   "manuscript_vih_format_full.log"

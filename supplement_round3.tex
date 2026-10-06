@@ -65,7 +65,7 @@ To interpret the frontier-alignment Spearman $\rho(\pi_{\text{EFR}}, P_{\text{em
 
 \paragraph{Uniform-noise null.} The LLM component is replaced with a uniform random draw $U[0, 1]$ on each state, then $\rho(0.25 \cdot U + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``If the LLM component were pure uniform noise, how much rank correlation would the 75\% anchor alone produce?'' The resulting null has mean $\rho = 0.366$ (SD $= 0.106$; 95\% CI $[0.146,\,0.561]$).
 
-\paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for DeepSeek V4 Pro and MiroThinker-1.7-mini are from the same API deployments used in Table~1, while the Qwen2.5-72B prediction is from a local Ollama replication (quantized Q4\_K\_M; differs from the Hugging Face inference endpoint used in Table~1 but reproduces the same canonical $\rho = 0.689$ under the 6-param frontier).
+\paragraph{Permutation null.} The actual LLM probability vector $\{p_{\text{LLM},1}, \ldots, p_{\text{LLM},64}\}$ is permuted across grid states (preserving the marginal distribution of the LLM output), then $\rho(0.25 \cdot \pi(p_{\text{LLM}}) + 0.75 \cdot P_{\text{emp}},\ P_{\text{emp}})$ is computed. This answers: ``Does the real LLM provide rank information beyond what mechanical anchoring from its own marginal distribution would produce?'' This is the stricter benchmark because it preserves the variance and central tendency of the actual LLM output. The canonical $P_{\text{emp}}$ is the 6-parameter conditional-logit frontier (Appendix~D); the LLM predictions for all three models are from the same vLLM-MLX deployments used in Table~1 (Qwen2.5-72B-Instruct, DeepSeek V4 Pro via API, MiroThinker-1.7-mini).
 
 \paragraph{Results.} Table~\ref{tab:S1} compares the observed EFR $\rho$ against both nulls.
 
@@ -115,7 +115,7 @@ MiroThinker-1.7-mini       & Local vLLM-MLX (Apple M4 Max)         & 2026-05-19 
 \midrule
 Qwen2.5-1.5B               & Ollama (local; Mac mini, 8\,GB)       & 2026-04              & 0.7    & 1.0 & 256    & 5  & NDS pilot only (the main text); n=2 prompts \\
 \midrule
-Qwen2.5-72B-Instruct       & Ollama (local; Mac Studio, qwen2.5:72b) & 2026-09-10           & 0.7    & 1.0 & 512    & 10 & Exact-task multinomial validation; quantized implementation differs from HF API \\
+Qwen2.5-72B-Instruct       & Ollama (local; Mac Studio, qwen2.5:72b) & 2026-09-10           & 0.7    & 1.0 & 512    & 10 & Exact-task multinomial validation; quantized Q4\_K\_M; differs from vLLM-MLX deployment (line 1) \\
 \midrule
 Qwen2.5-7B                 & Local vLLM                            & 2026-08-13           & 0.7    & 1.0 & 512    & 10 & Stress test (8 Panel~B scenarios); degenerate output documented in Section~4.3 \\
 DeepSeek V4 (Flash variant)& Provider inference API                & 2026-08-13           & 0.7    & 1.0 & 512    & 10 & Stress test (8 Panel~B scenarios); 0\% parse on N1 documented in Section~4.3 \\
@@ -1109,7 +1109,7 @@ The results show a clear ranking: Pure-DCE outperforms all other methods, but EF
 
 \subsection{Model and Inference Condition}
 
-\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original Hugging Face endpoint (Table S2) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 Pro and MiroThinker-1.7-mini are reported in Table S2.
+\paragraph{Qwen2.5-72B-Instruct local implementation.} This validation uses a local replication with Qwen2.5-72B via Ollama (model: \texttt{qwen2.5:72b}, quantization: Q4\_K\_M, Ollama version 0.3.0). Inference parameters: temperature 0.7, top-p 1.0, max tokens 512, 10 repetitions per task. The inference condition differs from the original vLLM-MLX deployment (Table S2, line 1) in quantization and sampling implementation; exact numerical correspondence is not guaranteed. Endpoint and model identifiers for DeepSeek V4 Pro and MiroThinker-1.7-mini are reported in Table S2.
 
 \paragraph{Prompt template (exact-task multinomial validation).}
 The respondent-facing multinomial prompt for the six canonical DCE tasks is:

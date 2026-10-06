@@ -193,7 +193,7 @@ Table~\ref{tab:S4} reports the full attribute coding used in this paper. Five co
 \begin{enumerate}
 \item \textbf{Vaccine efficacy} is reported in the DCE questionnaire as $\{0, 50, 70, 95\}\%$ and in the 64-state grid as $\{30, 50, 70, 90\}\%$; the two supports share the literal overlap $\{50\%, 70\%\}$ used for held-out matching. The estimated coefficient $\hat\beta_{\text{eff}}$ is reported in Table~\ref{tab:S5}; the coefficient unit is the same coded value that enters the linear predictor (proportion, so $\hat\beta_{\text{eff}} = 0.4153$ is per 1.0 proportion, i.e., per 100 percentage points).
 
-\item \textbf{Side-effect burden} is reported in the DCE questionnaire as $\{0.1, 1, 10\}\%$ risk of the listed side effect, coded as $\{1, 2, 3\}$ in the analytic data (level 0 was not administered). The estimated coefficient $\hat\beta_{\text{SE}}$ is reported in Table~\ref{tab:S5}; the coefficient unit is the coded burden level that enters the linear predictor.
+\item \textbf{Side-effect burden} is reported in the DCE questionnaire as $\{0.1, 1, 10\}\%$ risk of the listed side effect, coded as $\{1, 2, 3\}$ in the analytic data (level 0 was not administered). \textbf{The 64-state grid includes level 0 as a grid-only extrapolation} (``no side effects / 0\% risk''), completing the $4\times4\times4$ factorial structure; $P_{\text{emp}}$ at SE=0 is computed by extrapolating the estimated coefficient $\hat\beta_{\text{SE}}$ to the zero-burden level. The estimated coefficient is reported in Table~\ref{tab:S5}; the coefficient unit is the coded burden level that enters the linear predictor.
 \item \textbf{Waiting time} is coded in months throughout (DCE: $\{0, 1, 3, 6\}$ -- the four real design levels; grid: $\{0, 2, 4, 6\}$); $\hat\beta_{\text{wait}} = -0.0590$ is per 1 month in both. \emph{The raw coded DCE data contain a single 1-row outlier at wait $= 2$ months from one respondent which is excluded as a data anomaly.}
 \end{enumerate}
 
@@ -201,7 +201,7 @@ The cash-incentive attribute is held at $0$ RMB in the 64-state grid (the LLM an
 
 \begin{table}[h]
 \centering
-\caption{Attribute coding dictionary: DCE questionnaire display, value passed into the conditional-logit likelihood (column~(ii)), the 64-state grid value passed into the utility function (column~(iv)), and the DCE coefficient unit. \emph{The SE column-(iv) grid value uses the same integer-coded burden scale as the estimation variable; the LLM prompt presents the column-(iv) value to the model.}}
+\caption{Attribute coding dictionary: DCE questionnaire display, value passed into the conditional-logit likelihood (column~(ii)), the 64-state grid value passed into the utility function (column~(iv)), and the DCE coefficient unit. \emph{The SE column-(iv) grid value uses the same integer-coded burden scale as the estimation variable; the LLM prompt presents the column-(iv) value to the model.} \textbf{Side-effect level 0} represents a grid-only extrapolation level (``no side effects / 0\% risk'') that was \emph{not administered in the DCE}; it is included in the 64-state grid to complete the $4\times4\times4$ factorial structure for frontier evaluation.}
 \label{tab:S4}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -214,7 +214,7 @@ Waiting time & 0, 1, 3, 6 months & 0, 1, 3, 6 (raw months; the raw coded data co
 \midrule
 Vaccine efficacy & 0\%, 50\%, 70\%, 95\% & 0.0, 0.5, 0.7, 0.95 (proportion) & per 1.0 proportion (i.e., per 100 percentage points in questionnaire display) & 0.3, 0.5, 0.7, 0.9 (proportion) & 0.3, 0.5, 0.7, 0.9 \\
 \midrule
-Side-effect burden & 0.1\%, 1\%, 10\% & 1, 2, 3 (integer-coded burden level; level 0 not administered) & per 1 coded burden level & 1, 2, 3 (integer-coded burden level) & 0.1\%, 1\%, 10\% \\
+Side-effect burden & 0.1\%, 1\%, 10\% & 1, 2, 3 (integer-coded burden level; level 0 not administered) & per 1 coded burden level & \textbf{0,} 1, 2, 3 (integer-coded burden level; \textbf{level 0 = grid-only extrapolation, not administered}) & 0.1\%, 1\%, 10\% \\
 \midrule
 Cash incentive & 0, 50, 200, 800 RMB & 0, 50, 200, 800 (raw RMB) & per 1 RMB & 0 RMB (held; contribution to $U$ = 0) & 0 RMB (held) \\
 \midrule

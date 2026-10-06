@@ -222,7 +222,7 @@ Table~\ref{tab:behavioral_alignment} summarizes behavioral consistency on the 64
 \subsection{Out-of-Design Policy Scenario Evaluation}
 \label{sec:out_of_design}
 
-We evaluated EFR on 20 narrative policy scenarios extending beyond the DCE design (Table~\ref{tab:out_of_design}). Panel A (six pairs) varies waiting time with neutral burden narratives; Panel B (12 pairs) varies side-effect levels and vaccine efficacy (G--H side-effect--varying with gain-framing; K--T side-effect--varying and efficacy-varying). Panel C (2 pairs) varies waiting time with VIP-framing narratives. Full scenario descriptions are provided in Table~S16.
+We evaluated EFR on 20 narrative policy scenarios extending beyond the DCE design (Table~\ref{tab:out_of_design}). Panel A (six pairs) varies waiting time with neutral burden narratives; Panel B (14 pairs) extends beyond the DCE design on side-effect levels, vaccine efficacy, and VIP framing (G--H side-effect--varying with gain-framing; I--J wait-varying with VIP framing; K--T side-effect--varying and efficacy-varying). Full scenario descriptions are provided in Table~S16.
 
 \begin{table}[t]
 \centering
@@ -263,7 +263,7 @@ DeepSeek V4
 
 \midrule
 
-\multicolumn{5}{l}{\textit{Panel B: VIP wait-varying scenarios (2 paired; I--J)}}\\
+\multicolumn{5}{l}{\textit{Panel B: Extended OOD scenarios (14 paired; G--T)}}\\
 
 Qwen2.5-72B
 & Unconstrained
@@ -297,13 +297,13 @@ DeepSeek V4
 \begin{minipage}{\textwidth}
 \footnotesize
 \textit{Note.}
-MVR-Wait on wait-varying pairs; MAD/$\rho$ on narrative-only pairs. Panel B $\rho$ descriptive (ties affect correlation).
+MVR-Wait evaluated on the 2 VIP wait-varying pairs (I--J); MAD/$\rho$ evaluated on the remaining 12 narrative-only pairs (G--H, K--T). Panel B $\rho$ descriptive (ties affect correlation).
 \end{minipage}
 \end{table}
 
 In OOD Panel A, raw LLMs violated waiting-time ordering (Qwen: 2/6; DeepSeek: 4/6); EFR eliminated violations and increased rank agreement.
 
-In Panel B, unconstrained LLM rank agreement fell to near zero; EFR maintained zero violations on wait-varying pairs (0/2). Rank agreement was $\rho = 0.93$ (Qwen) and $\rho = 0.88$ (DeepSeek). \textbf{Critical limitation}: These results characterize \emph{structural consistency} with the DCE-estimated reference surface, not \emph{behavioral validity} for human responses to out-of-design narratives. Whether EFR's narrative extension improves behavioral accuracy on novel scenarios---as opposed to merely preserving rank order---awaits human ground-truth validation.
+In Panel B, unconstrained LLM rank agreement fell to near zero on the 12 narrative-only pairs; EFR maintained zero violations on the 2 VIP wait-varying pairs (0/2). Rank agreement was $\rho = 0.93$ (Qwen) and $\rho = 0.88$ (DeepSeek) on the 12 narrative-only pairs. \textbf{Critical limitation}: These results characterize \emph{structural consistency} with the DCE-estimated reference surface, not \emph{behavioral validity} for human responses to out-of-design narratives. Whether EFR's narrative extension improves behavioral accuracy on novel scenarios---as opposed to merely preserving rank order---awaits human ground-truth validation.
 
 
 

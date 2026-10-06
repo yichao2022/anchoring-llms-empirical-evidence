@@ -25,7 +25,7 @@ for i, (bar, val) in enumerate(zip(bars, log_loss)):
 ax.axhline(y=1.0986, color='red', linestyle='--', linewidth=2, alpha=0.7, label='Uniform benchmark')
 
 ax.set_ylabel('Multinomial Log Loss', fontsize=12)
-ax.set_title('Exact-Task Categorical Held-Out Validation\n(N=205 respondents, 6 canonical tasks)', fontsize=13, fontweight='bold')
+ax.set_title('Held-Out Respondent Exact-Task Validation\n(Local Qwen2.5-72B replication; six fixed DCE tasks)', fontsize=13, fontweight='bold')
 ax.set_xticks(x)
 ax.set_xticklabels(methods, fontsize=11)
 ax.set_ylim(0, 1.4)
